@@ -1,0 +1,3 @@
+servcer:
+  port: 8081
+  context-path: /notice

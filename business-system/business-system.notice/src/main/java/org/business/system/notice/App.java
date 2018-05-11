@@ -1,9 +1,6 @@
 package org.business.system.notice;
 
-/**
- * Hello world!
- *
- */
+
 public class App 
 {
     public static void main( String[] args )
