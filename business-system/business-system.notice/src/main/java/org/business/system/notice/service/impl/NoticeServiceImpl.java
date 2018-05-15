@@ -1,8 +1,9 @@
 package org.business.system.notice.service.impl;
 
 import org.business.system.notice.service.NoticeService;
+import org.springframework.stereotype.Service;
 
-@ser
+@Service
 public class NoticeServiceImpl implements NoticeService{
 
 }

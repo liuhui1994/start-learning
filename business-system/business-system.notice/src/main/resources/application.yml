@@ -1,3 +1,12 @@
-servcer:
-  port: 8081
-  context-path: /notice
+server:
+   port: 8081
+   context-path: /notice
+   
+   
+spring:
+    datasource:
+    url: jdbc:postgresql://localhost:5432/postgres  
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver  
+   
