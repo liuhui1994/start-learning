@@ -5,8 +5,14 @@ server:
    
 spring:
     datasource:
-    url: jdbc:postgresql://localhost:5432/postgres  
-    username: postgres
-    password: admin
-    driver-class-name: org.postgresql.Driver  
+      url: jdbc:postgresql://localhost:5432/postgres  
+      username: postgres
+      password: admin
+      driver-class-name: org.postgresql.Driver  
+      
+      
+logging:  
+  level:   
+    org.business.system.notice.mapper: debug
+
    

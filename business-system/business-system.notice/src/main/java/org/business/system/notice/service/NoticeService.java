@@ -1,5 +1,9 @@
 package org.business.system.notice.service;
 
-public interface NoticeService {
+import org.business.system.notice.model.Notice;
+
+public interface NoticeService  {
+	
+	Notice findNoticeDetailById(Long id);
 
 }
