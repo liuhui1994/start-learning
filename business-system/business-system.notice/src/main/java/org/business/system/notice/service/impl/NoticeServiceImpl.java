@@ -1,7 +1,5 @@
 package org.business.system.notice.service.impl;
 
-import java.util.Date;
-
 import org.business.system.notice.mapper.NoticeMapper;
 import org.business.system.notice.model.Notice;
 import org.business.system.notice.service.NoticeService;
