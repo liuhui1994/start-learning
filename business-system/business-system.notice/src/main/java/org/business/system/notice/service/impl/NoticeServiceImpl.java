@@ -1,5 +1,6 @@
 package org.business.system.notice.service.impl;
 
+import org.business.system.common.base.service.impl.BaseServiceImpl;
 import org.business.system.notice.mapper.NoticeMapper;
 import org.business.system.notice.model.Notice;
 import org.business.system.notice.service.NoticeService;
@@ -7,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NoticeServiceImpl implements NoticeService{
+public class NoticeServiceImpl extends BaseServiceImpl<Notice, Long> implements NoticeService{
 	
 	@Autowired
 	private NoticeMapper noticeMapper;

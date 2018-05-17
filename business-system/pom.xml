@@ -12,6 +12,9 @@
   <modules>
     <module>business-system.notice</module>
     <module>business-system.common</module>
+    <module>business-system.account</module>
+    <module>business-system.schedule</module>
+    <module>business-system.auth2</module>
   </modules>
   
   <parent>
