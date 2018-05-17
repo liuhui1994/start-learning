@@ -67,7 +67,7 @@ public class NoticeDataSourcesConfiguration {
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
             //基于注解扫描Mapper，不需配置xml路径
-            bean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
+            bean.setMapperLocations(resolver.getResources("classpath:mybatis/*.xml"));
             return bean.getObject();
         } catch (Exception e) {
             e.printStackTrace();

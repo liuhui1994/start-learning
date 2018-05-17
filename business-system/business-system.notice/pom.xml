@@ -30,12 +30,12 @@
 
 
 	<dependencies>
-
-		<!-- Web 依赖 -->
+        <!-- 构建 eureka-client必用 -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
 		</dependency>
+
 
 		<!-- 测试依赖 -->
 		<dependency>
@@ -103,5 +103,17 @@
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>Dalston.SR3</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<packaging>war</packaging>
 </project>
