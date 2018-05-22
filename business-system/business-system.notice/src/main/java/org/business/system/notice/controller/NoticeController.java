@@ -22,13 +22,25 @@ public class NoticeController {
     private NoticeService noticeService;
     
     
-	@ApiOperation(value="更新信息", notes="根据url的id来指定更新图书信息" )
+	@ApiOperation(value="获取消息详情", notes="根据消息的唯一id来获取消息内容" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "图书ID", required = true, dataType = "Long",paramType = "path"),
           //  @ApiImplicitParam(name = "book", value = "图书实体book", required = true, dataType = "Book")
     })
-    @RequestMapping(value="/{id}", method= RequestMethod.PUT)
-    public Notice putUser(@PathVariable Long id) { //@RequestBody Book book
+    @RequestMapping(value="/{id}", method= RequestMethod.GET)
+    public Notice putUser(@PathVariable(name="id") Long id) { //@RequestBody Book book
         return noticeService.findNoticeDetailById(id);
     }
+	
+	
+	@ApiOperation(value="消息推送", notes="推送notice对象" )
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="notice", value="notice实体",required = true,dataType="Notice")
+	})
+	@RequestMapping(value ="/push", method = RequestMethod.POST)
+	public String sendMessage(Notice notice) {
+		noticeService.insertEntity(notice);
+		noticeService.saveSelective(notice);
+		return "seccess";
+	}
 }
