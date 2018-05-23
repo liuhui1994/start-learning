@@ -1,15 +1,24 @@
 server:
    port: 8083
-   context-path: /auth
+#   context-path: /auth
    
+##数据库连接配置
 spring:
     datasource:
       url: jdbc:postgresql://localhost:5432/postgres  
       username: postgres
       password: admin
       driver-class-name: org.postgresql.Driver  
-    application:
-      name: auth-service
+ #   application:
+ #     name: auth-service
+ 
+ 
+ 
+ 
+ ##认证配置客户端
+auth:
+   client_id: client
+   secret:  fucksecurity
    
    
 
