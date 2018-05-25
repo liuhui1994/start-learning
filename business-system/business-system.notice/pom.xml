@@ -80,7 +80,8 @@
             <artifactId>pagehelper</artifactId>
             <version>4.1.1</version>
         </dependency>
-    <!--通用Mapper插件-->
+        
+      <!-- 数据库必备 -->
       <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -101,6 +102,28 @@
             <groupId>org.springframework.boot</groupId>  
              <artifactId>spring-boot-starter-jdbc</artifactId>  
         </dependency>
+        <!-- 数据库必备 -->
+        
+
+        
+		<dependency>
+		    <groupId>commons-httpclient</groupId>
+		    <artifactId>commons-httpclient</artifactId>
+		    <version>3.1</version>
+		</dependency>
+        <!-- jakeson -->
+<!--         <dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-annotations</artifactId>
+	        </dependency>
+		<dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-core</artifactId>
+	        </dependency>
+		<dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-databind</artifactId>
+	    </dependency> -->
       
 		<dependency>
 			<groupId>com.business</groupId>
