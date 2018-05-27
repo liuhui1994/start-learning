@@ -1,13 +1,23 @@
 package org.business.system.notice.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.business.system.common.base.model.Entity;
 
 @Table(name="t_system_mobile_code")
-public class MobileCode extends Entity{
+public class MobileCode extends Entity implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	private Long id;
 
 	private String code;   //验证码
 	
@@ -18,6 +28,15 @@ public class MobileCode extends Entity{
 	private String isValidate; //是否验证
 	
 	private String businessType;//发送业务类型
+
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getCode() {
 		return code;

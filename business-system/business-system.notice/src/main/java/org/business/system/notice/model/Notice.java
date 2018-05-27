@@ -11,21 +11,21 @@ public class Notice extends Entity{
 	@Id
 	private Long id;
 	
-	private Integer noticeType;
+	private Integer noticeType; //通知类型
 	
-	private String businessNo;
+	private String businessNo; //业务编号
 	
-	private String noticeTitle;
+	private String noticeTitle; //通知标题
 	
-	private String noticeDesc;
+	private String noticeDesc; //通知内容
 	
-	private String noticeUrl;
+	private String noticeUrl; //通知url
 	
-	private Integer state;
+	private Integer state;  //状态
 	
-	private String sender;
+	private String sender; //发送者
 	
-	private String receiver;
+	private String receiver;//接受者
 	
 
 

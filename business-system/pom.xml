@@ -14,7 +14,7 @@
     <module>business-system.common</module>
     <module>business-system.account</module>
     <module>business-system.schedule</module>
-    <module>business-system.auth2</module>
+    <module>business-system.auth</module>
     <module>business-system.eureka-server</module>
   </modules>
   

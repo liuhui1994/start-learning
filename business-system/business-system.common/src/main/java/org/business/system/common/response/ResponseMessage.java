@@ -1,6 +1,12 @@
 package org.business.system.common.response;
 
-public class ResponseMessage<T> {
+import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
+public class ResponseMessage<T> implements Serializable {
 	
 	private String code;
 	
@@ -9,9 +15,37 @@ public class ResponseMessage<T> {
 	private T data;
 	
 	
+	
+	
+
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public T getData() {
+		return data;
+	}
+
+	public void setData(T data) {
+		this.data = data;
+	}
+
 	private ResponseMessage(T data) {
-		this.code = "SUCCESS";
-		this.code = "成功";
+		this.code = "00";
+		this.message = "SUCCESS";
 		this.data = data;
 	}
 	

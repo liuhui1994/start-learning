@@ -22,6 +22,11 @@ public class CodeMessage {
 		this.message = message;
 	}
 	
+	public CodeMessage(String code,String message){
+		this.code = code;
+		this.message= message;
+	}
+	
 	
 
 }

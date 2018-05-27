@@ -12,6 +12,15 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice, Long> implements 
 	
 	@Autowired
 	private NoticeMapper noticeMapper;
+	
+	
+
+//	@Autowired
+//	public void setNoticeMapper(NoticeMapper noticeMapper) {
+//		setMapper(noticeMapper);
+//	}
+
+
 
 	@Override
 	public Notice findNoticeDetailById(Long id) {

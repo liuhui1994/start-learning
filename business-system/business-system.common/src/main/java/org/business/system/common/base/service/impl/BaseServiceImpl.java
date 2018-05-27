@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageInfo;
 
-@Service
+//@Service
 public class BaseServiceImpl<T,PK> implements BaseService<T, PK> {
 	
 	@Autowired
@@ -112,5 +112,8 @@ public class BaseServiceImpl<T,PK> implements BaseService<T, PK> {
     }
 
 
+	public void setMapper(BaseMapper<T> mapper) {
+		this.mapper = mapper;
+	}
 
 }

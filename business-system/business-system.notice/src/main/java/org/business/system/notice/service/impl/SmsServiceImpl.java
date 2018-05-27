@@ -1,57 +1,55 @@
 package org.business.system.notice.service.impl;
 
-import java.text.MessageFormat;
-import java.util.Date;
-
-import org.business.system.notice.model.SmsNotice;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.business.system.notice.service.SmsService;
-import org.business.system.notice.util.HttpClientUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @Service
 public class SmsServiceImpl  implements SmsService{
 	
-	@Autowired
-	private ObjectMapper objMapper;
 
 	@Override
-	public int sendAuthCode(String mobile) {
+	public int sendAuthCode(String mobile,String mobileCode) {
 		String url = "http://106.ihuyi.com/webservice/sms.php?method=Submit";
-		SmsNotice smsNotice = new SmsNotice();
-		try {
-			HttpClientUtil.doPost(url, objMapper.writeValueAsString(smsNotice));
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String account="C15895331";
+		String password="7a10dfa0fb80611985647d9fffd3c842";
+		String content = new String("您的验证码是：" + mobileCode + "。请不要把验证码泄露给其他人。");
+		sendHYCode(url, account, password, mobile, content);
 		return 0;
 	}
 	
-	public static void main(String[] args) throws JsonProcessingException {
-		 String url = "http://106.ihuyi.com/webservice/sms.php?method=Submit";
-		 SmsNotice smsNotice = new SmsNotice();
-		 smsNotice.setAccount("C15895331");
-		 smsNotice.setPassword("7a10dfa0fb80611985647d9fffd3c842");
-		 smsNotice.setContent(MessageFormat.format("您的验证码是:{0}.请不要把验证码泄露给其他人.", "123456"));
-		 smsNotice.setMobile("17621875348");
-		 smsNotice.setTime(new Date().getTime()/1000);
-		 smsNotice.setFormat("json");
-		 ObjectMapper objMapper = new ObjectMapper();
-		 try {
-			 System.out.println(objMapper.writeValueAsString(smsNotice));
-			HttpClientUtil.doPost(url,objMapper.writeValueAsString(smsNotice));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+
+	private  String sendHYCode(String url,String account,String password,String mobile,String content) {
+		try {
+			
+			HttpClient client = new HttpClient(); 
+			PostMethod method = new PostMethod(url);
+
+			client.getParams().setContentCharset("GBK");
+			method.setRequestHeader("ContentType","application/x-www-form-urlencoded;charset=GBK");
+
+			NameValuePair[] data = {//提交短信
+				    new NameValuePair("account", account), //查看用户名是登录用户中心->验证码短信->产品总览->APIID
+				    new NameValuePair("password", password),  //查看密码请登录用户中心->验证码短信->产品总览->APIKEY
+				    //new NameValuePair("password", util.StringUtil.MD5Encode("密码")),
+				    new NameValuePair("mobile", mobile), 
+				    new NameValuePair("content", content),
+			};
+			System.out.println(data);
+			
+			method.setRequestBody(data);
+
+			
+			String submitResult =method.getResponseBodyAsString();
+			
+			return submitResult;
+		}  catch (Exception e) {
 			e.printStackTrace();
 		}
-		 
-		 
-			
+		return null;
 	}
 
 }
