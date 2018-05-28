@@ -41,7 +41,11 @@
 			<artifactId>spring-cloud-starter-eureka</artifactId>
 		</dependency>
 
-
+        <!-- Web starter依赖引入，会增加web容器、springweb、springmvc、jackson-databind等相关的依赖。 -->
+<!--         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency> -->
 		<!-- 测试依赖 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

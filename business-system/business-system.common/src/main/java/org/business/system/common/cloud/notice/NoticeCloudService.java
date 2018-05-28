@@ -1,6 +1,8 @@
-package org.business.system.account.cloud;
+package org.business.system.common.cloud.notice;
 
+import org.business.system.common.model.Notice;
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

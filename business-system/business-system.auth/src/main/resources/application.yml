@@ -1,6 +1,6 @@
 server:
    port: 8083
-#   context-path: /auth
+   context-path: /auth
    
 ##数据库连接配置
 spring:
@@ -9,8 +9,8 @@ spring:
       username: postgres
       password: admin
       driver-class-name: org.postgresql.Driver  
- #   application:
- #     name: auth-service
+    application:
+      name: auth-service
  
  
  
@@ -19,6 +19,11 @@ spring:
 auth:
    client_id: client
    secret:  fucksecurity
+   
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka/
    
    
 

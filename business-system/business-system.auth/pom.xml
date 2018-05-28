@@ -44,8 +44,11 @@
 			<scope>test</scope>
 		</dependency>
 
-        
-        
+         <!-- 构建 eureka-client必用 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+		</dependency>
 
       
          <dependency>
@@ -62,12 +65,24 @@
      
 
       
-<!-- 		<dependency>
+ 		<dependency>
 			<groupId>com.business</groupId>
 			<artifactId>business-system.common</artifactId>
 			<version>${project.version}</version>
-		</dependency> -->
+		</dependency> 
 	</dependencies>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>Dalston.SR3</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<build>
 	    <plugins>
 	        <plugin>
