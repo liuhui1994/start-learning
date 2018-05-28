@@ -1,6 +1,6 @@
 package org.business.system.notice.controller;
 
-import org.business.system.common.base.controller.BaseControlelr;
+
 import org.business.system.common.response.CodeMessage;
 import org.business.system.common.response.ResponseMessage;
 import org.business.system.notice.ecception.ValidateCodeException;
@@ -20,7 +20,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/mobile")
 //@Api(tags="{API}")
-public class MobileCodeController  extends BaseControlelr{
+public class MobileCodeController {
 	
 	
 	@Autowired

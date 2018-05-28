@@ -1,4 +1,4 @@
-package org.business.system.account.cloud;
+package org.business.system.common.model;
 
 import javax.persistence.Id;
 import javax.persistence.Table;

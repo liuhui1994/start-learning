@@ -14,10 +14,6 @@ public class ResponseMessage<T> implements Serializable {
 	
 	private T data;
 	
-	
-	
-	
-
 
 	public String getCode() {
 		return code;
