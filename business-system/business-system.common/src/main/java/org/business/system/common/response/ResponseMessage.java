@@ -40,7 +40,7 @@ public class ResponseMessage<T> implements Serializable {
 	}
 
 	private ResponseMessage(T data) {
-		this.code = "00";
+		this.code = "200";
 		this.message = "SUCCESS";
 		this.data = data;
 	}
@@ -51,6 +51,12 @@ public class ResponseMessage<T> implements Serializable {
 		}
 		this.code = cm.getCode();
 		this.message = cm.getMessage();
+		
+	}
+	
+	private ResponseMessage(String code,String message) {
+		this.code = code;
+		this.message = message;
 		
 	}
 
@@ -88,6 +94,10 @@ public class ResponseMessage<T> implements Serializable {
         cm.setMessage(cm.getMessage()+"--"+msg);  
         return new ResponseMessage<T>(cm);  
     }  
+    
+    public static <T> ResponseMessage<T> error(String code,String message){
+    	return new ResponseMessage<>(code, message);
+    }
 
 
 }

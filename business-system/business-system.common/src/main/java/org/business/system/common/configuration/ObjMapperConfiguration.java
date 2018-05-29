@@ -1,4 +1,4 @@
-package org.business.system.notice.configuration;
+package org.business.system.common.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

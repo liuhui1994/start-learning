@@ -16,6 +16,7 @@
     <module>business-system.schedule</module>
     <module>business-system.auth</module>
     <module>business-system.eureka-server</module>
+    <module>business-system.newstart</module>
   </modules>
   
   <parent>

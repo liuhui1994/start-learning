@@ -40,13 +40,8 @@ public class AccountController {
    public ResponseMessage<Account> accountDetail(
 		    @PathParam("accountId") Long accountId,
 		    @RequestParam("accountType") String accountType) {
-	   try {
 		   Account account = accountService.selectAccountByAccountIdAndType(accountId, accountType);
 		   return ResponseMessage.success(account);
-	   }catch (Exception e) {
-		   
-	   }
-	   return null;
    }
    
     @RequestMapping(value="/newAccount",method=RequestMethod.POST)
@@ -56,13 +51,8 @@ public class AccountController {
     })
    public ResponseMessage<Account> newAccount(
 		    @RequestBody Account account) {
-	   try {
 		   Account newAccount = accountService.newAccount(account);
 		   return ResponseMessage.success(newAccount);
-	   }catch (Exception e) {
-		   
-	   }
-	   return null;
    }
     
     
@@ -79,12 +69,7 @@ public class AccountController {
 		    @RequestParam("accountType") String accountType,
 		    @RequestParam("amount") BigDecimal amount,
 		    @RequestParam("opType") String opType) {
-	   try {
 		   Account account = accountService.accountAddAndReduce(accountId, accountType, amount, opType);
 		   return ResponseMessage.success(account);
-	   }catch (Exception e) {
-		   
-	   }
-	   return null;
    }
 }

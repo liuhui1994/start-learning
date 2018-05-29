@@ -1,6 +1,6 @@
-package org.business.system.notice.ecception;
+package org.business.system.common.exception;
 
-public class ValidateCodeException extends RuntimeException {
+public class CommonErrorException extends RuntimeException {
 	
 	/**
 	 * 
@@ -11,12 +11,12 @@ public class ValidateCodeException extends RuntimeException {
 	
 	private String messgae;
 	
-	public ValidateCodeException(String code , String message) {
+	public CommonErrorException(String code , String message) {
 		this.code = code ;
 		this.messgae = message;
 	}
 	
-	public ValidateCodeException(String message) {
+	public CommonErrorException(String message) {
 		this.messgae = message;
 	}
 

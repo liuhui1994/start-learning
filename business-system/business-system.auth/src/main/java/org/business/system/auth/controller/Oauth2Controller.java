@@ -15,7 +15,7 @@ public class Oauth2Controller {
 	private ResourceServerTokenServices resourceServerTokenServices;
 	
 	@Autowired
-	HttpServletRequest request;
+	private HttpServletRequest request;
 	
 	@RequestMapping("/token")
 	public User token() {

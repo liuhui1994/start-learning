@@ -4,13 +4,14 @@ import java.util.Date;
 import java.util.List;
 
 import org.business.system.common.base.service.impl.BaseServiceImpl;
-import org.business.system.notice.ecception.ValidateCodeException;
+import org.business.system.common.exception.CommonErrorException;
 import org.business.system.notice.mapper.MobileCodeMapper;
 import org.business.system.notice.model.MobileCode;
 import org.business.system.notice.service.MobileCodeService;
 import org.business.system.notice.service.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
@@ -28,7 +29,7 @@ public class MobileCodeServiceImpl extends BaseServiceImpl<MobileCode, Long> imp
 	@Override
 	public void validateCode(String mobile, String code, String businessType) {
 		if(false){
-			throw new ValidateCodeException("03","手机号不存在");	
+			throw new CommonErrorException("03","手机号不存在");	
 		}
 		Example example = new Example(MobileCode.class);
 		Criteria criteria = example.createCriteria();
@@ -39,11 +40,11 @@ public class MobileCodeServiceImpl extends BaseServiceImpl<MobileCode, Long> imp
 		//时间
 		List<MobileCode> mobileCodeList = mobileCodeMapper.selectByExample(example);
 		if(mobileCodeList==null || mobileCodeList.isEmpty()) {
-			throw new ValidateCodeException("01","验证码不存在");
+			throw new CommonErrorException("01","验证码不存在");
 		}
 		MobileCode mobileCode = mobileCodeList.get(0);
 		if(mobileCode.getExpireDate().getTime()<new Date().getTime()){
-			throw new ValidateCodeException("02","验证码已过期");
+			throw new CommonErrorException("02","验证码已过期");
 		}	
 		//更新验证码的验证状态
 		mobileCode.setModifyDate(new Date());
@@ -53,9 +54,10 @@ public class MobileCodeServiceImpl extends BaseServiceImpl<MobileCode, Long> imp
 
 
 	@Override
+	@Transactional
 	public int sendCode(String mobile, String businessType) {
 		if(false){
-			throw new ValidateCodeException("03","手机号不存在");	
+			throw new CommonErrorException("03","手机号不存在");	
 		}
 		String code = String.valueOf((Math.random()*9+1)*100000);
 		MobileCode mobileCode = new MobileCode();

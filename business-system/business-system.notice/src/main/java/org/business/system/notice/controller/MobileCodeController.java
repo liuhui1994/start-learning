@@ -1,9 +1,8 @@
 package org.business.system.notice.controller;
 
 
-import org.business.system.common.response.CodeMessage;
+import org.business.system.common.annoation.AuthAspectAnnoation;
 import org.business.system.common.response.ResponseMessage;
-import org.business.system.notice.ecception.ValidateCodeException;
 import org.business.system.notice.model.MobileCode;
 import org.business.system.notice.service.MobileCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class MobileCodeController {
 	@Autowired
 	private MobileCodeService mobileCodeService;
 
-	
+	@AuthAspectAnnoation  //自定义注解拦截主要token的url
 	@ApiOperation(value="验证码验证", notes="验证码验证" )
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="mobile", value="手机号",required = true,dataType="String",paramType="query"),
@@ -38,12 +37,8 @@ public class MobileCodeController {
 			@RequestParam(name="mobile",required = true) String mobile,
 			@RequestParam(name="code",required = true) String code,
 			@RequestParam(name="businessType",required = true) String businessType) {
-	    try {
 			mobileCodeService.validateCode(mobile, code, businessType);		
 			return ResponseMessage.success();
-		} catch (ValidateCodeException e) {
-			return ResponseMessage.error(new CodeMessage(e.getCode(),e.getMessgae()));
-		}
 	}
 	
 	
@@ -56,12 +51,8 @@ public class MobileCodeController {
 	public ResponseMessage<MobileCode> validateCode(
 			@RequestParam(name="mobile",required = true) String mobile,
 			@RequestParam(name="businessType",required = true) String businessType) {
-	    try {
 	        mobileCodeService.sendCode(mobile, businessType);
 			return ResponseMessage.success();
-		} catch (ValidateCodeException e) {
-			return ResponseMessage.error(new CodeMessage(e.getCode(),e.getMessgae()));
-		}
 	}
 	
 }
