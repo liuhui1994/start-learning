@@ -6,7 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import org.business.system.common.em.AccountState;
 
 //@JsonInclude()
 @Table(name="t_system_account")
@@ -35,7 +35,7 @@ public class Account  implements Serializable{
 	
 	private Long version;
 	
-	private Integer accountState;
+	private AccountState accountState;
 
 	public Long getId() {
 		return id;
@@ -109,14 +109,12 @@ public class Account  implements Serializable{
 		this.version = version;
 	}
 
-	public Integer getAccountState() {
+	public AccountState getAccountState() {
 		return accountState;
 	}
 
-	public void setAccountState(Integer accountState) {
+	public void setAccountState(AccountState accountState) {
 		this.accountState = accountState;
 	}
-
-	
 
 }

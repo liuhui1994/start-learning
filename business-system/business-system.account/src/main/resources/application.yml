@@ -11,7 +11,11 @@ spring:
       driver-class-name: org.postgresql.Driver  
     application:
       name: account-service
-      
+
+
+logging:  
+  level:   
+    org.business.system.account.mapper: debug
       
 
     

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.business.system.account.mapper.AccountMapper">
+
+   <update id="updateByLock" parameterType="org.business.system.account.model.Account" >
+       update t_system_account set amount=#{amount},withdrawal_amount=#{withdrawalAmount},settlement_amount=${settlementAmount},
+       update_date=#{updateDate},update_field = #{updateField},version=#{version}+1
+       where id=#{id} and version=#{version}     
+   </update>
 	
 </mapper>
