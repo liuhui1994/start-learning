@@ -108,6 +108,11 @@
              <artifactId>spring-boot-starter-aop</artifactId>  
         </dependency> 
 
+        <!-- rabbitmq -->
+        <dependency>
+	       <groupId>org.springframework.boot</groupId>
+	       <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
         
 		<dependency>
 		    <groupId>commons-httpclient</groupId>

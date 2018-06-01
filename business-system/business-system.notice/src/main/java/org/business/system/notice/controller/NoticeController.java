@@ -2,6 +2,7 @@ package org.business.system.notice.controller;
 
 import org.business.system.notice.model.Notice;
 import org.business.system.notice.service.NoticeService;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,9 @@ public class NoticeController {
 	
 	@Autowired
     private NoticeService noticeService;
+	
+    @Autowired
+    private AmqpTemplate rabbitTemplate;
     
     
 	@ApiOperation(value="获取消息详情", notes="根据消息的唯一id来获取消息内容" )
@@ -42,6 +46,17 @@ public class NoticeController {
 		noticeService.insertEntity(notice);
 		noticeService.saveSelective(notice);
 		return "seccess";
+	}
+	
+	@ApiOperation(value="消息发送测试", notes="消息发送测试" )
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="message", value="notice实体",required = true,paramType = "query")
+	})
+	@RequestMapping(value ="/push", method = RequestMethod.POST)
+	public String test(String message) {
+
+		this.rabbitTemplate.convertAndSend("hello", message);
+		return "success";
 	}
 	
 }

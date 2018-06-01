@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 
+
 @SpringBootApplication
 @ComponentScan("org.business.system.*")
 @EnableDiscoveryClient
@@ -14,4 +15,5 @@ public class AppNotice
     {
         SpringApplication.run(AppNotice.class, args);
     }
+    
 }
