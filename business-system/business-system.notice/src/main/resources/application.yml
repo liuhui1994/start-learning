@@ -11,6 +11,11 @@ spring:
       driver-class-name: org.postgresql.Driver  
     application:
       name: notice-service
+    rabbitmq:
+      host: localhost
+      port: 5672
+      username: guest
+      password: guest
       
       
 logging:  
@@ -22,11 +27,7 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8080/eureka/
       
-spring:
-   rabbitmq:
-      host: localhost
-      port: 5672
-      username: guest
-      password: guest
+
+
 
    

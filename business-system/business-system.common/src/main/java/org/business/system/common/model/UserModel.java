@@ -5,6 +5,7 @@ import javax.persistence.Table;
 
 import org.business.system.common.base.model.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -29,6 +30,7 @@ public class UserModel extends Entity{
     
     private String userType;
     
+    @JsonIgnore
     private String registerIp;
     
     private String payPassword;

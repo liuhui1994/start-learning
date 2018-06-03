@@ -52,7 +52,7 @@ public class NoticeController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="message", value="notice实体",required = true,paramType = "query")
 	})
-	@RequestMapping(value ="/push", method = RequestMethod.POST)
+	@RequestMapping(value ="/test", method = RequestMethod.POST)
 	public String test(String message) {
 
 		this.rabbitTemplate.convertAndSend("hello", message);

@@ -11,4 +11,6 @@ public class NoticeProduce {
     public void process(String hello) {
         System.out.println("Receiver  : " + hello);
     }
+    
+    
 }
