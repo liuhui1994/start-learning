@@ -6,9 +6,12 @@ import org.business.system.notice.model.Notice;
 import org.business.system.notice.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.codingapi.tx.annotation.ITxTransaction;
 
 @Service
-public class NoticeServiceImpl extends BaseServiceImpl<Notice, Long> implements NoticeService{
+public class NoticeServiceImpl extends BaseServiceImpl<Notice, Long> implements NoticeService,ITxTransaction{
 	
 	@Autowired
 	private NoticeMapper noticeMapper;
@@ -23,7 +26,11 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice, Long> implements 
 
 
 	@Override
+    @Transactional
 	public Notice findNoticeDetailById(Long id) {
+		if(id==1) {
+			throw new RuntimeException("测试分布式事务");
+		}
 //		Notice notice  = new Notice();
 //		notice.setNoticeType(1);
 //		notice.setBusinessNo("123");

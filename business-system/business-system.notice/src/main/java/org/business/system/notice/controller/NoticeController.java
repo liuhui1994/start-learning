@@ -33,7 +33,16 @@ public class NoticeController {
     })
     @RequestMapping(value="/{id}", method= RequestMethod.GET)
     public Notice putUser(@PathVariable(name="id") Long id) { //@RequestBody Book book
-        return noticeService.findNoticeDetailById(id);
+		try {
+			if(id==1) {
+				noticeService.findNoticeDetailById(id);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+//        return noticeService.findNoticeDetailById(id);
     }
 	
 	

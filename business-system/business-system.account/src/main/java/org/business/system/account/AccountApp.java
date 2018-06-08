@@ -9,9 +9,9 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients 
-//@ComponentScan(basePackages="org.business.system.common.cloud")
-@ComponentScan(basePackages="{org.business.system.*,org.business.system.common.cloud}")
+@EnableFeignClients(basePackages="org.business.system.*")
+//@ComponentScan(basePackages="org.business.system.*")
+@ComponentScan(basePackages="org.business.system.*")
 public class AccountApp {
 	public static void main(String[] args) {
 		 SpringApplication.run(AccountApp.class, args);	

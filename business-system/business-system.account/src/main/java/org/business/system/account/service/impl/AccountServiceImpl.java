@@ -8,12 +8,16 @@ import org.business.system.account.mapper.AccountMapper;
 import org.business.system.account.model.Account;
 import org.business.system.account.service.AccountService;
 import org.business.system.common.base.service.impl.BaseServiceImpl;
+import org.business.system.common.cloud.notice.NoticeCloudService;
 import org.business.system.common.em.AccountState;
 import org.business.system.common.exception.CommonErrorException;
 import org.business.system.common.util.Md5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.codingapi.tx.annotation.TxTransaction;
+
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
 
@@ -22,6 +26,9 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 	
 	@Autowired
 	private AccountMapper  accountMapper;
+	
+	@Autowired
+	private NoticeCloudService noticeCloudService;
 
 	@Override
 	public Account selectAccountByAccountIdAndType(Long accountId, String accountType) {
@@ -41,6 +48,7 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 	}
 
 	@Override
+	@TxTransaction
 	@Transactional
 	public Account newAccount(Account account) {
 		Account newAccount  = new Account();
@@ -63,7 +71,7 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 	}
 
 	@Override
-	@Transactional
+	@TxTransaction(isStart=true)
 	public Account accountAddAndReduce(Long accountId, String accountType, BigDecimal amount, String opType) {
 		int success = 0;
 		Account account = selectAccountByAccountIdAndType(accountId, accountType);
@@ -93,6 +101,7 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 			   throw  new CommonErrorException("00", "账户信息修改失败");  
 		   }
 		}
+		System.out.println(noticeCloudService.putUser(1L));
 		return null;
 	}
 

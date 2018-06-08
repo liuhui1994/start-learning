@@ -26,6 +26,7 @@
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <lcn.last.version>4.1.0</lcn.last.version>  
   </properties>
   <dependencies>
   
@@ -106,6 +107,31 @@
             <groupId>org.springframework.boot</groupId>  
              <artifactId>spring-boot-starter-jdbc</artifactId>  
         </dependency>
+        
+        
+      <dependency>  
+          <groupId>com.codingapi</groupId>  
+          <artifactId>transaction-springcloud</artifactId>  
+          <version>${lcn.last.version}</version>  
+          <exclusions>  
+              <exclusion>  
+                  <groupId>org.slf4j</groupId>  
+                  <artifactId>*</artifactId>  
+              </exclusion>  
+          </exclusions>  
+      </dependency>  
+      
+      <dependency>  
+          <groupId>com.codingapi</groupId>  
+          <artifactId>tx-plugins-db</artifactId>  
+          <version>${lcn.last.version}</version>  
+          <exclusions>  
+              <exclusion>  
+                  <groupId>org.slf4j</groupId>  
+                  <artifactId>*</artifactId>  
+              </exclusion>  
+          </exclusions>  
+      </dependency> 
       
 		<dependency>
 			<groupId>com.business</groupId>

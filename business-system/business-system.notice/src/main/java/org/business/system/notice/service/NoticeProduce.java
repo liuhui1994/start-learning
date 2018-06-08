@@ -5,7 +5,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 @Component
-@RabbitListener(queues = "hello")
+@RabbitListener(queues = "createAccount")
 public class NoticeProduce {
     @RabbitHandler
     public void process(String hello) {

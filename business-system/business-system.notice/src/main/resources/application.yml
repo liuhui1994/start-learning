@@ -21,11 +21,18 @@ spring:
 logging:  
   level:   
     org.business.system.notice.mapper: debug
+#    com:
+#      codingapi: debug
     
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8080/eureka/
+      
+#txmanager地址
+#tm:
+#  manager:
+#    url: http://127.0.0.1:8899/tx/manager/
       
 
 
