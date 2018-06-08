@@ -3,6 +3,7 @@ package org.business.system.account.service.impl;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
 import org.business.system.account.exception.AccountException;
 import org.business.system.account.mapper.AccountMapper;
 import org.business.system.account.model.Account;
@@ -15,8 +16,6 @@ import org.business.system.common.util.Md5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.codingapi.tx.annotation.TxTransaction;
 
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
@@ -48,7 +47,7 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 	}
 
 	@Override
-	@TxTransaction
+//	@TxTransaction
 	@Transactional
 	public Account newAccount(Account account) {
 		Account newAccount  = new Account();
@@ -71,12 +70,13 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 	}
 
 	@Override
-	@TxTransaction(isStart=true)
+	@Transactional
+//	@TxTransaction(isStart=true)
 	public Account accountAddAndReduce(Long accountId, String accountType, BigDecimal amount, String opType) {
 		int success = 0;
 		Account account = selectAccountByAccountIdAndType(accountId, accountType);
 		if(account == null) {
-			throw new AccountException("01", "账户不存在");
+			throw new CommonErrorException("01", "账户不存在");
 		}
 		
 		//账户安全校验
@@ -84,11 +84,11 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 		String verifyField = Md5.encode(account.getAccountId()+account.getAccountType()+account.getAmount()+account.getWithdrawalAmount()
 		+account.getSettlementAmount()+account.getUpdateDate().getTime()/1000);
 		if(!updateFiled.equals(verifyField)) {
-			throw new AccountException("02", "账户安全校验未通过");
+			throw new CommonErrorException("02", "账户安全校验未通过");
 		}
 		
 		if(amount!=null && amount.compareTo(new BigDecimal("0.00"))<0) {
-			throw new AccountException("03", "账户操作金额必须大于0");
+			throw new CommonErrorException("03", "账户操作金额必须大于0");
 		}
 		
 		if(opType !=null && opType.equals("order")) {
@@ -101,8 +101,10 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 			   throw  new CommonErrorException("00", "账户信息修改失败");  
 		   }
 		}
-		System.out.println(noticeCloudService.putUser(1L));
-		return null;
+		if(noticeCloudService.putUser(1L) == null) {
+			throw new CommonErrorException("01", "服务调用失败!");
+		}
+		return account;
 	}
 
 }

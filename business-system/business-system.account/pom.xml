@@ -108,8 +108,8 @@
              <artifactId>spring-boot-starter-jdbc</artifactId>  
         </dependency>
         
-        
-      <dependency>  
+        <!-- LCK -->
+<!--       <dependency>  
           <groupId>com.codingapi</groupId>  
           <artifactId>transaction-springcloud</artifactId>  
           <version>${lcn.last.version}</version>  
@@ -131,7 +131,7 @@
                   <artifactId>*</artifactId>  
               </exclusion>  
           </exclusions>  
-      </dependency> 
+      </dependency>  -->
       
 		<dependency>
 			<groupId>com.business</groupId>
