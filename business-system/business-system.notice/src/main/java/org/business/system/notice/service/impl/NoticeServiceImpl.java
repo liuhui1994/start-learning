@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.codingapi.tx.annotation.ITxTransaction;
-
 @Service
-public class NoticeServiceImpl extends BaseServiceImpl<Notice, Long> implements NoticeService,ITxTransaction{
+public class NoticeServiceImpl extends BaseServiceImpl<Notice, Long> implements NoticeService
+//,ITxTransaction
+{
 	
 	@Autowired
 	private NoticeMapper noticeMapper;

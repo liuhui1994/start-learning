@@ -8,6 +8,8 @@ import javax.persistence.Table;
 
 import org.business.system.common.em.AccountState;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //@JsonInclude()
 @Table(name="t_system_account")
 public class Account  implements Serializable{
@@ -31,8 +33,10 @@ public class Account  implements Serializable{
 	
 	private Date updateDate;
 
+	@JsonIgnore
 	private String updateField;
 	
+	@JsonIgnore
 	private Long version;
 	
 	private AccountState accountState;
