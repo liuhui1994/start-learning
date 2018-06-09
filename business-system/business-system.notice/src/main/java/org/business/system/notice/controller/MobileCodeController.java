@@ -25,7 +25,7 @@ public class MobileCodeController {
 	@Autowired
 	private MobileCodeService mobileCodeService;
 
-	@AuthAspectAnnoation  //自定义注解拦截主要token的url
+//	@AuthAspectAnnoation  //自定义注解拦截主要token的url
 	@ApiOperation(value="验证码验证", notes="验证码验证" )
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="mobile", value="手机号",required = true,dataType="String",paramType="query"),

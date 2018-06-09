@@ -28,10 +28,10 @@ public class UserModelServiceImpl extends BaseServiceImpl<UserModel, Long> imple
 		Criteria criteria = example.createCriteria();
 		criteria.andCondition("phone", mobile);
         List<UserModel> userList = userModelMapper.selectByExample(criteria);
-        if(userList!=null && !userList.isEmpty()){
-        	return userList.get(0);
+        if(userList==null && userList.isEmpty()){
+        	throw new CommonErrorException("01", "用户不存在");
         }
-        return null;
+        return userList.get(0);
 	}
 
 }

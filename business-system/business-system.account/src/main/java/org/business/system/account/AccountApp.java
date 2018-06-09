@@ -10,7 +10,6 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages="org.business.system.*")
-//@ComponentScan(basePackages="org.business.system.*")
 @ComponentScan(basePackages="org.business.system.*")
 public class AccountApp {
 	public static void main(String[] args) {

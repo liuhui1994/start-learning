@@ -4,7 +4,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.business.system.common.base.service.impl.BaseServiceImpl;
+import org.business.system.common.cloud.user.UserCloudService;
+import org.business.system.common.em.BooleanType;
 import org.business.system.common.exception.CommonErrorException;
+import org.business.system.common.model.UserModel;
+import org.business.system.common.util.PatternUtils;
 import org.business.system.notice.mapper.MobileCodeMapper;
 import org.business.system.notice.model.MobileCode;
 import org.business.system.notice.service.MobileCodeService;
@@ -25,18 +29,27 @@ public class MobileCodeServiceImpl extends BaseServiceImpl<MobileCode, Long> imp
 	@Autowired
 	private SmsService smsService;
 	
+	@Autowired
+	private UserCloudService userCloudService;
+	
     
 	@Override
 	public void validateCode(String mobile, String code, String businessType) {
-		if(false){
-			throw new CommonErrorException("03","手机号不存在");	
+		UserModel user = null;
+		try {
+			user = userCloudService.getUserByMobile(mobile);
+		} catch (Exception e) {
+			throw new CommonErrorException("04","用户不存在");	
+		}
+		if(!PatternUtils.validateMobile(mobile)){
+			throw new CommonErrorException("03","手机号格式有误");	
 		}
 		Example example = new Example(MobileCode.class);
 		Criteria criteria = example.createCriteria();
 		criteria.andEqualTo("mobile", mobile)
 		        .andEqualTo("businessType",businessType)
 		        .andEqualTo("code", code)
-		        .andEqualTo("isValidate", "TRUE");
+		        .andEqualTo("isValidate",BooleanType.FALSE);
 		//时间
 		List<MobileCode> mobileCodeList = mobileCodeMapper.selectByExample(example);
 		if(mobileCodeList==null || mobileCodeList.isEmpty()) {
@@ -48,7 +61,7 @@ public class MobileCodeServiceImpl extends BaseServiceImpl<MobileCode, Long> imp
 		}	
 		//更新验证码的验证状态
 		mobileCode.setModifyDate(new Date());
-		mobileCode.setIsValidate("FALSE");
+		mobileCode.setIsValidate(BooleanType.TRUE);
 		mobileCodeMapper.updateByPrimaryKeySelective(mobileCode);
 	}
 
@@ -56,8 +69,8 @@ public class MobileCodeServiceImpl extends BaseServiceImpl<MobileCode, Long> imp
 	@Override
 	@Transactional
 	public int sendCode(String mobile, String businessType) {
-		if(false){
-			throw new CommonErrorException("03","手机号不存在");	
+		if(!PatternUtils.validateMobile(mobile)){
+			throw new CommonErrorException("03","手机号格式有误");	
 		}
 		String code = String.valueOf((Math.random()*9+1)*100000);
 		MobileCode mobileCode = new MobileCode();
@@ -66,7 +79,7 @@ public class MobileCodeServiceImpl extends BaseServiceImpl<MobileCode, Long> imp
 		Date date = new Date();
 		
 		mobileCode.setExpireDate(new Date(date.getTime()+60*60*1000));
-		mobileCode.setIsValidate("TRUE");
+		mobileCode.setIsValidate(BooleanType.FALSE);
 		mobileCode.setMobile(mobile);
 		
 		mobileCode.setCreateDate(new Date());

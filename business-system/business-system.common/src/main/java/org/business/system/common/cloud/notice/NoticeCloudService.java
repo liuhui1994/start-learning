@@ -2,7 +2,6 @@ package org.business.system.common.cloud.notice;
 
 import org.business.system.common.model.Notice;
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface NoticeCloudService {
 	
 	@RequestMapping(value="/notice/{id}",method = RequestMethod.GET)
-	public Notice putUser(@PathVariable("id") Long id);
+	public Notice getNoticeById(@PathVariable("id") Long id);
 	
 
 }

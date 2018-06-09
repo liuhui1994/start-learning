@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiImplicitParam;
@@ -39,7 +40,7 @@ public class UserModelController {
           //  @ApiImplicitParam(name = "book", value = "图书实体book", required = true, dataType = "Book")
     })
     @RequestMapping(value="/detail", method= RequestMethod.GET)
-    public ResponseMessage<UserModel> detail(@PathVariable(name="mobile") String  mobile) { //@RequestBody Book book
+    public ResponseMessage<UserModel> detail(@RequestParam(name="mobile") String  mobile) { //@RequestBody Book book
         return ResponseMessage.success(userModelService.getUserByMobile(mobile));
     }
 }

@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.business.system.common.base.model.Entity;
+import org.business.system.common.em.BooleanType;
 
 @Table(name="t_system_mobile_code")
 public class MobileCode extends Entity implements Serializable{
@@ -25,7 +26,7 @@ public class MobileCode extends Entity implements Serializable{
 	
 	private Date expireDate; //有效时间
 	
-	private String isValidate; //是否验证
+	private BooleanType isValidate; //是否验证
 	
 	private String businessType;//发送业务类型
 
@@ -62,11 +63,11 @@ public class MobileCode extends Entity implements Serializable{
 		this.expireDate = expireDate;
 	}
 
-	public String getIsValidate() {
+	public BooleanType getIsValidate() {
 		return isValidate;
 	}
 
-	public void setIsValidate(String isValidate) {
+	public void setIsValidate(BooleanType isValidate) {
 		this.isValidate = isValidate;
 	}
 

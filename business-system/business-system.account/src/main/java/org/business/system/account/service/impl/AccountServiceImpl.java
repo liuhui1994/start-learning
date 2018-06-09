@@ -4,12 +4,13 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import org.business.system.account.exception.AccountException;
+import org.business.system.account.constants.AccountConstants;
 import org.business.system.account.mapper.AccountMapper;
 import org.business.system.account.model.Account;
 import org.business.system.account.service.AccountService;
 import org.business.system.common.base.service.impl.BaseServiceImpl;
 import org.business.system.common.cloud.notice.NoticeCloudService;
+import org.business.system.common.constants.GlobalConstants;
 import org.business.system.common.em.AccountState;
 import org.business.system.common.exception.CommonErrorException;
 import org.business.system.common.util.Md5;
@@ -40,8 +41,9 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 			return null;
 		}
 		Account account = accountList.get(0);
-		if(account.getAccountState().name().equals("freez")) {
-			throw new AccountException("02", "账户被冻结");
+		if(!account.getAccountState().name().equals("USE")) {
+			throw new CommonErrorException(AccountConstants.EXCEPTION_CODE_ACCOUNT_FREEZ,
+					AccountConstants.EXCEPTION_MESSGAE_ACCOUNT_FREEZ);
 		}
 		return account;
 	}
@@ -64,7 +66,8 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 		newAccount.setAccountState(AccountState.USE);
 		int success = accountMapper.insertSelective(newAccount);
 		if(success<=0) {
-			throw  new CommonErrorException("00", "创建账户失败");
+			throw  new CommonErrorException(AccountConstants.EXCEPTION_CODE_ACCOUNT_CREATE_FAIL,
+					AccountConstants.EXCEPTION_MESSGAE_ACCOUNT_CREATE_FAIL);
 		}
 		return newAccount;
 	}
@@ -76,7 +79,8 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 		int success = 0;
 		Account account = selectAccountByAccountIdAndType(accountId, accountType);
 		if(account == null) {
-			throw new CommonErrorException("01", "账户不存在");
+			throw  new CommonErrorException(AccountConstants.EXCEPTION_CODE_ACCOUNT_EXIST,
+					AccountConstants.EXCEPTION_MESSGAE_ACCOUNT_EXIST);
 		}
 		
 		//账户安全校验
@@ -84,25 +88,36 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 		String verifyField = Md5.encode(account.getAccountId()+account.getAccountType()+account.getAmount()+account.getWithdrawalAmount()
 		+account.getSettlementAmount()+account.getUpdateDate().getTime()/1000);
 		if(!updateFiled.equals(verifyField)) {
-			throw new CommonErrorException("02", "账户安全校验未通过");
+			throw new CommonErrorException(AccountConstants.EXCEPTION_CODE_ACCOUNT_SECURITY,
+					AccountConstants.EXCEPTION_MESSGAE_ACCOUNT_SECURITY);
 		}
 		
 		if(amount!=null && amount.compareTo(new BigDecimal("0.00"))<0) {
-			throw new CommonErrorException("03", "账户操作金额必须大于0");
+			throw new CommonErrorException(AccountConstants.EXCEPTION_CODE_ACCOUNT_AMOUNT_OP,
+					AccountConstants.EXCEPTION_MESSGAE_ACCOUNT_AMOUNT_OP);
+		}
+		if(!account.getAccountState().name().equals("USE")) {
+			throw new CommonErrorException(AccountConstants.EXCEPTION_CODE_ACCOUNT_FREEZ,
+					AccountConstants.EXCEPTION_MESSGAE_ACCOUNT_FREEZ);
 		}
 		
-		if(opType !=null && opType.equals("order")) {
+		if(opType !=null && opType.equals("order")) { //充值
 		    account.setAmount(account.getAmount().add(amount));
-		    account.setUpdateDate(new Date());
-		    account.setUpdateField(Md5.encode(account.getAccountId()+account.getAccountType()+account.getAmount()+account.getWithdrawalAmount()
-			+account.getSettlementAmount()+account.getUpdateDate().getTime()/1000));
-		   success = accountMapper.updateByLock(account);
-		   if(success<=0) {
-			   throw  new CommonErrorException("00", "账户信息修改失败");  
-		   }
 		}
-		if(noticeCloudService.putUser(1L) == null) {
-			throw new CommonErrorException("01", "服务调用失败!");
+		if(opType !=null && opType.equals("WITHDRAWAL")){ //提现
+		    account.setWithdrawalAmount(account.getWithdrawalAmount().subtract(amount));
+		}
+	    account.setUpdateDate(new Date());
+	    account.setUpdateField(Md5.encode(account.getAccountId()+account.getAccountType()+account.getAmount()+account.getWithdrawalAmount()
+		+account.getSettlementAmount()+account.getUpdateDate().getTime()/1000));
+	    success = accountMapper.updateByLock(account);
+	    if(success<=0) {
+			throw new CommonErrorException(AccountConstants.EXCEPTION_CODE_ACCOUNT_FREEZ,
+					AccountConstants.EXCEPTION_MESSGAE_ACCOUNT_FREEZ);
+	    }
+		if(noticeCloudService.getNoticeById(1L) == null) {
+			throw new CommonErrorException(GlobalConstants.SERVICE_INVOKE_EXCEPTION_CODE,
+					GlobalConstants.SERVICE_INVOKE_EXCEPTION_MESSAGE);
 		}
 		return account;
 	}

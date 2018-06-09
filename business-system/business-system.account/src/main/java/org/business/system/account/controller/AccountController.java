@@ -56,7 +56,7 @@ public class AccountController {
    }
     
     
-    @RequestMapping(value="/op",method=RequestMethod.PUT)
+    @RequestMapping(value="/op",method=RequestMethod.POST)
 	@ApiOperation(value="账户金额加减操作", notes="账户金额加减操作" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "accountId", value = "账户ID", required = true, dataType = "Long",paramType = "query"),

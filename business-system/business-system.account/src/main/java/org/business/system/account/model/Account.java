@@ -19,8 +19,10 @@ public class Account  implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@JsonIgnore
 	private Long id;
 	
+	@JsonIgnore
 	private Long accountId;
 	
 	private String accountType;
@@ -31,6 +33,7 @@ public class Account  implements Serializable{
 	
 	private BigDecimal settlementAmount;
 	
+	@JsonIgnore
 	private Date updateDate;
 
 	@JsonIgnore
@@ -39,6 +42,7 @@ public class Account  implements Serializable{
 	@JsonIgnore
 	private Long version;
 	
+	@JsonIgnore
 	private AccountState accountState;
 
 	public Long getId() {
