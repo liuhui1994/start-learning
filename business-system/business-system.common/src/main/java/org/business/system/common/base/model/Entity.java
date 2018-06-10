@@ -2,6 +2,8 @@ package org.business.system.common.base.model;
 
 import java.util.Date;
 
+import org.business.system.common.em.BooleanType;
+
 public class Entity {
 	
 	
@@ -9,7 +11,7 @@ public class Entity {
 	
 	private Date modifyDate;
 	
-	private Integer status;
+	private BooleanType status;
 	
 	private String creator;
 	
@@ -33,11 +35,13 @@ public class Entity {
 		this.modifyDate = modifyDate;
 	}
 
-	public Integer getStatus() {
+	
+
+	public BooleanType getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(BooleanType status) {
 		this.status = status;
 	}
 

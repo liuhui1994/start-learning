@@ -21,15 +21,6 @@ public class AccountController {
 	
 	 @Autowired
      private AccountService  accountService;
-
-    
-//   @Autowired
-//   private NoticeCloudService  noticeCloudService;
-//	   
-//   @RequestMapping("/test")
-//   public Notice get() {
-//   	   return noticeCloudService.putUser(1l);
-//   }
    
     @RequestMapping(value="/",method=RequestMethod.GET)
 	@ApiOperation(value="账户详情", notes="根的唯一id来获取账户详情" )
@@ -72,4 +63,5 @@ public class AccountController {
 		   Account account = accountService.accountAddAndReduce(accountId, accountType, amount, opType);
 		   return ResponseMessage.success(account);
    }
+    
 }

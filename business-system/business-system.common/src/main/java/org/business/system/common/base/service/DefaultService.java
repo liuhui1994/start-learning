@@ -3,6 +3,7 @@ package org.business.system.common.base.service;
 import java.util.Date;
 
 import org.business.system.common.base.model.Entity;
+import org.business.system.common.em.BooleanType;
 
 public interface DefaultService {
 	
@@ -11,7 +12,7 @@ public interface DefaultService {
 		entity.setCreator("");
 		entity.setModifier("");
 		entity.setModifyDate(new Date());
-		entity.setStatus(0);
+		entity.setStatus(BooleanType.FALSE);
 	}
 	
 	

@@ -22,7 +22,6 @@ public class Account  implements Serializable{
 	@JsonIgnore
 	private Long id;
 	
-	@JsonIgnore
 	private Long accountId;
 	
 	private String accountType;

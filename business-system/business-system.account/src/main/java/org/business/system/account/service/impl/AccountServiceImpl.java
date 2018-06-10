@@ -1,12 +1,16 @@
 package org.business.system.account.service.impl;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import org.business.system.account.constants.AccountConstants;
+import org.business.system.account.mapper.AccountFlowMapper;
 import org.business.system.account.mapper.AccountMapper;
 import org.business.system.account.model.Account;
+import org.business.system.account.model.AccountFlow;
 import org.business.system.account.service.AccountService;
 import org.business.system.common.base.service.impl.BaseServiceImpl;
 import org.business.system.common.cloud.notice.NoticeCloudService;
@@ -29,6 +33,9 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 	
 	@Autowired
 	private NoticeCloudService noticeCloudService;
+	
+	@Autowired
+	private AccountFlowMapper accountFlowMapper;
 
 	@Override
 	public Account selectAccountByAccountIdAndType(Long accountId, String accountType) {
@@ -112,14 +119,31 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 		+account.getSettlementAmount()+account.getUpdateDate().getTime()/1000));
 	    success = accountMapper.updateByLock(account);
 	    if(success<=0) {
-			throw new CommonErrorException(AccountConstants.EXCEPTION_CODE_ACCOUNT_FREEZ,
-					AccountConstants.EXCEPTION_MESSGAE_ACCOUNT_FREEZ);
-	    }
-		if(noticeCloudService.getNoticeById(1L) == null) {
 			throw new CommonErrorException(GlobalConstants.SERVICE_INVOKE_EXCEPTION_CODE,
-					GlobalConstants.SERVICE_INVOKE_EXCEPTION_MESSAGE);
-		}
+					GlobalConstants.SERVICE_EXCEPTION_MESSAGE);
+	    }
+	    //新增账户流水
+        AccountFlow accountFlow = new AccountFlow();
+        accountFlow.setAccountId(accountId);
+        accountFlow.setAmount(amount);
+        accountFlow.setCreateDate(new Date());
+        accountFlow.setRemainAmount(account.getAmount());
+        accountFlow.setFlowType(opType);
+        accountFlow.setRemark("备注");
+        accountFlow.setTradeId(1L); 
+        success = accountFlowMapper.insertSelective(accountFlow);
+	    if(success<=0) {
+			throw new CommonErrorException(GlobalConstants.SERVICE_INVOKE_EXCEPTION_CODE,
+					GlobalConstants.SERVICE_EXCEPTION_MESSAGE);
+	    }
 		return account;
+	}
+	
+	public static void main(String[] args) throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Long time = format.parse("2018-06-10 17:21:58").getTime()/1000;
+		System.out.println();
+		System.out.println(Md5.encode("1000"+"USER"+"100"+"00"+time));
 	}
 
 }

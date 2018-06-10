@@ -4,6 +4,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.business.system.common.base.model.Entity;
+import org.business.system.common.em.UserState;
+import org.business.system.common.em.UserType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -28,7 +30,7 @@ public class UserModel extends Entity{
     
     private String appKey;
     
-    private String userType;
+    private UserType userType;
     
     @JsonIgnore
     private String registerIp;
@@ -39,7 +41,7 @@ public class UserModel extends Entity{
     
     private String username;
     
-    private String state;
+    private UserState state;
 
 	public Long getId() {
 		return id;
@@ -97,11 +99,11 @@ public class UserModel extends Entity{
 		this.appKey = appKey;
 	}
 
-	public String getUserType() {
+	public UserType getUserType() {
 		return userType;
 	}
 
-	public void setUserType(String userType) {
+	public void setUserType(UserType userType) {
 		this.userType = userType;
 	}
 
@@ -137,17 +139,14 @@ public class UserModel extends Entity{
 		this.username = username;
 	}
 
-	public String getState() {
+	public UserState getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(UserState state) {
 		this.state = state;
 	}
-    
-    
-    
 
-    
+
     
 }
