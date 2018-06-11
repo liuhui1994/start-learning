@@ -3,6 +3,7 @@ package org.business.system.auth.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.business.system.auth.comfiguration.User;
+import org.business.system.common.cloud.auth.OauthCloudService;
 import org.business.system.common.response.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -18,6 +19,9 @@ public class Oauth2Controller {
 	
 	@Autowired
 	private HttpServletRequest request;
+	
+	@Autowired
+	private OauthCloudService oauthCloudService;
 	
 	@RequestMapping("/token")
 	public ResponseMessage<User> token() {
@@ -38,6 +42,14 @@ public class Oauth2Controller {
 			@RequestParam(name="loginType",required = true) String loginType){
 		return null;
 		
+	}
+	
+	@RequestMapping("/test")
+	public ResponseMessage<User> ssoLogin(){
+		System.out.println(oauthCloudService.getNoticeById(
+//				"Basic  Y2xpZW50OmZ1Y2tzZWN1cml0eQ==",
+				"password", "admin", "admin123"));
+		return null;
 	}
 
 }

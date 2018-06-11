@@ -8,6 +8,7 @@ import javax.persistence.Table;
 
 import org.business.system.common.base.model.Entity;
 import org.business.system.common.em.BooleanType;
+import org.business.system.common.em.BusinessType;
 
 @Table(name="t_system_mobile_code")
 public class MobileCode extends Entity implements Serializable{
@@ -28,7 +29,7 @@ public class MobileCode extends Entity implements Serializable{
 	
 	private BooleanType isValidate; //是否验证
 	
-	private String businessType;//发送业务类型
+	private BusinessType businessType;//发送业务类型
 
 	
 	public Long getId() {
@@ -71,13 +72,15 @@ public class MobileCode extends Entity implements Serializable{
 		this.isValidate = isValidate;
 	}
 
-	public String getBusinessType() {
+	public BusinessType getBusinessType() {
 		return businessType;
 	}
 
-	public void setBusinessType(String businessType) {
+	public void setBusinessType(BusinessType businessType) {
 		this.businessType = businessType;
 	}
+
+
 	
 	
 }

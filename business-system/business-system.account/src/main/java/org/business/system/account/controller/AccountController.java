@@ -53,14 +53,14 @@ public class AccountController {
             @ApiImplicitParam(name = "accountId", value = "账户ID", required = true, dataType = "Long",paramType = "query"),
             @ApiImplicitParam(name = "accountType", value = "账户类型", required = true, dataType = "String",paramType = "query"),
             @ApiImplicitParam(name = "amount", value = "金额", required = true, dataType = "BigDecimal",paramType = "query"),
-            @ApiImplicitParam(name = "opType", value = "操作类型", required = true, dataType = "String",paramType = "query")
+            @ApiImplicitParam(name = "tradeType", value = "操作类型", required = true, dataType = "String",paramType = "query")
     })
    public ResponseMessage<Account> accountAddandReduce(
 		   @RequestParam("accountId") Long accountId,
 		    @RequestParam("accountType") String accountType,
 		    @RequestParam("amount") BigDecimal amount,
-		    @RequestParam("opType") String opType) {
-		   Account account = accountService.accountAddAndReduce(accountId, accountType, amount, opType);
+		    @RequestParam("tradeType") String tradeType) {
+		   Account account = accountService.accountAddAndReduce(accountId, accountType, amount, tradeType);
 		   return ResponseMessage.success(account);
    }
     

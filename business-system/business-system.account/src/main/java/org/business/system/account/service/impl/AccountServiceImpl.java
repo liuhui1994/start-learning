@@ -16,11 +16,13 @@ import org.business.system.common.base.service.impl.BaseServiceImpl;
 import org.business.system.common.cloud.notice.NoticeCloudService;
 import org.business.system.common.constants.GlobalConstants;
 import org.business.system.common.em.AccountState;
+import org.business.system.common.em.TradeType;
 import org.business.system.common.exception.CommonErrorException;
 import org.business.system.common.util.Md5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
@@ -59,9 +61,19 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 //	@TxTransaction
 	@Transactional
 	public Account newAccount(Account account) {
+		Long accountId = account.getAccountId();
+		String accountType = account.getAccountType();
+		if(ObjectUtils.isEmpty(accountId)) {
+			throw new CommonErrorException(AccountConstants.EXCEPTION_CODE_ACCOUNT_USER_SIGN,
+					AccountConstants.EXCEPTION_MESSGAE_ACCOUNT_USER_SIGN);
+		}
+		if(ObjectUtils.isEmpty(accountType)) {
+			throw new CommonErrorException(AccountConstants.EXCEPTION_CODE_ACCOUNT_TYPE_NOT_NULL,
+					AccountConstants.EXCEPTION_MESSGAE_ACCOUNT_TYPE_NOT_NULL);
+		}
 		Account newAccount  = new Account();
-		newAccount.setAccountId(account.getAccountId());
-		newAccount.setAccountType(account.getAccountType());
+		newAccount.setAccountId(accountId);
+		newAccount.setAccountType(accountType);
 		newAccount.setAmount(new BigDecimal("0.00"));
 		newAccount.setWithdrawalAmount(new BigDecimal("0.00"));
 		newAccount.setSettlementAmount(new BigDecimal("0.00"));
@@ -108,10 +120,10 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 					AccountConstants.EXCEPTION_MESSGAE_ACCOUNT_FREEZ);
 		}
 		
-		if(opType !=null && opType.equals("order")) { //充值
+		if(opType !=null && opType.equals(TradeType.ORDER.name())) { //下单
 		    account.setAmount(account.getAmount().add(amount));
 		}
-		if(opType !=null && opType.equals("WITHDRAWAL")){ //提现
+		if(opType !=null && opType.equals(TradeType.WITHDRAWAL.name())){ //提现
 		    account.setWithdrawalAmount(account.getWithdrawalAmount().subtract(amount));
 		}
 	    account.setUpdateDate(new Date());

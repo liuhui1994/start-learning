@@ -6,6 +6,7 @@ import java.util.List;
 import org.business.system.common.base.service.impl.BaseServiceImpl;
 import org.business.system.common.cloud.user.UserCloudService;
 import org.business.system.common.em.BooleanType;
+import org.business.system.common.em.BusinessType;
 import org.business.system.common.exception.CommonErrorException;
 import org.business.system.common.model.UserModel;
 import org.business.system.common.util.PatternUtils;
@@ -34,7 +35,7 @@ public class MobileCodeServiceImpl extends BaseServiceImpl<MobileCode, Long> imp
 	
     
 	@Override
-	public void validateCode(String mobile, String code, String businessType) {
+	public void validateCode(String mobile, String code, BusinessType businessType) {
 		UserModel user = null;
 		try {
 			user = userCloudService.getUserByMobile(mobile);
@@ -68,7 +69,7 @@ public class MobileCodeServiceImpl extends BaseServiceImpl<MobileCode, Long> imp
 
 	@Override
 	@Transactional
-	public int sendCode(String mobile, String businessType) {
+	public int sendCode(String mobile, BusinessType businessType) {
 		if(!PatternUtils.validateMobile(mobile)){
 			throw new CommonErrorException("03","手机号格式有误");	
 		}
@@ -86,7 +87,7 @@ public class MobileCodeServiceImpl extends BaseServiceImpl<MobileCode, Long> imp
 		mobileCode.setCreator(mobile);
 		mobileCode.setModifier(mobile);
 		mobileCode.setModifyDate(new Date());
-		mobileCode.setStatus(0);
+		mobileCode.setStatus(BooleanType.FALSE);
 		mobileCodeMapper.insertSelective(mobileCode);
 		smsService.sendAuthCode(mobile, code);
 		return 1;

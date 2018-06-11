@@ -1,5 +1,7 @@
 package org.business.system.common.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,13 +15,19 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Table(name="t_system_user")
 @JsonInclude(Include.NON_NULL)
-public class UserModel extends Entity{
+public class UserModel extends Entity implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
     private Long id;
     
     private String loginName;
     
+    @JsonIgnore
     private String password;
     
     private String phone;
@@ -29,7 +37,7 @@ public class UserModel extends Entity{
     private String appId;
     
     private String appKey;
-    
+      
     private UserType userType;
     
     @JsonIgnore

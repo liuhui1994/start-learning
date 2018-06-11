@@ -3,6 +3,7 @@ package org.business.system.newstart.service;
 import java.util.List;
 
 import org.business.system.common.base.service.BaseService;
+import org.business.system.common.em.UserState;
 import org.business.system.common.model.UserModel;
 
 public interface UserModelService extends BaseService<UserModel, Long> {
@@ -34,5 +35,13 @@ public interface UserModelService extends BaseService<UserModel, Long> {
 	 * @return
 	 */
 	public UserModel register(UserModel user);
+	
+	/**
+	 * 用户冻结或解冻
+	 * @param userIdEnc
+	 * @param state
+	 * @return
+	 */
+	public UserModel openOrFreez(String userIdEnc,UserState state);
 
 }

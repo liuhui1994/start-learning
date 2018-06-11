@@ -2,6 +2,7 @@ package org.business.system.notice.controller;
 
 
 import org.business.system.common.annoation.AuthAspectAnnoation;
+import org.business.system.common.em.BusinessType;
 import org.business.system.common.response.ResponseMessage;
 import org.business.system.notice.model.MobileCode;
 import org.business.system.notice.service.MobileCodeService;
@@ -36,7 +37,7 @@ public class MobileCodeController {
 	public ResponseMessage<MobileCode> validateCode(
 			@RequestParam(name="mobile",required = true) String mobile,
 			@RequestParam(name="code",required = true) String code,
-			@RequestParam(name="businessType",required = true) String businessType) {
+			@RequestParam(name="businessType",required = true) BusinessType businessType) {
 			mobileCodeService.validateCode(mobile, code, businessType);		
 			return ResponseMessage.success();
 	}
@@ -50,7 +51,7 @@ public class MobileCodeController {
 	@RequestMapping(value ="/sendCode", method = RequestMethod.GET)
 	public ResponseMessage<MobileCode> validateCode(
 			@RequestParam(name="mobile",required = true) String mobile,
-			@RequestParam(name="businessType",required = true) String businessType) {
+			@RequestParam(name="businessType",required = true)BusinessType businessType) {
 	        mobileCodeService.sendCode(mobile, businessType);
 			return ResponseMessage.success();
 	}

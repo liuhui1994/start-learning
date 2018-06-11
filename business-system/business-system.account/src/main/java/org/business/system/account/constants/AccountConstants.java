@@ -19,5 +19,13 @@ public class AccountConstants {
 	
 	public  static String EXCEPTION_MESSGAE_ACCOUNT_AMOUNT_OP = "账号操作金额异常";
 	public  static String EXCEPTION_CODE_ACCOUNT_AMOUNT_OP = "06";
+	
+	public static String  EXCEPTION_MESSGAE_ACCOUNT_USER_SIGN = "账号关联用户标识不能为空";
+	public static String  EXCEPTION_CODE_ACCOUNT_USER_SIGN = "07";
+	
+	public static String  EXCEPTION_MESSGAE_ACCOUNT_TYPE_NOT_NULL = "账号类型不能为空";
+	public static String  EXCEPTION_CODE_ACCOUNT_TYPE_NOT_NULL = "08";
+	
+	
 
 }

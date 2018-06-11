@@ -2,6 +2,7 @@ package org.business.system.newstart.controller;
 
 import java.util.List;
 
+import org.business.system.common.em.UserState;
 import org.business.system.common.model.UserModel;
 import org.business.system.common.response.ResponseMessage;
 import org.business.system.newstart.service.UserModelService;
@@ -30,7 +31,7 @@ public class UserModelController {
 	
 	@ApiOperation(value="获取用户详情", notes="根据用户的唯一id来获取用户信息" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "图书ID", required = true, dataType = "Long",paramType = "path"),
+            @ApiImplicitParam(name = "id", value = "用户唯一ID", required = true, dataType = "Long",paramType = "path"),
           //  @ApiImplicitParam(name = "book", value = "图书实体book", required = true, dataType = "Book")
     })
     @RequestMapping(value="/{id}", method= RequestMethod.GET)
@@ -77,6 +78,18 @@ public class UserModelController {
     })
    public ResponseMessage<UserModel> register(
 	  		@RequestBody UserModel user) {
-		   return ResponseMessage.success();
+		   return ResponseMessage.success(userModelService.register(user));
+   }
+    
+    @RequestMapping(value="/openOrFreez",method=RequestMethod.POST)
+	@ApiOperation(value="用户冻结或解冻", notes="用户冻结或解冻" )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "state", value = "用户对象", required = true, dataType = "UserState",paramType="query"),
+            @ApiImplicitParam(name = "userIdEnc", value = "用户唯一标识", required = true, dataType = "String",paramType="query")
+    })
+   public ResponseMessage<UserModel> userOpenOrFreez(
+		    @RequestParam(name="userIdEnc") String userIdEnc,
+	  		@RequestParam(name="state") UserState state) {
+		   return ResponseMessage.success(userModelService.openOrFreez(userIdEnc, state));
    }
 }
