@@ -17,7 +17,7 @@ public class ErrorControllerAdvice {
 	 
     @ExceptionHandler(value = Exception.class)
     public CodeMessage errorHandler(Exception ex) {
-		System.out.println(ex.getMessage());
+		System.out.println(ex);
         return new CodeMessage("00", "FAIL");
     }
 }

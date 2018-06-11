@@ -57,11 +57,11 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         oauthServer
 
 //                // will be applied to       /oauth/token_key
-                .tokenKeyAccess("isAnonymous() || hasAuthority('ROLE_ADMIN') ||  hasAuthority('ADMIN')")
+//                .tokenKeyAccess("isAnonymous() || hasAuthority('ROLE_ADMIN') ||  hasAuthority('ADMIN')")
                 
 //
 //                // will be application to   /oauth/check_token
-                .checkTokenAccess("hasAuthority('ROLE_TRUSTED_CLIENT') || hasAuthority('ROLE_ADMIN') || hasAuthority('ADMIN')")
+//                .checkTokenAccess("hasAuthority('ROLE_TRUSTED_CLIENT') || hasAuthority('ROLE_ADMIN') || hasAuthority('ADMIN')")
 
                 .allowFormAuthenticationForClients();
 
