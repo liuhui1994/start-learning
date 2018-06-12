@@ -64,7 +64,7 @@ public class AuthServiceUtil {
 	}
 	
 	public static void main(String[] args) {
-		AuthServiceUtil.doPost("http://localhost:8083/auth/oauth/token","17621875348","admin123");
+		AuthServiceUtil.doPost("http://localhost:8083/auth/oauth/token","17621875348","17621875348");
 	}
 	
 	

@@ -1,12 +1,25 @@
 package org.business.system.common.response;
 
+import java.io.IOException;
 import java.io.Serializable;
+
+import org.business.system.common.model.Notice;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonInclude(Include.NON_NULL)
+@JsonDeserialize
 public class ResponseMessage<T> implements Serializable {
+	
+
+	
+	public ResponseMessage(){
+
+	}
 	
 	private String code;
 	
@@ -99,5 +112,11 @@ public class ResponseMessage<T> implements Serializable {
     	return new ResponseMessage<>(code, message);
     }
 
+    public static void main(String[] args) throws IOException {
+		ObjectMapper obj = new ObjectMapper();
+		String json = obj.writeValueAsString(ResponseMessage.success(new Notice()));
+		System.out.println(obj.writeValueAsString(ResponseMessage.success(new Notice())));
+		System.out.println(obj.readValue(json, ResponseMessage.class).getData());
+	}
 
 }

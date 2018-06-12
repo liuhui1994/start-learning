@@ -47,8 +47,8 @@ public class UserModelController {
           //  @ApiImplicitParam(name = "book", value = "图书实体book", required = true, dataType = "Book")
     })
     @RequestMapping(value="/detailByMobile", method= RequestMethod.GET)
-    public UserModel detailByMobile(@RequestParam(name="mobile") String  mobile) { //@RequestBody Book book
-        return userModelService.getUserByMobile(mobile);
+    public  ResponseMessage<UserModel> detailByMobile(@RequestParam(name="mobile") String  mobile) { //@RequestBody Book book
+        return ResponseMessage.success(userModelService.getUserByMobile(mobile));
     }
 	
 	@ApiOperation(value="通过登录名获取用户详情", notes="根据用户的唯一登录名来获取用户信息" )
