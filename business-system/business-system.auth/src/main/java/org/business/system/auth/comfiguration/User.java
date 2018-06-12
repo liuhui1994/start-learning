@@ -15,9 +15,12 @@ public class User extends UserModel implements UserDetails {
 	
 	private String password;
 	
-	public User(String userName,String password) {
-		this.userName = userName;
-		this.password = password;
+	private UserModel userModel;
+	
+	public User(UserModel userModel) {
+		this.userModel = userModel;
+		this.userName = userModel.getUsername();
+		this.password = userModel.getPassword();
 	}
 
 	@Override
@@ -27,6 +30,7 @@ public class User extends UserModel implements UserDetails {
       return authorities;  
 	}
 
+	
 	@Override
 	public String getPassword() {
 		return this.password;

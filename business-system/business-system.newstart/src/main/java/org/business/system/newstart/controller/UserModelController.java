@@ -41,14 +41,24 @@ public class UserModelController {
 	
 	
 	
-	@ApiOperation(value="获取用户详情", notes="根据用户的唯一手机号来获取用户信息" )
+	@ApiOperation(value="通过手机号获取用户详情", notes="根据用户的唯一手机号来获取用户信息" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "mobile", value = "图书ID", required = true, dataType = "Long",paramType = "query"),
+            @ApiImplicitParam(name = "mobile", value = "图书ID", required = true, dataType = "String",paramType = "query"),
           //  @ApiImplicitParam(name = "book", value = "图书实体book", required = true, dataType = "Book")
     })
-    @RequestMapping(value="/detail", method= RequestMethod.GET)
-    public ResponseMessage<UserModel> detail(@RequestParam(name="mobile") String  mobile) { //@RequestBody Book book
-        return ResponseMessage.success(userModelService.getUserByMobile(mobile));
+    @RequestMapping(value="/detailByMobile", method= RequestMethod.GET)
+    public UserModel detailByMobile(@RequestParam(name="mobile") String  mobile) { //@RequestBody Book book
+        return userModelService.getUserByMobile(mobile);
+    }
+	
+	@ApiOperation(value="通过登录名获取用户详情", notes="根据用户的唯一登录名来获取用户信息" )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "loginName", value = "图书ID", required = true, dataType = "String",paramType = "query"),
+          //  @ApiImplicitParam(name = "book", value = "图书实体book", required = true, dataType = "Book")
+    })
+    @RequestMapping(value="/detailByLoginName", method= RequestMethod.GET)
+    public ResponseMessage<UserModel> detailByLoginName(@RequestParam(name="loginName") String  loignName) { //@RequestBody Book book
+        return ResponseMessage.success(userModelService.getUserByLoginName(loignName));
     }
 	
 	@ApiOperation(value="获取用户列表", notes="获取用户列表" )

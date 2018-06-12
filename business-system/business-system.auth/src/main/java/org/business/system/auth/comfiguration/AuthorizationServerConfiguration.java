@@ -42,6 +42,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                     .authorizedGrantTypes("password", "refresh_token")
                     .scopes("read", "write")
                     .secret(secret);
+//        clients.inMemory().
+        //自定义应用授权
     }
 
     @Override

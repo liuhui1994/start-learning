@@ -9,6 +9,7 @@ import org.business.system.common.em.BooleanType;
 import org.business.system.common.em.BusinessType;
 import org.business.system.common.exception.CommonErrorException;
 import org.business.system.common.model.UserModel;
+import org.business.system.common.response.ResponseMessage;
 import org.business.system.common.util.PatternUtils;
 import org.business.system.notice.mapper.MobileCodeMapper;
 import org.business.system.notice.model.MobileCode;
@@ -36,10 +37,13 @@ public class MobileCodeServiceImpl extends BaseServiceImpl<MobileCode, Long> imp
     
 	@Override
 	public void validateCode(String mobile, String code, BusinessType businessType) {
-		UserModel user = null;
+		ResponseMessage<UserModel> model = null;
 		try {
-			user = userCloudService.getUserByMobile(mobile);
+			 model = userCloudService.getUserByMobile(mobile);
 		} catch (Exception e) {
+			throw new CommonErrorException("04","用户不存在");	
+		}
+		if(model==null) {
 			throw new CommonErrorException("04","用户不存在");	
 		}
 		if(!PatternUtils.validateMobile(mobile)){

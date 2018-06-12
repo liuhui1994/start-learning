@@ -22,11 +22,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
+@Api(tags= {"outh","notice"})
 public class Oauth2Controller {
 	@Autowired
 	private ResourceServerTokenServices resourceServerTokenServices;
@@ -48,9 +50,9 @@ public class Oauth2Controller {
 	}
 	
 	
-	@ApiOperation(value="用户登录", notes="根据消息的唯一id来获取消息内容" )
+	@ApiOperation(value="用户登录", notes="根据消息的唯一id来获取消息内容" ,tags= {"outh"})
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "authorize", value = "图书ID", required = true, dataType = "String",paramType = "header"),
+            @ApiImplicitParam(name = "authorization", value = "图书ID", required = true, dataType = "String",paramType = "header"),
             @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "String",paramType = "query"),
             @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String",paramType = "query")
     })
@@ -60,20 +62,13 @@ public class Oauth2Controller {
 			@RequestParam(name="userName" ,required = true) String userName,
 			@RequestParam(name="password" ,required = true) String password){
 //		Principal p = (Principal)principal.getPrincipal();
-		Map<String, String> map =new HashMap<String, String>();
-		principal=        SecurityContextHolder.getContext().getAuthentication();
-		map.put("grant_type", "password");
-		map.put("username", userName);
-		map.put("password", password);
-		System.out.println(oauthCloudService.getNoticeById(SecurityContextHolder.getContext().getAuthentication(), map));
+//		map.put("grant_type", "password");
+//		map.put("username", userName);
+//		map.put("password", password);
+//		System.out.println(oauthCloudService.getNoticeById(SecurityContextHolder.getContext().getAuthentication(), map));
 		return null;
 		
 	}
 	
-	@RequestMapping("/test")
-	public ResponseMessage<User> ssoLogin(Authentication principal){
-
-		return null;
-	}
 
 }

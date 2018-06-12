@@ -76,7 +76,12 @@
         </dependency>
       <!-- swagger end -->
 
-      
+      	<dependency>
+		    <groupId>commons-httpclient</groupId>
+		    <artifactId>commons-httpclient</artifactId>
+		    <version>3.1</version>
+		</dependency>
+		
  		<dependency>
 			<groupId>com.business</groupId>
 			<artifactId>business-system.common</artifactId>
