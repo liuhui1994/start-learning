@@ -65,6 +65,14 @@ public class User extends UserModel implements UserDetails {
 		return true;
 	}
 
+	public UserModel getUserModel() {
+		return userModel;
+	}
+
+	public void setUserModel(UserModel userModel) {
+		this.userModel = userModel;
+	}
+
 
 
 }

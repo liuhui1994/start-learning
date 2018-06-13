@@ -1,5 +1,6 @@
 package org.business.system.auth.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,6 +8,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.business.system.auth.comfiguration.User;
+import org.business.system.auth.util.AuthServiceUtil;
+import org.business.system.auth.util.Oauth2ResponseToken;
 import org.business.system.common.cloud.auth.OauthCloudService;
 import org.business.system.common.response.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -57,17 +64,12 @@ public class Oauth2Controller {
             @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String",paramType = "query")
     })
 	@RequestMapping(value="/ssoLogin",method=RequestMethod.POST)
-	public ResponseMessage<User> ssoLogin(
-		    Authentication principal,
+	public ResponseMessage<Oauth2ResponseToken> ssoLogin(
 			@RequestParam(name="userName" ,required = true) String userName,
-			@RequestParam(name="password" ,required = true) String password){
-//		Principal p = (Principal)principal.getPrincipal();
-//		map.put("grant_type", "password");
-//		map.put("username", userName);
-//		map.put("password", password);
-//		System.out.println(oauthCloudService.getNoticeById(SecurityContextHolder.getContext().getAuthentication(), map));
-		return null;
-		
+			@RequestParam(name="password" ,required = true) String password) throws JsonParseException, JsonMappingException, IOException{
+        String  json = AuthServiceUtil.doPost("http://localhost:8083/auth/oauth/token", userName, password);
+        Oauth2ResponseToken token  = new ObjectMapper().readValue(json, Oauth2ResponseToken.class);
+		return ResponseMessage.success(token);
 	}
 	
 
