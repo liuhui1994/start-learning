@@ -33,9 +33,7 @@ public class AuthServiceUtil {
 				    new NameValuePair("password", password), //查看用户名是登录用户中心->验证码短信->产品总览->APIID
 				    new NameValuePair("username", username),  //查看密码请登录用户中心->验证码短信->产品总览->APIKEY
 				    new NameValuePair("grant_type", "password"), 
-			};
-			System.out.println(data);
-			
+			};			
 
 			method.setRequestBody(data);
 

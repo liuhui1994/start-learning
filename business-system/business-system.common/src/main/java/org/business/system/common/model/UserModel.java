@@ -39,6 +39,7 @@ public class UserModel extends Entity implements Serializable{
       
     private UserType userType;
     
+    @JsonIgnore
     private String registerIp;
     
     private String payPassword;

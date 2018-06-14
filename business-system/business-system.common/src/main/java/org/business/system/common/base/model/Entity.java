@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.business.system.common.em.BooleanType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Entity {
 	
 	
@@ -11,6 +13,7 @@ public class Entity {
 	
 	private Date modifyDate;
 	
+	@JsonIgnore
 	private BooleanType status;
 	
 	private String creator;

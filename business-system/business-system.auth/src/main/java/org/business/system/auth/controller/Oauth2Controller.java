@@ -1,9 +1,6 @@
 package org.business.system.auth.controller;
 
 import java.io.IOException;
-import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,13 +8,10 @@ import org.business.system.auth.comfiguration.User;
 import org.business.system.auth.util.AuthServiceUtil;
 import org.business.system.auth.util.Oauth2ResponseToken;
 import org.business.system.common.cloud.auth.OauthCloudService;
+import org.business.system.common.model.UserModel;
 import org.business.system.common.response.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.provider.AuthorizationRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,26 +34,28 @@ public class Oauth2Controller {
 	@Autowired
 	private ResourceServerTokenServices resourceServerTokenServices;
 	
-	@Autowired
-	private HttpServletRequest request;
 	
-	@Autowired
-	private OauthCloudService oauthCloudService;
+	@Value("${auth.url}")
+	private String auth_url;
 	
-	@RequestMapping(value="/token",method=RequestMethod.GET)
-	public ResponseMessage<User> token() {
-		String token = request.getParameter("access_token");
-		//CheckTokenEndpoint  ResourceServerTokenServices
-//		System.out.println(resourceServerTokenServices.readAccessToken(token));
+	@ApiOperation(value="通过token认证获取用户信息", notes="通过token认证获取用户信息" ,tags= {"outh"})
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "token", required = true, dataType = "String",paramType = "query"),
+    })
+	@RequestMapping(value="/getUserBytoken",method=RequestMethod.GET)
+	public ResponseMessage<UserModel> token(@RequestParam(name="token")String token) {
+//		String token = request.getParameter("access_token");
+//		//CheckTokenEndpoint  ResourceServerTokenServices
+////		System.out.println(resourceServerTokenServices.readAccessToken(token));
 		OAuth2Authentication oAuth2Authentication = resourceServerTokenServices.loadAuthentication(token);
 		User user = (User) oAuth2Authentication.getPrincipal();
-		return ResponseMessage.success(user);
+		return ResponseMessage.success(user.getUserModel());
 	}
 	
 	
-	@ApiOperation(value="用户登录", notes="根据消息的唯一id来获取消息内容" ,tags= {"outh"})
+	@ApiOperation(value="用户登录", notes="用户登录" ,tags= {"outh"})
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "authorization", value = "图书ID", required = true, dataType = "String",paramType = "header"),
+//            @ApiImplicitParam(name = "authorization", value = "图书ID", required = true, dataType = "String",paramType = "header"),
             @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "String",paramType = "query"),
             @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String",paramType = "query")
     })
@@ -67,7 +63,7 @@ public class Oauth2Controller {
 	public ResponseMessage<Oauth2ResponseToken> ssoLogin(
 			@RequestParam(name="userName" ,required = true) String userName,
 			@RequestParam(name="password" ,required = true) String password) throws JsonParseException, JsonMappingException, IOException{
-        String  json = AuthServiceUtil.doPost("http://localhost:8083/auth/oauth/token", userName, password);
+        String  json = AuthServiceUtil.doPost(auth_url, userName, password);
         Oauth2ResponseToken token  = new ObjectMapper().readValue(json, Oauth2ResponseToken.class);
 		return ResponseMessage.success(token);
 	}

@@ -19,11 +19,14 @@ spring:
 auth:
    client_id: client
    secret:  fucksecurity
+   url: http://localhost:${server.port}${server.context-path}/oauth/token
    
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8080/eureka/
+
+  
    
    
 
