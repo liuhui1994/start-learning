@@ -1,13 +1,13 @@
-package org.business.system.common.em;
+package org.business.system.activity.em;
 
-public enum AccountState {
+public enum ActivityState {
 	
 	USE("使用中"),
 	FREEZ("冻结");
 	
 	private String text;
 	
-	AccountState(String text) {
+	ActivityState(String text) {
 		this.text = text;
 	}
 

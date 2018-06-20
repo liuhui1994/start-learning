@@ -4,6 +4,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.business.system.common.base.model.Entity;
+import org.business.system.common.em.NoticeState;
+import org.business.system.common.em.NoticeType;
 
 @Table(name="t_system_notice")
 public class Notice extends Entity{
@@ -11,7 +13,7 @@ public class Notice extends Entity{
 	@Id
 	private Long id;
 	
-	private Integer noticeType;
+	private NoticeType noticeType;
 	
 	private String businessNo;
 	
@@ -21,7 +23,7 @@ public class Notice extends Entity{
 	
 	private String noticeUrl;
 	
-	private Integer state;
+	private NoticeState state;
 	
 	private String sender;
 	
@@ -37,11 +39,12 @@ public class Notice extends Entity{
 		this.id = id;
 	}
 
-	public Integer getNoticeType() {
+
+	public NoticeType getNoticeType() {
 		return noticeType;
 	}
 
-	public void setNoticeType(Integer noticeType) {
+	public void setNoticeType(NoticeType noticeType) {
 		this.noticeType = noticeType;
 	}
 
@@ -77,11 +80,13 @@ public class Notice extends Entity{
 		this.noticeUrl = noticeUrl;
 	}
 
-	public Integer getState() {
+
+
+	public NoticeState getState() {
 		return state;
 	}
 
-	public void setState(Integer state) {
+	public void setState(NoticeState state) {
 		this.state = state;
 	}
 

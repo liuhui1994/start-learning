@@ -22,4 +22,20 @@ public class PatternUtils {
 		 return isMatch;
 	}
 	
+	/**
+	 * 校验邮箱是否合法
+	 * @param email
+	 * @return
+	 */
+	public static boolean validateEmail(String email) {
+		String regex = "\\\\w+([-+.]\\\\w+)*@\\\\w+([-.]\\\\w+)*\\\\.\\\\w+([-.]\\\\w+)*";
+		if(regex==null || "".equals(regex)) {
+			return false;
+		}
+		 Pattern p = Pattern.compile(regex);
+         Matcher m = p.matcher(email);
+         boolean isMatch = m.matches();
+		 return isMatch;
+	}
+	
 }

@@ -32,10 +32,9 @@ public class UserModelController {
 	@ApiOperation(value="获取用户详情", notes="根据用户的唯一id来获取用户信息" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "用户唯一ID", required = true, dataType = "Long",paramType = "path"),
-          //  @ApiImplicitParam(name = "book", value = "图书实体book", required = true, dataType = "Book")
     })
     @RequestMapping(value="/{id}", method= RequestMethod.GET)
-    public ResponseMessage<UserModel> putUser(@PathVariable(name="id") Long id) { //@RequestBody Book book
+    public ResponseMessage<UserModel> putUser(@PathVariable(name="id") Long id) {
         return ResponseMessage.success(userModelService.queryById(id));
     }
 	
@@ -44,20 +43,18 @@ public class UserModelController {
 	@ApiOperation(value="通过手机号获取用户详情", notes="根据用户的唯一手机号来获取用户信息" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "mobile", value = "图书ID", required = true, dataType = "String",paramType = "query"),
-          //  @ApiImplicitParam(name = "book", value = "图书实体book", required = true, dataType = "Book")
     })
     @RequestMapping(value="/detailByMobile", method= RequestMethod.GET)
-    public  ResponseMessage<UserModel> detailByMobile(@RequestParam(name="mobile") String  mobile) { //@RequestBody Book book
+    public  ResponseMessage<UserModel> detailByMobile(@RequestParam(name="mobile") String  mobile) { 
         return ResponseMessage.success(userModelService.getUserByMobile(mobile));
     }
 	
 	@ApiOperation(value="通过登录名获取用户详情", notes="根据用户的唯一登录名来获取用户信息" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "loginName", value = "图书ID", required = true, dataType = "String",paramType = "query"),
-          //  @ApiImplicitParam(name = "book", value = "图书实体book", required = true, dataType = "Book")
     })
     @RequestMapping(value="/detailByLoginName", method= RequestMethod.GET)
-    public ResponseMessage<UserModel> detailByLoginName(@RequestParam(name="loginName") String  loignName) { //@RequestBody Book book
+    public ResponseMessage<UserModel> detailByLoginName(@RequestParam(name="loginName") String  loignName) { 
         return ResponseMessage.success(userModelService.getUserByLoginName(loignName));
     }
 	
