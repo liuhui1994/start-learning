@@ -19,7 +19,9 @@ public class Activity extends Entity {
 	
 	private String activityName;
 	
-	private Date limitDate;
+	private Date limitDateStart;
+	
+	private Date limitDateEnd;
 	
 	private String limitTimeArea;
 	
@@ -28,6 +30,8 @@ public class Activity extends Entity {
 	private ActivityState activityState;
 	
 	private String activityNo;
+	
+	private String remark;
 
 	public Long getId() {
 		return id;
@@ -53,12 +57,22 @@ public class Activity extends Entity {
 		this.activityName = activityName;
 	}
 
-	public Date getLimitDate() {
-		return limitDate;
+
+
+	public Date getLimitDateStart() {
+		return limitDateStart;
 	}
 
-	public void setLimitDate(Date limitDate) {
-		this.limitDate = limitDate;
+	public void setLimitDateStart(Date limitDateStart) {
+		this.limitDateStart = limitDateStart;
+	}
+
+	public Date getLimitDateEnd() {
+		return limitDateEnd;
+	}
+
+	public void setLimitDateEnd(Date limitDateEnd) {
+		this.limitDateEnd = limitDateEnd;
 	}
 
 	public String getLimitTimeArea() {
@@ -91,6 +105,14 @@ public class Activity extends Entity {
 
 	public void setActivityNo(String activityNo) {
 		this.activityNo = activityNo;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	
 	

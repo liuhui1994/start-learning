@@ -2,7 +2,7 @@ package org.business.system.activity.em;
 
 public enum ActivityType {
 	
-	PERSION("个人"),
+	REGISTERED("注册"),
 	MERCHANT("商户");
 	
 	private String text;

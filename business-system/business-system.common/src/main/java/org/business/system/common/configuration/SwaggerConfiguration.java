@@ -32,7 +32,7 @@ public class SwaggerConfiguration {
     }
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("springboot利用swagger构建api文档2")
+                .title("XXX-对外开放测试接口")
                 .description("简单优雅的restfun风格，https://github.com/liuhui1994/start-learning")
                 .termsOfServiceUrl("https://github.com/liuhui1994/start-learning")
                 .version("1.0")
