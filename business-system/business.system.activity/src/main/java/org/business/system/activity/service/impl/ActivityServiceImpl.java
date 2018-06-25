@@ -1,7 +1,6 @@
 package org.business.system.activity.service.impl;
 
 import java.util.List;
-
 import org.business.system.activity.mapper.ActivityMapper;
 import org.business.system.activity.mapper.ActivityRuleMapper;
 import org.business.system.activity.mapper.RuleMapper;
@@ -12,7 +11,6 @@ import org.business.system.common.base.service.impl.BaseServiceImpl;
 import org.business.system.common.em.BooleanType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
 
@@ -53,6 +51,7 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity, Long> impleme
 	@Override
 	public List<Activity> getActivityList(Activity activity) {
 		Example example = createaExample(activity);
+		activityAward();
 		return activityMapper.selectByExample(example);
 	}
 

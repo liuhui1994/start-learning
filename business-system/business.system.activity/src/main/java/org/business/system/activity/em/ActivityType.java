@@ -2,8 +2,7 @@ package org.business.system.activity.em;
 
 public enum ActivityType {
 	
-	REGISTERED("注册"),
-	MERCHANT("商户");
+	REGISTERED("注册");
 	
 	private String text;
 	

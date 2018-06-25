@@ -19,6 +19,28 @@ increment by 1
 minvalue 1 
 no maxvalue start with 1;
 
+create sequence account_flow_id_sequence
+increment by 1 
+minvalue 1 
+no maxvalue start with 1;
+
+create sequence activity_id_sequence
+increment by 1 
+minvalue 1 
+no maxvalue start with 1;
+
+create sequence rule_id_sequence
+increment by 1 
+minvalue 1 
+no maxvalue start with 1;
+
+create sequence activity_rule_id_sequence
+increment by 1 
+minvalue 1 
+no maxvalue start with 1;
+
+
+
 -- ----------------------------
 -- Table structure for t_system_mobile_code
 -- ----------------------------
@@ -205,3 +227,149 @@ COMMENT ON COLUMN "public"."t_system_account"."account_state" IS '账户状态';
 -- Primary Key structure for table t_system_account
 -- ----------------------------
 ALTER TABLE "public"."t_system_account" ADD PRIMARY KEY ("id");
+
+
+-- ----------------------------
+-- Table structure for t_system_account_flow
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_system_account_flow";
+CREATE TABLE "public"."t_system_account_flow" (
+"id" int8 DEFAULT nextval('account_flow_id_sequence'::regclass) NOT NULL,
+"trade_id" int8 NOT NULL,
+"flow_type" varchar(20) COLLATE "default" NOT NULL,
+"amount" numeric(20) NOT NULL,
+"remain_amount" numeric(20) NOT NULL,
+"create_date" timestamp(6) NOT NULL,
+"remark" varchar COLLATE "default",
+"account_id" int8 NOT NULL
+)
+WITH (OIDS=FALSE)
+
+;
+COMMENT ON COLUMN "public"."t_system_account_flow"."id" IS '流水id';
+COMMENT ON COLUMN "public"."t_system_account_flow"."trade_id" IS '关联交易id';
+COMMENT ON COLUMN "public"."t_system_account_flow"."flow_type" IS '流水类型';
+COMMENT ON COLUMN "public"."t_system_account_flow"."amount" IS '流水金额';
+COMMENT ON COLUMN "public"."t_system_account_flow"."remain_amount" IS '账户现有金额';
+COMMENT ON COLUMN "public"."t_system_account_flow"."create_date" IS '创建时间';
+COMMENT ON COLUMN "public"."t_system_account_flow"."remark" IS '备注';
+COMMENT ON COLUMN "public"."t_system_account_flow"."account_id" IS '关联账户';
+
+-- ----------------------------
+-- Alter Sequences Owned By 
+-- ----------------------------
+
+-- ----------------------------
+-- Primary Key structure for table t_system_account_flow
+-- ----------------------------
+ALTER TABLE "public"."t_system_account_flow" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Table structure for t_system_activity
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_system_activity";
+CREATE TABLE "public"."t_system_activity" (
+"id" int8 DEFAULT nextval('activity_id_sequence'::regclass) NOT NULL,
+"activity_type" varchar(20) COLLATE "default" NOT NULL,
+"activity_name" varchar(20) COLLATE "default" NOT NULL,
+"limit_date_start" timestamp(6),
+"limit_time_area" varchar(80) COLLATE "default",
+"budget" numeric(20,2) NOT NULL ,
+"activity_state" varchar(20) COLLATE "default",
+"status" varchar(20) COLLATE "default",
+"create_date" timestamp(6) NOT NULL,
+"modify_date" timestamp(6) NOT NULL,
+"creator" varchar(20) COLLATE "default" NOT NULL,
+"modifier" varchar(20) COLLATE "default" NOT NULL,
+"activity_no" varchar(50) COLLATE "default",
+"remark" varchar(100) COLLATE "default",
+"limit_date_end" timestamp(6)
+)
+WITH (OIDS=FALSE)
+
+;
+COMMENT ON COLUMN "public"."t_system_activity"."id" IS '主键';
+COMMENT ON COLUMN "public"."t_system_activity"."activity_type" IS '活动类型';
+COMMENT ON COLUMN "public"."t_system_activity"."activity_name" IS '活动名称';
+COMMENT ON COLUMN "public"."t_system_activity"."limit_date_start" IS '活动开始时间限制';
+COMMENT ON COLUMN "public"."t_system_activity"."limit_time_area" IS '时间段限制,多时间段,分割';
+COMMENT ON COLUMN "public"."t_system_activity"."budget" IS '活动预算';
+COMMENT ON COLUMN "public"."t_system_activity"."activity_state" IS '活动状态';
+COMMENT ON COLUMN "public"."t_system_activity"."activity_no" IS '活动编号';
+COMMENT ON COLUMN "public"."t_system_activity"."remark" IS '备注';
+COMMENT ON COLUMN "public"."t_system_activity"."limit_date_end" IS '活动结束时间限制';
+
+-- ----------------------------
+-- Alter Sequences Owned By 
+-- ----------------------------
+
+-- ----------------------------
+-- Primary Key structure for table t_system_activity
+-- ----------------------------
+ALTER TABLE "public"."t_system_activity" ADD PRIMARY KEY ("id");
+
+
+-- ----------------------------
+-- Table structure for t_system_rule
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_system_rule";
+CREATE TABLE "public"."t_system_rule" (
+"id" int8 DEFAULT nextval('rule_id_sequence'::regclass) NOT NULL,
+"award_type" varchar(20) COLLATE "default" NOT NULL,
+"rule_name" varchar(20) COLLATE "default" NOT NULL,
+"limit_type" varchar(80) COLLATE "default",
+"the_odds" numeric(20,2) NOT NULL ,
+"prize" varchar(20) COLLATE "default",
+"status" varchar(20) COLLATE "default",
+"create_date" timestamp(6) NOT NULL,
+"modify_date" timestamp(6) NOT NULL,
+"creator" varchar(20) COLLATE "default" NOT NULL,
+"modifier" varchar(20) COLLATE "default" NOT NULL,
+"limit_count" numeric(20) ,
+"remark" varchar(100) COLLATE "default"
+)
+WITH (OIDS=FALSE)
+
+;
+COMMENT ON COLUMN "public"."t_system_rule"."id" IS '主键';
+COMMENT ON COLUMN "public"."t_system_rule"."award_type" IS '奖励类型';
+COMMENT ON COLUMN "public"."t_system_rule"."rule_name" IS '规则名称';
+COMMENT ON COLUMN "public"."t_system_rule"."limit_type" IS '限制类型';
+COMMENT ON COLUMN "public"."t_system_rule"."the_odds" IS '中奖概率';
+COMMENT ON COLUMN "public"."t_system_rule"."prize" IS '奖励';
+COMMENT ON COLUMN "public"."t_system_rule"."remark" IS '备注';
+COMMENT ON COLUMN "public"."t_system_rule"."limit_count" IS '限制领取数量';
+
+-- ----------------------------
+-- Alter Sequences Owned By 
+-- ----------------------------
+
+-- ----------------------------
+-- Primary Key structure for table t_system_activity
+-- ----------------------------
+ALTER TABLE "public"."t_system_rule" ADD PRIMARY KEY ("id");
+
+
+-- ----------------------------
+-- Table structure for t_system_activity_rule
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_system_activity_rule";
+CREATE TABLE "public"."t_system_activity_rule" (
+"id" int8 DEFAULT nextval('activity_rule_id_sequence'::regclass) NOT NULL,
+"activity_id" int8 NOT NULL,
+"rule_id" int8 NOT NULL
+)
+WITH (OIDS=FALSE)
+
+;
+COMMENT ON COLUMN "public"."t_system_activity_rule"."activity_id" IS '活动id';
+COMMENT ON COLUMN "public"."t_system_activity_rule"."rule_id" IS '规则id';
+
+-- ----------------------------
+-- Alter Sequences Owned By 
+-- ----------------------------
+
+-- ----------------------------
+-- Primary Key structure for table t_system_activity_rule
+-- ----------------------------
+ALTER TABLE "public"."t_system_activity_rule" ADD PRIMARY KEY ("id");
