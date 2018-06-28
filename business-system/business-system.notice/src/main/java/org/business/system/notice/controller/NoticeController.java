@@ -1,13 +1,22 @@
 package org.business.system.notice.controller;
 
-import org.business.system.notice.model.Notice;
+import java.util.List;
+
+import org.business.system.common.model.Notice;
+import org.business.system.common.response.ResponseMessage;
+import org.business.system.notice.model.dto.NoticeDto;
 import org.business.system.notice.service.NoticeService;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -66,6 +75,37 @@ public class NoticeController {
 
 		this.rabbitTemplate.convertAndSend("hello", message);
 		return "success";
+	}
+	
+	@ApiOperation(value="消息列表", notes="消息列表" )
+	@ApiImplicitParams({
+        @ApiImplicitParam(name = "noticeSelectDto", value = "用户查询对象", required = false, dataType = "NoticeDto"),
+        @ApiImplicitParam(name = "pageNum", value = "第几页", required = true, dataType = "Integer",paramType = "query"),
+        @ApiImplicitParam(name = "pageSize", value = "每页数量", required = false, dataType = "Integer",paramType = "query"),
+        @ApiImplicitParam(name = "orderBy", value = "排序", required = false, dataType = "String",paramType = "query"),
+	})
+	@RequestMapping(value ="/list", method = RequestMethod.POST)
+	public ResponseMessage<PageInfo<NoticeDto>> noticeList(
+    		@RequestBody NoticeDto noticeSelectDto,
+		    @RequestParam(name="pageNum") Integer pageNum,
+		    @RequestParam(name="pageSize",defaultValue="10") Integer pageSize,
+		    @RequestParam(name="orderBy",defaultValue="create_date") String orderBy
+			) {
+		PageHelper.startPage(pageNum, pageSize, orderBy);
+		List<NoticeDto> noticeDtoLiist = noticeService.getNoticeListByDao(noticeSelectDto);
+		PageInfo<NoticeDto> pageInfo = new PageInfo<>(noticeDtoLiist);
+		return ResponseMessage.success(pageInfo);
+	}
+	
+	
+	@ApiOperation(value="消息列表标记已读", notes="消息列表标记已读" )
+	@ApiImplicitParams({
+        @ApiImplicitParam(name = "ids", value = "标记ID数据", required = false, dataType = "Long"),
+	})
+	@RequestMapping(value ="/signRead", method = RequestMethod.POST)
+	public ResponseMessage signRead(@RequestParam(name="ids") Long ids[]) {
+		noticeService.signRead(ids);
+		return ResponseMessage.success();
 	}
 	
 }
