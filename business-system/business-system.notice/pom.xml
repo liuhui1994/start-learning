@@ -167,6 +167,12 @@
 			<artifactId>business-system.common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+		<dependency>
+			 <groupId>org.apache.poi</groupId>
+			 <artifactId>poi</artifactId>
+			 <version>3.17</version>
+		</dependency>
 
 	</dependencies>
 	
