@@ -34,7 +34,7 @@ public class AccountFlowController {
         @ApiImplicitParam(name = "orderBy", value = "排序", required = false, dataType = "String",paramType = "query"),
 	})
 	@RequestMapping(value ="/list", method = RequestMethod.POST)
-	public ResponseMessage<PageInfo<AccountFlowDto>> noticeList(
+	public ResponseMessage<PageInfo<AccountFlowDto>> accountFlowList(
     		@RequestBody AccountFlowDto accountFlowDto,
 		    @RequestParam(name="pageNum") Integer pageNum,
 		    @RequestParam(name="pageSize",defaultValue="10") Integer pageSize,
