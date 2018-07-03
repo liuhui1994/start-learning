@@ -39,6 +39,11 @@ increment by 1
 minvalue 1 
 no maxvalue start with 1;
 
+create sequence member_id_sequence
+increment by 1 
+minvalue 1 
+no maxvalue start with 1;
+
 
 
 -- ----------------------------
@@ -373,3 +378,47 @@ COMMENT ON COLUMN "public"."t_system_activity_rule"."rule_id" IS '规则id';
 -- Primary Key structure for table t_system_activity_rule
 -- ----------------------------
 ALTER TABLE "public"."t_system_activity_rule" ADD PRIMARY KEY ("id");
+
+
+-- ----------------------------
+-- Table structure for t_system_member
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_system_member";
+CREATE TABLE "public"."t_system_member" (
+"id" int8 DEFAULT nextval('member_id_sequence'::regclass) NOT NULL,
+"member_name" varchar(50) COLLATE "default" NOT NULL,
+"member_phone" varchar(20) COLLATE "default" NOT NULL,
+"parent_id" int8,
+"status" varchar(20) COLLATE "default" NOT NULL,
+"create_date" date NOT NULL,
+"modify_date" date NOT NULL,
+"creator" varchar(20) COLLATE "default" NOT NULL,
+"modifier" varchar(20) COLLATE "default" NOT NULL,
+"remark" varchar(100) COLLATE "default",
+"member_type" varchar(20) COLLATE "default" NOT NULL,
+"member_state" varchar(20) COLLATE "default" NOT NULL,
+"invite_code" varchar(50) COLLATE "default" NOT NULL,
+"member_no"  varchar(50) COLLATE "default" NOT NULL,
+"user_id" int8
+)
+WITH (OIDS=FALSE)
+
+;
+COMMENT ON COLUMN "public"."t_system_member"."member_name" IS '会员名称';
+COMMENT ON COLUMN "public"."t_system_member"."member_phone" IS '联系方式';
+COMMENT ON COLUMN "public"."t_system_member"."parent_id" IS '父级Id';
+COMMENT ON COLUMN "public"."t_system_member"."remark" IS '备注';
+COMMENT ON COLUMN "public"."t_system_member"."member_type" IS '会员类型';
+COMMENT ON COLUMN "public"."t_system_member"."member_state" IS '会员状态';
+COMMENT ON COLUMN "public"."t_system_member"."invite_code" IS '会员邀请码';
+COMMENT ON COLUMN "public"."t_system_member"."user_id" IS '用户id';
+COMMENT ON COLUMN "public"."t_system_member"."member_no" IS '会员编号';
+
+-- ----------------------------
+-- Alter Sequences Owned By 
+-- ----------------------------
+
+-- ----------------------------
+-- Primary Key structure for table t_system_member
+-- ----------------------------
+ALTER TABLE "public"."t_system_member" ADD PRIMARY KEY ("id");

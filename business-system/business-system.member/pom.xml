@@ -8,16 +8,19 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent> -->
   
-  	<parent>
+   <parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.6.RELEASE</version>
 	</parent>
-	
   <groupId>com.business</groupId>
-  <artifactId>business.system.activity</artifactId>
+  <artifactId>business-system.member</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>business.system.activity</name>
+  
+
+  <name>business-system.member</name>
+
+
   
   <url>http://maven.apache.org</url>
   
@@ -149,4 +152,3 @@
 	</dependencyManagement>
 	<packaging>war</packaging>
 </project>
-

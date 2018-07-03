@@ -18,6 +18,7 @@
     <module>business-system.eureka-server</module>
     <module>business-system.newstart</module>
     <module>business.system.activity</module>
+    <module>business-system.member</module>
   </modules>
   
   <parent>
