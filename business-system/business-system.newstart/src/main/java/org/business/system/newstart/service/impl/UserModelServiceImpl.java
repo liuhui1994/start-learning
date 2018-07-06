@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.business.system.common.base.model.Entity;
+import org.business.system.common.base.service.DefaultService;
 import org.business.system.common.base.service.impl.BaseServiceImpl;
 import org.business.system.common.constants.GlobalConstants;
 import org.business.system.common.constants.SecurityConstants;
@@ -28,7 +30,7 @@ import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
 
 @Service
-public class UserModelServiceImpl extends BaseServiceImpl<UserModel, Long> implements UserModelService{
+public class UserModelServiceImpl extends BaseServiceImpl<UserModel, Long> implements UserModelService,DefaultService{
 	
 	@Autowired
 	private UserModelMapper userModelMapper;
@@ -149,19 +151,15 @@ public class UserModelServiceImpl extends BaseServiceImpl<UserModel, Long> imple
         if(ObjectUtils.isEmpty(userType) || userType.equals(UserType.SYSTEM)) {
         	userModel.setUserType(UserType.SYSTEM);
         }
-                
-        userModel.setRegisterIp(request.getRemoteAddr());
-        userModel.setCreateDate(new Date());
-        userModel.setModifyDate(new Date());
-        userModel.setCreator("admin");
-        userModel.setModifier("admin");
+        
+        insertEntity(userModel);
+        userModel.setRegisterIp(request.getRemoteAddr());   
         userModel.setState(UserState.OPEN);
-        userModel.setStatus(BooleanType.FALSE);
         
         userModel.setAppId(UUID.randomUUID().toString().replace("-", ""));
         userModel.setAppKey(UUID.randomUUID().toString().replace("-", ""));
         
-        int success = userModelMapper.insertSelective(userModel);
+        int success = userModelMapper.insertUseGeneratedKeys(userModel); //插入返回主键
         
         if(!ObjectUtils.isEmpty(userType) && !userType.equals(UserType.SYSTEM)) {
         	//非系统用户创建账户体系

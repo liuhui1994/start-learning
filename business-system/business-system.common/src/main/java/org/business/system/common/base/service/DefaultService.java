@@ -9,8 +9,8 @@ public interface DefaultService {
 	
 	default void insertEntity(Entity entity) {
 		entity.setCreateDate(new Date());
-		entity.setCreator("");
-		entity.setModifier("");
+		entity.setCreator("admin");
+		entity.setModifier("admin");
 		entity.setModifyDate(new Date());
 		entity.setStatus(BooleanType.FALSE);
 	}
@@ -18,7 +18,7 @@ public interface DefaultService {
 	
 	
 	default void updateEntity(Entity entity) {
-		entity.setModifier("");
+		entity.setModifier("admin");
 		entity.setModifyDate(new Date());
 	}
 

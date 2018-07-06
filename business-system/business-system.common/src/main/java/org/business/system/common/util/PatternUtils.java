@@ -11,7 +11,7 @@ public class PatternUtils {
 	 * @return
 	 */
 	public static boolean validateMobile(String mobile) {
-		 String regex = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0,5-9]))\\d{8}$";
+		 String regex = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0-9]))\\d{8}$";
 //		 String regex = "^1[3|4|5|7|8][0-9]\\d{4,8}$";
 		 if(mobile==null || "".equals(mobile) || mobile.length()!=11) {
 			 return false;
@@ -36,6 +36,10 @@ public class PatternUtils {
          Matcher m = p.matcher(email);
          boolean isMatch = m.matches();
 		 return isMatch;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(validateMobile("17621875348"));
 	}
 	
 }
