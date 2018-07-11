@@ -5,6 +5,7 @@ import java.util.List;
 import org.business.system.common.base.service.BaseService;
 import org.business.system.common.em.UserState;
 import org.business.system.common.model.UserModel;
+import org.business.system.common.model.dto.UserModelDto;
 
 public interface UserModelService extends BaseService<UserModel, Long> {
 	
@@ -34,7 +35,7 @@ public interface UserModelService extends BaseService<UserModel, Long> {
 	 * @param user
 	 * @return
 	 */
-	public UserModel register(UserModel user);
+	public UserModel register(UserModelDto  user);
 	
 	/**
 	 * 用户冻结或解冻

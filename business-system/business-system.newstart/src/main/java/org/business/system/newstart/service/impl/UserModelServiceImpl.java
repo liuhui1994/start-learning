@@ -16,6 +16,7 @@ import org.business.system.common.em.UserState;
 import org.business.system.common.em.UserType;
 import org.business.system.common.exception.CommonErrorException;
 import org.business.system.common.model.UserModel;
+import org.business.system.common.model.dto.UserModelDto;
 import org.business.system.common.util.AesUtil;
 import org.business.system.common.util.Md5;
 import org.business.system.common.util.PatternUtils;
@@ -98,7 +99,7 @@ public class UserModelServiceImpl extends BaseServiceImpl<UserModel, Long> imple
 
 	@Override
 	@Transactional
-	public UserModel register(UserModel user) {
+	public UserModel register(UserModelDto user) {
         UserModel userModel = new UserModel();
         String mobile = user.getPhone();
         String loginName = user.getLoginName();

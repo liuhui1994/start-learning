@@ -1,6 +1,7 @@
 package org.business.system.common.cloud.user;
 
 import org.business.system.common.model.UserModel;
+import org.business.system.common.model.dto.UserModelDto;
 import org.business.system.common.response.ResponseMessage;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,5 +20,5 @@ public interface UserCloudService {
 	public  ResponseMessage<UserModel> getUserByLoginName(@RequestParam("loginName") String loginName);
 	
 	@RequestMapping(value="/user/register",method = RequestMethod.POST)
-	public  ResponseMessage<UserModel> register(@RequestBody UserModel userModel);
+	public  ResponseMessage<UserModel> register(@RequestBody UserModelDto  userModel);
 }

@@ -2,12 +2,9 @@ package org.business.system.auth.controller;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.business.system.auth.comfiguration.User;
 import org.business.system.auth.util.AuthServiceUtil;
 import org.business.system.auth.util.Oauth2ResponseToken;
-import org.business.system.common.cloud.auth.OauthCloudService;
 import org.business.system.common.model.UserModel;
 import org.business.system.common.response.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;

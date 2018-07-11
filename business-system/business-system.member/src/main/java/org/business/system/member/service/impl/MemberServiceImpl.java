@@ -8,6 +8,7 @@ import org.business.system.common.cloud.user.UserCloudService;
 import org.business.system.common.em.BooleanType;
 import org.business.system.common.exception.CommonErrorException;
 import org.business.system.common.model.UserModel;
+import org.business.system.common.model.dto.UserModelDto;
 import org.business.system.common.response.ResponseMessage;
 import org.business.system.common.util.PatternUtils;
 import org.business.system.common.util.RandomUtils;
@@ -81,7 +82,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
         if(success<=0) {
         	throw  new CommonErrorException("00", "新增失败");
         }
-        UserModel userModel = new UserModel();
+        UserModelDto  userModel = new UserModelDto();
         userModel.setPhone(mobile);
         ResponseMessage<UserModel> resultModel = userCloudService.register(userModel);
         if(resultModel==null || !resultModel.getCode().equals("200")) {
@@ -103,6 +104,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
 	}
 
 	@Override
+	@Transactional
 	public Member updateMember(Member uptMmeber) {
         if(uptMmeber==null || uptMmeber.getId()==null) {
         	throw new CommonErrorException("00", "会员唯一标识必须携带");
@@ -121,7 +123,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
         if(!ObjectUtils.isEmpty(remark)) {
         	member.setRemark(remark);
         }
-        int success = memberMapper.updateByPrimaryKey(member);
+        int success = memberMapper.updateByPrimaryKeySelective(member);
         if(success<=0) {
         	throw new CommonErrorException("00", "修改失败");
         }
