@@ -6,16 +6,16 @@ import org.business.system.common.base.service.DefaultService;
 import org.business.system.common.base.service.impl.BaseServiceImpl;
 import org.business.system.common.cloud.user.UserCloudService;
 import org.business.system.common.em.BooleanType;
+import org.business.system.common.em.MemberState;
+import org.business.system.common.em.MemberType;
 import org.business.system.common.exception.CommonErrorException;
+import org.business.system.common.model.Member;
 import org.business.system.common.model.UserModel;
 import org.business.system.common.model.dto.UserModelDto;
 import org.business.system.common.response.ResponseMessage;
 import org.business.system.common.util.PatternUtils;
 import org.business.system.common.util.RandomUtils;
-import org.business.system.member.em.MemberState;
-import org.business.system.member.em.MemberType;
 import org.business.system.member.mapper.MemberMapper;
-import org.business.system.member.model.Member;
 import org.business.system.member.model.dto.MemberDto;
 import org.business.system.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +73,14 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
         	newMember.setMemberName(mobile);
         }
         insertEntity(newMember);
-        newMember.setInviteCode(RandomUtils.generateString(8)); //随机生成会员邀请码
+        String code = RandomUtils.generateString(8);
+        
+        //判断当前邀请码是否存在   
+		if(getMemberDetailByCode(code)!=null) {
+			throw new CommonErrorException("03", "当前邀请码已存在");
+		}
+
+        newMember.setInviteCode(code); //随机生成会员邀请码
         newMember.setMemberNo("1255");
         newMember.setMemberState(MemberState.OPEN);
         newMember.setMemberType(MemberType.OPEN);
@@ -86,7 +93,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
         userModel.setPhone(mobile);
         ResponseMessage<UserModel> resultModel = userCloudService.register(userModel);
         if(resultModel==null || !resultModel.getCode().equals("200")) {
-        	throw  new CommonErrorException("00", "服务调用失败");
+        	throw  new CommonErrorException("00", resultModel.getMessage());
         }
         Long userId = resultModel.getData().getId();
         newMember.setUserId(userId);
@@ -128,6 +135,21 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
         	throw new CommonErrorException("00", "修改失败");
         }
 		return member;
+	}
+
+	@Override
+	public Member getMemberDetailByCode(String code) {
+		if(ObjectUtils.isEmpty(code)) {
+			throw new CommonErrorException("01", "邀请码不能为空");
+		}
+		Example example = new Example(Member.class);
+        Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("inviteCode", code);
+        List<Member> memberList = memberMapper.selectByExample(example);
+        if(memberList==null || memberList.isEmpty()) {
+        	return null;
+        }
+    	return memberList.get(0);
 	}
 
 }

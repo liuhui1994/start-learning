@@ -15,23 +15,23 @@ public class Activity extends Entity {
 	@Id
 	private Long id;
 	
-	private ActivityType activityType;
+	private ActivityType activityType;  //活动类型
 	
-	private String activityName;
+	private String activityName;       //活动名称
 	
-	private Date limitDateStart;
+	private Date limitDateStart;      //限制开始时间
 	
-	private Date limitDateEnd;
+	private Date limitDateEnd;       //限制结束时间
 	
-	private String limitTimeArea;
+	private String limitTimeArea;   //限制时间区间
 	
-	private BigDecimal budget;
+	private BigDecimal budget;     //预算
 	
-	private ActivityState activityState;
+	private ActivityState activityState;  //活动状态
 	
-	private String activityNo;
+	private String activityNo;    //活动编号
 	
-	private String remark;
+	private String remark;    //备注
 
 	public Long getId() {
 		return id;

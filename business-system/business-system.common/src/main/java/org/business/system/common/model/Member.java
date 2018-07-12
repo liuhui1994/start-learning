@@ -1,11 +1,11 @@
-package org.business.system.member.model;
+package org.business.system.common.model;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.business.system.common.base.model.Entity;
-import org.business.system.member.em.MemberState;
-import org.business.system.member.em.MemberType;
+import org.business.system.common.em.MemberState;
+import org.business.system.common.em.MemberType;
 
 @Table(name="t_system_member")
 public class Member extends Entity {

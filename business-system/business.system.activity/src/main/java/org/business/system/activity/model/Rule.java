@@ -13,19 +13,19 @@ public class Rule extends Entity{
 	@Id
 	private Long id;
 	
-	private String ruleNmae;
+	private String ruleNmae;   //规则名称
 	
-	private BigDecimal theOdds;
+	private BigDecimal theOdds;  //中奖概率
 	
-	private String awardType;
+	private String awardType;  //奖励类型
 	
-	private String prize;
+	private String prize;     //奖品
 	
-	private String limitType;
+	private String limitType;  //限制类型
 	
-	private String limitCount;
+	private String limitCount; //限制数量
 	
-	private String remark;
+	private String remark;  //备注
 
 	public Long getId() {
 		return id;

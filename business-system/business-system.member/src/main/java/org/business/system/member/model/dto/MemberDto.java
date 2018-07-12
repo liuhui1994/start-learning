@@ -1,6 +1,6 @@
 package org.business.system.member.model.dto;
 
-import org.business.system.member.model.Member;
+import org.business.system.common.model.Member;
 
 public class MemberDto extends Member {
 	

@@ -3,7 +3,7 @@ package org.business.system.member.service;
 import java.util.List;
 
 import org.business.system.common.base.service.BaseService;
-import org.business.system.member.model.Member;
+import org.business.system.common.model.Member;
 import org.business.system.member.model.dto.MemberDto;
 
 public interface MemberService extends BaseService<Member, Long> {
@@ -14,6 +14,13 @@ public interface MemberService extends BaseService<Member, Long> {
 	 * @return
 	 */
 	public Member getMemberDetailById(Long id);
+	
+	/**
+	 * 通过邀请码获取会员详情
+	 * @param code
+	 * @return
+	 */
+	public Member getMemberDetailByCode(String code);
 	
 	/**
 	 * 新增会员

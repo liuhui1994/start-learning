@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.business.system.common.base.model.Entity;
 import org.business.system.common.base.service.DefaultService;
 import org.business.system.common.base.service.impl.BaseServiceImpl;
 import org.business.system.common.constants.GlobalConstants;
@@ -109,6 +108,7 @@ public class UserModelServiceImpl extends BaseServiceImpl<UserModel, Long> imple
         String payPassword= user.getPayPassword();
         String nickName = user.getNickName();
         String username = user.getUsername();
+        String invitCode = user.getInvitCode();
         //查询该用户名是否存在
         if(!ObjectUtils.isEmpty(mobile)){
         	if(!PatternUtils.validateMobile(mobile)){
@@ -162,10 +162,16 @@ public class UserModelServiceImpl extends BaseServiceImpl<UserModel, Long> imple
         
         int success = userModelMapper.insertUseGeneratedKeys(userModel); //插入返回主键
         
+        //奖励活动
         if(!ObjectUtils.isEmpty(userType) && !userType.equals(UserType.SYSTEM)) {
         	//非系统用户创建账户体系
         	
         	//注册奖励
+        }
+        //邀请活动
+        if(!ObjectUtils.isEmpty(invitCode)){
+        	
+        	//邀请码
         }
         
         if(success<=0){

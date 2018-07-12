@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.business.system.activity.model.Activity;
 import org.business.system.activity.service.ActivityService;
-import org.business.system.common.model.UserModel;
 import org.business.system.common.response.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,8 +33,7 @@ public class ActivityController {
 	})
 	@RequestMapping(value ="/{id}", method = RequestMethod.GET)
 	public ResponseMessage<Activity> validateCode(
-			@PathVariable(name="id") Long id
-			) {
+			@PathVariable(name="id") Long id) {
 			return ResponseMessage.success(activityService.getActivityById(id));
 	}
 	

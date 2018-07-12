@@ -3,8 +3,8 @@ package org.business.system.member.controller;
 
 import java.util.List;
 
+import org.business.system.common.model.Member;
 import org.business.system.common.response.ResponseMessage;
-import org.business.system.member.model.Member;
 import org.business.system.member.model.dto.MemberDto;
 import org.business.system.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +36,15 @@ public class MemberController {
 	@RequestMapping(value ="/{id}", method = RequestMethod.GET)
 	public ResponseMessage<Member> detail(@PathVariable(name="id") Long id) {
 			return ResponseMessage.success(memberService.getMemberDetailById(id));
+	}
+	
+	@ApiOperation(value="通过邀请码获取会员详情", notes="通过邀请码获取会员详情" )
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="code", value="会员邀请码",required = true,dataType="Long",paramType="path"),
+	})
+	@RequestMapping(value ="/detail/{code}", method = RequestMethod.GET)
+	public ResponseMessage<Member> detailByCode(@PathVariable(name="code") String code) {
+			return ResponseMessage.success(memberService.getMemberDetailByCode(code));
 	}
 	
 	

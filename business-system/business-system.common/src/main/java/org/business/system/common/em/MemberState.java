@@ -1,13 +1,13 @@
-package org.business.system.member.em;
+package org.business.system.common.em;
 
-public enum MemberType {
+public enum MemberState {
 	
 	FREEZ("冻结"),
 	OPEN("开放");
 	
 	private String text;
 	
-	MemberType(String text) {
+	MemberState(String text) {
 		this.text = text;
 	}
 

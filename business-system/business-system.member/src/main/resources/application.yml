@@ -10,7 +10,7 @@ spring:
       password: admin
       driver-class-name: org.postgresql.Driver  
     application:
-      name: activity-service
+      name: member-service
 
       
       
