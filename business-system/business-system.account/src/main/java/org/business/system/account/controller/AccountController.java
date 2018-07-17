@@ -2,8 +2,8 @@ package org.business.system.account.controller;
 
 import java.math.BigDecimal;
 
-import org.business.system.account.model.Account;
 import org.business.system.account.service.AccountService;
+import org.business.system.common.model.Account;
 import org.business.system.common.response.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +17,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
+@RequestMapping("/manager")
 public class AccountController {
 	
 	 @Autowired

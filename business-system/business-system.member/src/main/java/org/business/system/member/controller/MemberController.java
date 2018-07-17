@@ -63,7 +63,7 @@ public class MemberController {
 	})
 	@RequestMapping(value ="/update", method = RequestMethod.POST)
 	public ResponseMessage<Member> updateMember(@RequestBody Member member) {
-			return ResponseMessage.success(memberService.insertMember(member));
+			return ResponseMessage.success(memberService.updateMember(member));
 	}
 	
 	@ApiOperation(value="会员列表", notes="会员列表" )

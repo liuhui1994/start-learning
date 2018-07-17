@@ -19,6 +19,15 @@ public class GlobalConstants {
 	
 	//数据编辑异常
 	public static final String SERVICE_EXCEPTION_MESSAGE_UPDATE ="编辑失败";
+	
+    //公共异常错误码
+	public static final String SERVICE_EXCEPTION_CODE_ONE = "01";
+	public static final String SERVICE_EXCEPTION_CODE_TWO = "02";
+	public static final String SERVICE_EXCEPTION_CODE_THREE = "03";
+	public static final String SERVICE_EXCEPTION_CODE_FOUR = "04";
+	public static final String SERVICE_EXCEPTION_CODE_FIVE = "05";
+	public static final String SERVICE_EXCEPTION_CODE_SIX = "06";
+
 
 
 }

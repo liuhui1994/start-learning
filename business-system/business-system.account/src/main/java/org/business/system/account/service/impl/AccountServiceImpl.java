@@ -9,7 +9,6 @@ import java.util.List;
 import org.business.system.account.constants.AccountConstants;
 import org.business.system.account.mapper.AccountFlowMapper;
 import org.business.system.account.mapper.AccountMapper;
-import org.business.system.account.model.Account;
 import org.business.system.account.model.AccountFlow;
 import org.business.system.account.service.AccountService;
 import org.business.system.common.base.service.impl.BaseServiceImpl;
@@ -18,6 +17,7 @@ import org.business.system.common.constants.GlobalConstants;
 import org.business.system.common.em.AccountState;
 import org.business.system.common.em.TradeType;
 import org.business.system.common.exception.CommonErrorException;
+import org.business.system.common.model.Account;
 import org.business.system.common.util.Md5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -119,10 +119,11 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 			throw new CommonErrorException(AccountConstants.EXCEPTION_CODE_ACCOUNT_FREEZ,
 					AccountConstants.EXCEPTION_MESSGAE_ACCOUNT_FREEZ);
 		}
-		
-		if(opType !=null && opType.equals(TradeType.ORDER.name())) { //下单
+		//金额操作+
+		if(opType !=null && opType.equals(TradeType.RECHANGR.name())) { //充值
 		    account.setAmount(account.getAmount().add(amount));
 		}
+		//金额操作-
 		if(opType !=null && opType.equals(TradeType.WITHDRAWAL.name())){ //提现
 		    account.setWithdrawalAmount(account.getWithdrawalAmount().subtract(amount));
 		}
@@ -142,7 +143,7 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
         accountFlow.setRemainAmount(account.getAmount());
         accountFlow.setFlowType(opType);
         accountFlow.setRemark("备注");
-        accountFlow.setTradeId(1L); 
+        accountFlow.setTradeId(1L);  //关联交易id
         success = accountFlowMapper.insertSelective(accountFlow);
 	    if(success<=0) {
 			throw new CommonErrorException(GlobalConstants.SERVICE_INVOKE_EXCEPTION_CODE,

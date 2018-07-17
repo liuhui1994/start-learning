@@ -149,6 +149,7 @@ public class UserModelServiceImpl extends BaseServiceImpl<UserModel, Long> imple
         if(ObjectUtils.isEmpty(payAccount)) {
         	userModel.setPayAccount(null);
         }
+        //默认为系统用户
         if(ObjectUtils.isEmpty(userType) || userType.equals(UserType.SYSTEM)) {
         	userModel.setUserType(UserType.SYSTEM);
         }

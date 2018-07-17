@@ -1,4 +1,4 @@
-package org.business.system.account.model;
+package org.business.system.common.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

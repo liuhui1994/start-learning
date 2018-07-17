@@ -2,8 +2,8 @@ package org.business.system.account.service;
 
 import java.math.BigDecimal;
 
-import org.business.system.account.model.Account;
 import org.business.system.common.base.service.BaseService;
+import org.business.system.common.model.Account;
 
 public interface AccountService extends BaseService<Account, Long>{
 	

@@ -3,11 +3,12 @@ package org.business.system.newstart.configuration;
 
 import java.util.Properties;
 
-import org.business.system.common.configuration.BaseMapper;
+
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import tk.mybatis.mapper.common.BaseMapper;
 import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 
 @Configuration
