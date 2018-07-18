@@ -21,7 +21,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/activity")
+@RequestMapping("/manager")
 public class ActivityController {
 
 	@Autowired
@@ -32,9 +32,28 @@ public class ActivityController {
 		@ApiImplicitParam(name="id", value="活动id",required = true,dataType="Long",paramType="path"),
 	})
 	@RequestMapping(value ="/{id}", method = RequestMethod.GET)
-	public ResponseMessage<Activity> validateCode(
-			@PathVariable(name="id") Long id) {
+	public ResponseMessage<Activity> activityDetail(@PathVariable(name="id") Long id) {
 			return ResponseMessage.success(activityService.getActivityById(id));
+	}
+	
+	@ApiOperation(value="新增活动", notes="新增活动" )
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="activity", value="活动id",required = true,dataType="Activity"),
+	})
+	@RequestMapping(value ="/insert", method = RequestMethod.POST)
+	public ResponseMessage<Activity> insertActivity(
+			@RequestBody Activity activity) {
+			return ResponseMessage.success(activityService.insertActivity(activity));
+	}
+	
+	@ApiOperation(value="编辑活动", notes="编辑活动" )
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="activity", value="活动id",required = true,dataType="Activity"),
+	})
+	@RequestMapping(value ="/update", method = RequestMethod.POST)
+	public ResponseMessage<Activity> updateActivity(
+			@RequestBody Activity activity) {
+			return ResponseMessage.success(activityService.updateActivity(activity));
 	}
 	
 	
@@ -46,7 +65,7 @@ public class ActivityController {
             @ApiImplicitParam(name = "orderBy", value = "排序", required = false, dataType = "String",paramType = "query"),
 
     })
-    @RequestMapping(value="/list", method= RequestMethod.POST)
+    @RequestMapping(value="/activitylist", method= RequestMethod.POST)
     public ResponseMessage<PageInfo<Activity>> list(
     		@RequestBody Activity activity,
 		    @RequestParam(name="pageNum") Integer pageNum,
