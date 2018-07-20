@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.business.system.auth.comfiguration.User;
 import org.business.system.auth.util.AuthServiceUtil;
 import org.business.system.auth.util.Oauth2ResponseToken;
+import org.business.system.common.em.UserType;
 import org.business.system.common.model.UserModel;
 import org.business.system.common.response.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,8 @@ public class Oauth2Controller {
 	@RequestMapping(value="/ssoLogin",method=RequestMethod.POST)
 	public ResponseMessage<Oauth2ResponseToken> ssoLogin(
 			@RequestParam(name="userName" ,required = true) String userName,
-			@RequestParam(name="password" ,required = true) String password) throws JsonParseException, JsonMappingException, IOException{
+			@RequestParam(name="password" ,required = true) String password,
+			@RequestParam(name="userType",required = true) UserType userType) throws JsonParseException, JsonMappingException, IOException{
         String  json = AuthServiceUtil.doPost(auth_url, userName, password);
         Oauth2ResponseToken token  = new ObjectMapper().readValue(json, Oauth2ResponseToken.class);
 		return ResponseMessage.success(token);
