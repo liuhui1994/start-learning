@@ -208,7 +208,7 @@ CREATE TABLE "public"."t_system_account" (
 "update_date" timestamp(6) NOT NULL,
 "update_field" varchar(50) COLLATE "default" NOT NULL,
 "version" int8 NOT NULL,
-"account_state" varchar2(20) NOT NULL
+"account_state" varchar(20) NOT NULL
 )
 WITH (OIDS=FALSE)
 
