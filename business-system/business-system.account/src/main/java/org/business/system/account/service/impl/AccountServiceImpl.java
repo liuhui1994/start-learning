@@ -96,6 +96,14 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 //	@TxTransaction(isStart=true)
 	public Account accountAddAndReduce(Long accountId, String accountType, BigDecimal amount, String opType) {
 		int success = 0;
+		if(ObjectUtils.isEmpty(accountId)) {
+			throw new CommonErrorException(AccountConstants.EXCEPTION_CODE_ACCOUNT_USER_SIGN,
+					AccountConstants.EXCEPTION_MESSGAE_ACCOUNT_USER_SIGN);
+		}
+		if(ObjectUtils.isEmpty(accountType)) {
+			throw new CommonErrorException(AccountConstants.EXCEPTION_CODE_ACCOUNT_TYPE_NOT_NULL,
+					AccountConstants.EXCEPTION_MESSGAE_ACCOUNT_TYPE_NOT_NULL);
+		}
 		Account account = selectAccountByAccountIdAndType(accountId, accountType);
 		if(account == null) {
 			throw  new CommonErrorException(AccountConstants.EXCEPTION_CODE_ACCOUNT_EXIST,
@@ -149,6 +157,8 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, Long> implement
 			throw new CommonErrorException(GlobalConstants.SERVICE_INVOKE_EXCEPTION_CODE,
 					GlobalConstants.SERVICE_EXCEPTION_MESSAGE);
 	    }
+	    
+	    //通知调用
 		return account;
 	}
 	

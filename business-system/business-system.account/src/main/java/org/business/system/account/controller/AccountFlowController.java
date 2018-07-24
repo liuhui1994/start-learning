@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.business.system.account.model.AccountFlowDto;
 import org.business.system.account.service.AccountFlowService;
+import org.business.system.common.base.service.SecurityValidateService;
 import org.business.system.common.response.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,9 @@ public class AccountFlowController {
 	@Autowired
 	private AccountFlowService  accountFlowService;
 	
+	@Autowired
+	private SecurityValidateService securityValidateService;
+	
 	@ApiOperation(value="账户流水列表", notes="账户流水列表" )
 	@ApiImplicitParams({
         @ApiImplicitParam(name = "accountFlowDto", value = "账户流水查询对象", required = false, dataType = "AccountFlowDto"),
@@ -40,6 +44,8 @@ public class AccountFlowController {
 		    @RequestParam(name="pageSize",defaultValue="10") Integer pageSize,
 		    @RequestParam(name="orderBy",defaultValue="create_date") String orderBy
 			) {
+		String userIdEnc = accountFlowDto.getUserIdEnc();
+		accountFlowDto.setAccountId(securityValidateService.getUserIdByUserIdEnc(userIdEnc));
 		PageHelper.startPage(pageNum, pageSize, orderBy);
 		List<AccountFlowDto> accountFlowDtoLiist = accountFlowService.getAccountFlowListByDao(accountFlowDto);
 		PageInfo<AccountFlowDto> pageInfo = new PageInfo<AccountFlowDto>(accountFlowDtoLiist);

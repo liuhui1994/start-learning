@@ -55,7 +55,7 @@ public class UserModelController {
 	
 	@ApiOperation(value="通过手机号获取用户详情", notes="根据用户的唯一手机号来获取用户信息" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "mobile", value = "图书ID", required = true, dataType = "String",paramType = "query"),
+            @ApiImplicitParam(name = "mobile", value = "手机号", required = true, dataType = "String",paramType = "query"),
     })
     @RequestMapping(value="/detailByMobile", method= RequestMethod.GET)
     public  ResponseMessage<UserModelDto> detailByMobile(@RequestParam(name="mobile") String  mobile) { 
@@ -73,7 +73,7 @@ public class UserModelController {
 	
 	@ApiOperation(value="通过登录名获取用户详情", notes="根据用户的唯一登录名来获取用户信息" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "loginName", value = "图书ID", required = true, dataType = "String",paramType = "query"),
+            @ApiImplicitParam(name = "loginName", value = "登录名", required = true, dataType = "String",paramType = "query"),
     })
     @RequestMapping(value="/detailByLoginName", method= RequestMethod.GET)
     public ResponseMessage<UserModelDto> detailByLoginName(@RequestParam(name="loginName") String  loignName) { 
