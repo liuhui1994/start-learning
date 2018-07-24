@@ -8,6 +8,7 @@ import org.business.system.common.model.UserModel;
 import org.business.system.common.model.dto.UserModelDto;
 import org.business.system.common.response.ResponseMessage;
 import org.business.system.common.util.AesUtil;
+import org.business.system.newstart.em.ValidateType;
 import org.business.system.newstart.service.UserModelService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,5 +128,26 @@ public class UserModelController {
 		    @RequestParam(name="userIdEnc") String userIdEnc,
 	  		@RequestParam(name="state") UserState state) {
 		   return ResponseMessage.success(userModelService.openOrFreez(userIdEnc, state));
+   }
+    
+    
+    @RequestMapping(value="/resetPaypassword",method=RequestMethod.POST)
+	@ApiOperation(value="用户重置支付密码", notes="用户重置支付密码" )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userIdEnc", value = "用户唯一标识", required = true, dataType = "String",paramType="query"),
+            @ApiImplicitParam(name = "validateType", value = "校验类型", required = true, dataType = "ValidateType",paramType="query"),
+            @ApiImplicitParam(name = "code", value = "手机验证码",  dataType = "String",paramType="query"),
+            @ApiImplicitParam(name = "oldPaypassword", value = "旧支付密码", dataType = "String",paramType="query"),
+            @ApiImplicitParam(name = "newPaypassword1", value = "新支付密码1",required = true,dataType = "String",paramType="query"),
+            @ApiImplicitParam(name = "newPaypassword2", value = "新支付密码2",required = true,dataType = "String",paramType="query")
+    })
+   public ResponseMessage<UserModel> resetPaypassword(
+		    @RequestParam(name="userIdEnc") String userIdEnc,
+	  		@RequestParam(name="validateType") ValidateType validateType,
+	  		@RequestParam(name="code") String code,
+	  		@RequestParam(name="oldPaypassword") String oldPaypassword,
+	  		@RequestParam(name="newPaypassword1") String newPaypassword1,
+	  		@RequestParam(name="newPaypassword2") String newPaypassword2) {
+		   return ResponseMessage.success();
    }
 }

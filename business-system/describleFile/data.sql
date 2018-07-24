@@ -44,6 +44,16 @@ increment by 1
 minvalue 1 
 no maxvalue start with 1;
 
+create sequence address_id_sequence
+increment by 1 
+minvalue 1 
+no maxvalue start with 1;
+
+create sequence merchant_id_sequence
+increment by 1 
+minvalue 1 
+no maxvalue start with 1;
+
 
 
 -- ----------------------------
@@ -422,3 +432,102 @@ COMMENT ON COLUMN "public"."t_system_member"."member_no" IS '会员编号';
 -- Primary Key structure for table t_system_member
 -- ----------------------------
 ALTER TABLE "public"."t_system_member" ADD PRIMARY KEY ("id");
+
+
+-- ----------------------------
+-- Table structure for t_system_address
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_system_address";
+CREATE TABLE "public"."t_system_address" (
+"id" int8 DEFAULT nextval('address_id_sequence'::regclass) NOT NULL,
+"user_id" int8 NOT NULL,
+"province" varchar(20) NOT NULL,
+"city" varchar(20) NOT NULL,
+"area" varchar(20) NOT NULL,
+"street" varchar(100) NOT NULL,
+"phone" varchar(20) NOT NULL,
+"contact" varchar(20) NOT NULL,
+"create_date" timestamp(6) NOT NULL,
+"modify_date" timestamp(6) NOT NULL,
+"status" varchar(20) NOT NULL,
+"creator" varchar(20) NOT NULL,
+"modifier" varchar(20) NOT NULL
+)
+WITH (OIDS=FALSE)
+;
+
+COMMENT ON COLUMN "public"."t_system_address"."user_id" IS '用户id';
+COMMENT ON COLUMN "public"."t_system_address"."province" IS '省份';
+COMMENT ON COLUMN "public"."t_system_address"."city" IS '市';
+COMMENT ON COLUMN "public"."t_system_address"."area" IS '区域';
+COMMENT ON COLUMN "public"."t_system_address"."street" IS '街道';
+COMMENT ON COLUMN "public"."t_system_address"."phone" IS '联系方式';
+COMMENT ON COLUMN "public"."t_system_address"."contact" IS '联系人';
+
+-- ----------------------------
+-- Alter Sequences Owned By 
+-- ----------------------------
+
+-- ----------------------------
+-- Primary Key structure for table t_system_address
+-- ----------------------------
+ALTER TABLE "public"."t_system_address" ADD PRIMARY KEY ("id");
+
+
+
+
+-- ----------------------------
+-- Table structure for t_system_merchant
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_system_merchant";
+CREATE TABLE "public"."t_system_merchant" (
+"id" int8 DEFAULT nextval('merchant_id_sequence'::regclass) NOT NULL,
+"merchant_name" varchar(50) NOT NULL,
+"merchant_type" varchar(20) NOT NULL,
+"address" varchar(100) NOT NULL,
+"account_name" varchar(50) NOT NULL,
+"account_type" varchar(20) NOT NULL,
+"bank_account" varchar(50),
+"pay_account" varchar(50),
+"commision" decimal(20,2) NOT NULL,
+"contact" varchar(20) NOT NULL,
+"phone" varchar(20) NOT NULL,
+"app_id" varchar(50) NOT NULL,
+"app_key" varchar(50) NOT NULL,
+"business_license" varchar(100),
+"logo" varchar(200),
+"remark" varchar(200),
+"create_date" timestamp(6) NOT NULL,
+"modify_date" timestamp(6) NOT NULL,
+"status" varchar(20) NOT NULL,
+"creator" varchar(20) NOT NULL,
+"modifier" varchar(20) NOT NULL
+)
+WITH (OIDS=FALSE)
+;
+
+COMMENT ON COLUMN "public"."t_system_merchant"."merchant_name" IS '商户名称';
+COMMENT ON COLUMN "public"."t_system_merchant"."merchant_type" IS '商户类型';
+COMMENT ON COLUMN "public"."t_system_merchant"."address" IS '商户地址';
+COMMENT ON COLUMN "public"."t_system_merchant"."account_name" IS '账户名';
+COMMENT ON COLUMN "public"."t_system_merchant"."account_type" IS '账户类型';
+COMMENT ON COLUMN "public"."t_system_merchant"."bank_account" IS '银行卡号';
+COMMENT ON COLUMN "public"."t_system_merchant"."pay_account" IS '支付宝号';
+COMMENT ON COLUMN "public"."t_system_merchant"."commision" IS '佣金比例';
+COMMENT ON COLUMN "public"."t_system_merchant"."contact" IS '联系人';
+COMMENT ON COLUMN "public"."t_system_merchant"."phone" IS '联系电话';
+COMMENT ON COLUMN "public"."t_system_merchant"."app_id" IS 'app_Id';
+COMMENT ON COLUMN "public"."t_system_merchant"."app_key" IS 'app_key';
+COMMENT ON COLUMN "public"."t_system_merchant"."business_license" IS '营业执照';
+COMMENT ON COLUMN "public"."t_system_merchant"."logo" IS 'logo';
+COMMENT ON COLUMN "public"."t_system_merchant"."remark" IS '备注';
+
+-- ----------------------------
+-- Alter Sequences Owned By 
+-- ----------------------------
+
+-- ----------------------------
+-- Primary Key structure for table t_system_address
+-- ----------------------------
+ALTER TABLE "public"."t_system_merchant" ADD PRIMARY KEY ("id");
+
