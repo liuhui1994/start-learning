@@ -37,6 +37,10 @@ public class AccountFlowServiceImpl extends BaseServiceImpl<AccountFlow, Long> i
         Criteria criteria = example.createCriteria();
 		criteria.andEqualTo("status", BooleanType.FALSE);
 		
+		if(accountFlowDto!=null && accountFlowDto.getAccountId()!=null) {
+			criteria.andEqualTo("accountId", accountFlowDto.getAccountId());
+		}
+		
 		return example;
 	}
 
