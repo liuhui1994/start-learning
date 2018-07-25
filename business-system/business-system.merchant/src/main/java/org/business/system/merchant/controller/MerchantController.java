@@ -1,21 +1,28 @@
 package org.business.system.merchant.controller;
 
+import java.util.List;
+
+import org.business.system.common.response.ResponseMessage;
+import org.business.system.merchant.model.Merchant;
+import org.business.system.merchant.model.dto.MerchantDto;
+import org.business.system.merchant.service.MerchantService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.business.system.common.response.ResponseMessage;
-import org.business.system.merchant.model.Merchant;
-import org.business.system.merchant.service.MerchantService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
-@RequestMapping("/merchant")
+@RequestMapping("/manager")
 public class MerchantController {
 
     @Autowired
@@ -55,10 +62,8 @@ public class MerchantController {
     @ApiImplicitParams({
             @ApiImplicitParam(name="merchant", value="商户id",required = true,dataType="Merchant"),
     })
-
-
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
-    public ResponseMessage<Merchant> saveMerchant(@RequestBody Merchant merchant){
+    public ResponseMessage<Merchant> insertMerchant(@RequestBody Merchant merchant){
         return ResponseMessage.success(merchantService.saveMerchant(merchant));
     }
 
@@ -68,7 +73,7 @@ public class MerchantController {
             @ApiImplicitParam(name="merchant", value="商户id",required = true,dataType="merchant"),
     })
     @RequestMapping(value ="/update", method = RequestMethod.POST)
-    public ResponseMessage<Merchant> updateActivity(
+    public ResponseMessage<Merchant> updateMerchant(
             @RequestBody Merchant merchant) {
         return ResponseMessage.success(merchantService.updateMerchant(merchant));
     }
@@ -82,12 +87,12 @@ public class MerchantController {
     })
     @RequestMapping(value="/merchantlist", method= RequestMethod.POST)
     public ResponseMessage<PageInfo<Merchant>> list(
-            @RequestBody Merchant merchant,
+            @RequestBody MerchantDto merchantDto,
             @RequestParam(name="pageNum") Integer pageNum,
             @RequestParam(name="pageSize",defaultValue="1") Integer pageSize,
             @RequestParam(name="orderBy",defaultValue="id") String orderBy){
         PageHelper.startPage(pageNum, pageSize, orderBy);
-        List<Merchant> merchantList = merchantService.getMerchantList(merchant);
+        List<Merchant> merchantList = merchantService.getMerchantListByDto(merchantDto);
         PageInfo<Merchant> pageInfo = new PageInfo<Merchant>(merchantList);
         return ResponseMessage.success(pageInfo);
 

@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiOperation;
 
 
 @RestController
-@RequestMapping("/notice")
+@RequestMapping("/manager")
 //@Api(tags="{API}")
 public class NoticeController {
 	

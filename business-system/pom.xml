@@ -20,6 +20,7 @@
     <module>business.system.activity</module>
     <module>business-system.member</module>
     <module>business-system.merchant</module>
+    <module>business-system.pay</module>
   </modules>
   
   <parent>

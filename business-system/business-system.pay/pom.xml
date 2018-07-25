@@ -2,43 +2,54 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
- 
 <!--   <parent>
     <groupId>com.business</groupId>
     <artifactId>business-system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent> -->
   
-    <parent>
+  <parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.6.RELEASE</version>
-	</parent>
-  
+  </parent>
+	
   <groupId>com.business</groupId>
-  <artifactId>business-system.common</artifactId>
+  <artifactId>business-system.pay</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>business-system.common</name>
-  
+  <name>business-system.pay</name>
   <url>http://maven.apache.org</url>
+
   
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  <dependencies>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<lcn.last.version>4.1.0</lcn.last.version>  
+	</properties>
 
-  <!-- feign  服务 -->
-  		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-feign</artifactId>
-		</dependency>
-  <!-- feign  服务 -->
-  
-    <!-- 构建 eureka-client必用 -->
+
+	<dependencies>
+        <!-- 构建 eureka-client必用 -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka</artifactId>
 		</dependency>
+
+        <!-- Web starter依赖引入，会增加web容器、springweb、springmvc、jackson-databind等相关的依赖。 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+		<!-- 测试依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
         <!-- swagger begin -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -54,7 +65,7 @@
       <!-- swagger end -->
       
       
-      <!-- tk mapper begin -->
+     <!-- tk mapper begin -->
 		<dependency>  
 		    <groupId>tk.mybatis</groupId>  
 		    <artifactId>mapper</artifactId>  
@@ -69,16 +80,8 @@
             <artifactId>pagehelper</artifactId>
             <version>4.1.1</version>
         </dependency>
-    <!--通用Mapper插件-->
-    
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.3.1</version>
-        </dependency>
         
-        
-         <!-- 数据库必备 -->
+      <!-- 数据库必备 -->
       <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -104,16 +107,75 @@
             <groupId>org.springframework.boot</groupId>  
              <artifactId>spring-boot-starter-aop</artifactId>  
         </dependency> 
-        
+
+        <!-- rabbitmq -->
         <dependency>
+	       <groupId>org.springframework.boot</groupId>
+	       <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        
+		<dependency>
 		    <groupId>commons-httpclient</groupId>
 		    <artifactId>commons-httpclient</artifactId>
 		    <version>3.1</version>
 		</dependency>
-        
-  </dependencies>
-  
-  	<dependencyManagement>
+        <!-- jakeson -->
+<!--         <dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-annotations</artifactId>
+	        </dependency>
+		<dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-core</artifactId>
+	        </dependency>
+		<dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-databind</artifactId>
+	    </dependency> -->
+      
+      
+      <!-- LCN分布式事务相关依赖 -->  
+
+
+<!--       <dependency>   -->
+<!--           <groupId>com.codingapi</groupId>   -->
+<!--           <artifactId>transaction-springcloud</artifactId>   -->
+<!--           <version>${lcn.last.version}</version>   -->
+<!--           <exclusions>   -->
+<!--               <exclusion>   -->
+<!--                   <groupId>org.slf4j</groupId>   -->
+<!--                   <artifactId>*</artifactId>   -->
+<!--               </exclusion>   -->
+<!--           </exclusions>   -->
+<!--       </dependency>   -->
+      
+<!--       <dependency>   -->
+<!--           <groupId>com.codingapi</groupId>   -->
+<!--           <artifactId>tx-plugins-db</artifactId>   -->
+<!--           <version>${lcn.last.version}</version>   -->
+<!--           <exclusions>   -->
+<!--               <exclusion>   -->
+<!--                   <groupId>org.slf4j</groupId>   -->
+<!--                   <artifactId>*</artifactId>   -->
+<!--               </exclusion>   -->
+<!--           </exclusions>   -->
+<!--       </dependency>   -->
+      
+		<dependency>
+			<groupId>com.business</groupId>
+			<artifactId>business-system.common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			 <groupId>org.apache.poi</groupId>
+			 <artifactId>poi</artifactId>
+			 <version>3.17</version>
+		</dependency>
+
+	</dependencies>
+	
+	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
@@ -124,18 +186,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
-	
-<build>
-	<plugins>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<configuration>
-				<source>1.8</source>
-				<target>1.8</target>
-			</configuration>
-		</plugin>
-	</plugins>
-</build>
+	<packaging>war</packaging>
 </project>
+  

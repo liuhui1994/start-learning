@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(value="notice-service",name="notice-service",path="/notice")
 public interface NoticeCloudService {
 	
-	@RequestMapping(value="/notice/{id}",method = RequestMethod.GET)
+	@RequestMapping(value="/manager/{id}",method = RequestMethod.GET)
 	public Notice getNoticeById(@PathVariable("id") Long id);
 	
 
