@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  
+  <groupId>com.business</groupId>
+  <artifactId>business-system</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  
+  
+  <modules>
+    <module>business-system.notice</module>
+    <module>business-system.common</module>
+    <module>business-system.account</module>
+    <module>business-system.schedule</module>
+    <module>business-system.auth</module>
+    <module>business-system.eureka-server</module>
+    <module>business-system.newstart</module>
+    <module>business.system.activity</module>
+    <module>business-system.member</module>
+    <module>business-system.merchant</module>
+    <module>business-system.pay</module>
+  </modules>
+  
+  <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.1.RELEASE</version>
+  </parent>
+    
+    
+  <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+
+        <!-- Web 依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- 测试依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Spring Boot Maven 插件 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            
+            <plugin>
+            <!-- The plugin rewrites your manifest -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>1.3.0.RELEASE</version>
+            <configuration><!-- 指定该Main Class为全局的唯一入口 -->
+                <mainClass>com.Application</mainClass>
+                <layout>ZIP</layout>
+            </configuration>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>repackage</goal><!--可以把依赖的包都打包到生成的Jar包中-->
+                    </goals>
+                    <!--可以生成不含依赖包的不可执行Jar包-->
+                    <!-- configuration>
+                      <classifier>exec</classifier>
+                    </configuration> -->
+                </execution>
+            </executions>
+        </plugin>
+        </plugins>
+        
+        
+    </build>
+</project>

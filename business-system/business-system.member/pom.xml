@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+<!--   <parent>
+    <groupId>com.business</groupId>
+    <artifactId>business-system</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent> -->
+  
+   <parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.6.RELEASE</version>
+	</parent>
+  <groupId>com.business</groupId>
+  <artifactId>business-system.member</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+
+  <name>business-system.member</name>
+
+
+  
+  <url>http://maven.apache.org</url>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+
+	<dependencies>
+        <!-- 构建 eureka-client必用 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+		</dependency>
+
+        <!-- Web starter依赖引入，会增加web容器、springweb、springmvc、jackson-databind等相关的依赖。 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+		<!-- 测试依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
+        <!-- swagger begin -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.6.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.6.1</version>
+        </dependency>
+      <!-- swagger end -->
+      
+      
+     <!-- tk mapper begin -->
+		<dependency>  
+		    <groupId>tk.mybatis</groupId>  
+		    <artifactId>mapper</artifactId>  
+		    <version>3.4.5</version>  
+		</dependency>  
+     <!-- tk mapper end -->
+     
+     
+     <!-- 分页插件 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+        
+      <!-- 数据库必备 -->
+      <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+      
+        <dependency>  
+            <groupId>postgresql</groupId>  
+            <artifactId>postgresql</artifactId>  
+            <version>9.1-901-1.jdbc4</version>  
+        </dependency>  
+        <dependency>  
+            <groupId>org.postgresql</groupId>  
+            <artifactId>postgresql</artifactId>  
+            <scope>runtime</scope>  
+        </dependency>  
+        <dependency>  
+            <groupId>org.springframework.boot</groupId>  
+             <artifactId>spring-boot-starter-jdbc</artifactId>  
+        </dependency>
+        <!-- 数据库必备 -->
+        <dependency>  
+            <groupId>org.springframework.boot</groupId>  
+             <artifactId>spring-boot-starter-aop</artifactId>  
+        </dependency> 
+
+
+        
+		<dependency>
+		    <groupId>commons-httpclient</groupId>
+		    <artifactId>commons-httpclient</artifactId>
+		    <version>3.1</version>
+		</dependency>
+
+      
+      
+
+      
+		<dependency>
+			<groupId>com.business</groupId>
+			<artifactId>business-system.common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.2</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>3.17</version>
+		</dependency>
+	</dependencies>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>Dalston.SR3</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<packaging>war</packaging>
+</project>
