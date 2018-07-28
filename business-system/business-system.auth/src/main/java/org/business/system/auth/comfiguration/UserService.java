@@ -1,7 +1,7 @@
 package org.business.system.auth.comfiguration;
 
 import org.business.system.common.cloud.user.UserCloudService;
-import org.business.system.common.model.UserModel;
+import org.business.system.common.model.dto.UserModelDto;
 import org.business.system.common.response.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -22,9 +22,8 @@ public class UserService  implements UserDetailsService{
 		//oauth/authorize  拿到的是当前应用的client_id 
 		//oauth/token 拿到的是当前用户的username
 		System.out.println("auth  获取的用户名: "+ arg0);
-		ResponseMessage<UserModel> userModel = null;
+		ResponseMessage<UserModelDto> userModel = null;
 		try {
-			System.out.println(userCloudService.getUserByLoginName(arg0));
 			userModel = userCloudService.getUserByLoginName(arg0);
 		} catch (Exception e) {
             throw new BadCredentialsException("无效的用户名和密码");

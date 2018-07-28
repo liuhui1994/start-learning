@@ -91,7 +91,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
         }
         UserModelDto  userModel = new UserModelDto();
         userModel.setPhone(mobile);
-        ResponseMessage<UserModel> resultModel = userCloudService.register(userModel);
+        ResponseMessage<UserModelDto> resultModel = userCloudService.register(userModel);
         if(resultModel==null || !resultModel.getCode().equals("200")) {
         	throw  new CommonErrorException("00", resultModel.getMessage());
         }
