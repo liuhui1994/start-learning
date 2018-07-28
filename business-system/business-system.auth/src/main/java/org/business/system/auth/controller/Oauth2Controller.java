@@ -8,6 +8,7 @@ import org.business.system.auth.util.Oauth2ResponseToken;
 import org.business.system.common.em.UserType;
 import org.business.system.common.model.UserModel;
 import org.business.system.common.response.ResponseMessage;
+import org.business.system.common.util.Md5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -62,7 +63,7 @@ public class Oauth2Controller {
 			@RequestParam(name="userName" ,required = true) String userName,
 			@RequestParam(name="password" ,required = true) String password,
 			@RequestParam(name="userType",required = true) UserType userType) throws JsonParseException, JsonMappingException, IOException{
-        String  json = AuthServiceUtil.doPost(auth_url, userName, password);
+        String  json = AuthServiceUtil.doPost(auth_url, userName, Md5.encode(password));
         Oauth2ResponseToken token  = new ObjectMapper().readValue(json, Oauth2ResponseToken.class);
 		return ResponseMessage.success(token);
 	}
