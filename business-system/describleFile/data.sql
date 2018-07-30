@@ -54,7 +54,16 @@ increment by 1
 minvalue 1 
 no maxvalue start with 1;
 
+create sequence goods_id_sequence
+increment by 1 
+minvalue 1 
+no maxvalue start with 1;
 
+
+create sequence goods_attr_id_sequence
+increment by 1 
+minvalue 1 
+no maxvalue start with 1;
 
 -- ----------------------------
 -- Table structure for t_system_mobile_code
@@ -530,4 +539,104 @@ COMMENT ON COLUMN "public"."t_system_merchant"."remark" IS '备注';
 -- Primary Key structure for table t_system_address
 -- ----------------------------
 ALTER TABLE "public"."t_system_merchant" ADD PRIMARY KEY ("id");
+
+
+-- ----------------------------
+-- Table structure for t_system_goods
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_system_goods";
+CREATE TABLE "public"."t_system_goods" (
+"id" int8 DEFAULT nextval('goods_id_sequence'::regclass) NOT NULL,
+"goods_serial" varchar(50) NOT NULL,
+"goods_name" varchar(100) NOT NULL,
+"describle" varchar(200) NOT NULL,
+"brand_id" int8,
+"merchant_id" int8,
+"material" varchar(100),
+"specifications" varchar(100),
+"style" varchar(100),
+"product" varchar(100),
+"weight" varchar(100),
+"suitable" varchar(100),
+"pic" varchar(100) NOT NULL,
+"detail" varchar(200),
+"keyword" varchar(100) NOT NULL,
+"is_invoice" bool NOT NULL,
+"is_warranty" bool NOT NULL,
+"other_service" varchar(100),
+"remark" varchar(100),
+"create_date" timestamp(6) NOT NULL,
+"modify_date" timestamp(6) NOT NULL,
+"status" varchar(20) NOT NULL,
+"creator" varchar(20) NOT NULL,
+"modifier" varchar(20) NOT NULL
+)
+WITH (OIDS=FALSE)
+;
+
+COMMENT ON COLUMN "public"."t_system_goods"."id" IS '商品id';
+COMMENT ON COLUMN "public"."t_system_goods"."goods_serial" IS '商品编号';
+COMMENT ON COLUMN "public"."t_system_goods"."describle" IS '商品描述';
+COMMENT ON COLUMN "public"."t_system_goods"."brand_id" IS '品牌';
+COMMENT ON COLUMN "public"."t_system_goods"."merchant_id" IS '所属商户';
+COMMENT ON COLUMN "public"."t_system_goods"."specifications" IS '规格';
+COMMENT ON COLUMN "public"."t_system_goods"."material" IS '材质';
+COMMENT ON COLUMN "public"."t_system_goods"."style" IS '款式';
+COMMENT ON COLUMN "public"."t_system_goods"."product" IS '产地';
+COMMENT ON COLUMN "public"."t_system_goods"."weight" IS '重量';
+COMMENT ON COLUMN "public"."t_system_goods"."suitable" IS '适用对象';
+COMMENT ON COLUMN "public"."t_system_goods"."pic" IS '商品主图';
+COMMENT ON COLUMN "public"."t_system_goods"."detail" IS '商品详情';
+COMMENT ON COLUMN "public"."t_system_goods"."keyword" IS '关键字';
+COMMENT ON COLUMN "public"."t_system_goods"."is_invoice" IS '是否开发票';
+COMMENT ON COLUMN "public"."t_system_goods"."is_warranty" IS '是否保修';
+COMMENT ON COLUMN "public"."t_system_goods"."other_service" IS '其他服务';
+COMMENT ON COLUMN "public"."t_system_goods"."remark" IS '备注';
+
+-- ----------------------------
+-- Alter Sequences Owned By 
+-- ----------------------------
+
+-- ----------------------------
+-- Primary Key structure for table t_system_goods
+-- ----------------------------
+ALTER TABLE "public"."t_system_goods" ADD PRIMARY KEY ("id");
+
+
+
+-- ----------------------------
+-- Table structure for t_system_goods_attr
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_system_goods_attr";
+CREATE TABLE "public"."t_system_goods_attr" (
+"id" int8 DEFAULT nextval('goods_attr_id_sequence'::regclass) NOT NULL,
+"goods_id" int8 NOT NULL,
+"cost_price" decimal(20,2) NOT NULL,
+"sell_price" decimal(20,2) NOT NULL,
+"inventory" decimal(20) NOT NULL,
+"sales" decimal(20) NOT NULL,
+"sku1" varchar(20) NOT NULL,
+"skuDesc1" varchar(20) NOT NULL
+
+)
+WITH (OIDS=FALSE)
+;
+
+COMMENT ON COLUMN "public"."t_system_goods_attr"."goods_id" IS '商品id';
+COMMENT ON COLUMN "public"."t_system_goods_attr"."cost_price" IS '成本价';
+COMMENT ON COLUMN "public"."t_system_goods_attr"."sell_price" IS '售价';
+COMMENT ON COLUMN "public"."t_system_goods_attr"."inventory" IS '库存';
+COMMENT ON COLUMN "public"."t_system_goods_attr"."sales" IS '销量';
+COMMENT ON COLUMN "public"."t_system_goods_attr"."sku1" IS 'sku';
+COMMENT ON COLUMN "public"."t_system_goods_attr"."skuDesc1" IS 'sku描述';
+
+
+-- ----------------------------
+-- Alter Sequences Owned By 
+-- ----------------------------
+
+-- ----------------------------
+-- Primary Key structure for table t_system_goods
+-- ----------------------------
+ALTER TABLE "public"."t_system_goods_attr" ADD PRIMARY KEY ("id")
 
