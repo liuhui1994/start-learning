@@ -21,6 +21,7 @@
     <module>business-system.member</module>
     <module>business-system.merchant</module>
     <module>business-system.pay</module>
+      <module>business-system.goods</module>
   </modules>
   
   <parent>
