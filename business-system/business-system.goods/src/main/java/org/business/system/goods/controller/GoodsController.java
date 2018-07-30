@@ -26,7 +26,7 @@ public class GoodsController {
             @ApiImplicitParam(name="id", value="商品id",required = true,dataType="Long",paramType="path"),
     })
     @RequestMapping(value ="/{id}", method = RequestMethod.GET)
-    public ResponseMessage<Goods> goodsDetail(@PathVariable(name="id") Long id) {
+    public ResponseMessage<GoodsDto> goodsDetail(@PathVariable(name="id") Long id) {
         return ResponseMessage.success(goodsService.getGoodsById(id));
     }
 
@@ -56,8 +56,8 @@ public class GoodsController {
             @ApiImplicitParam(name="goods", value="商品id",required = true,dataType="goods"),
     })
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
-    public ResponseMessage<Goods> insertgoods(@RequestBody Goods goods){
-        return ResponseMessage.success(goodsService.saveGoods(goods));
+    public ResponseMessage<GoodsDto> insertgoods(@RequestBody GoodsDto goodsDto){
+        return ResponseMessage.success(goodsService.saveGoods(goodsDto));
     }
 
 
@@ -66,9 +66,9 @@ public class GoodsController {
             @ApiImplicitParam(name="goods", value="商品id",required = true,dataType="goods"),
     })
     @RequestMapping(value ="/update", method = RequestMethod.POST)
-    public ResponseMessage<Goods> updategoods(
-            @RequestBody Goods goods) {
-        return ResponseMessage.success(goodsService.updateGoods(goods));
+    public ResponseMessage<GoodsDto> updategoods(
+            @RequestBody GoodsDto goodsDto) {
+        return ResponseMessage.success(goodsService.updateGoods(goodsDto));
     }
     @ApiOperation(value="获取商品列表", notes="获取商品列表" )
     @ApiImplicitParams({

@@ -1,6 +1,7 @@
 package org.business.system.goods.service.impl;
 
-import com.google.gson.Gson;
+import java.util.List;
+
 import org.business.system.common.base.service.DefaultService;
 import org.business.system.common.base.service.impl.BaseServiceImpl;
 import org.business.system.common.em.BooleanType;
@@ -18,11 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
-
-import java.util.List;
-import java.util.UUID;
 
 @Service
 public class GoodsServiceImpl extends BaseServiceImpl<Goods,Long> implements GoodsService,DefaultService {
@@ -50,58 +49,61 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods,Long> implements Goo
 
     @Override
     @Transactional
-    public Goods saveGoods(Goods goods) {
-        goods.setGoodsSerial(UUID.randomUUID().toString().replace("-",""));
-        this.checkGoods(goods);
-        insertEntity(goods);
-        int success = goodsMapper.insertSelective(goods);
-        if(!StringUtils.isEmpty(goods.getGoodsAttrs())){
-            Gson gson = new Gson();
-            List<GoodsAttr> goodsAttrList = gson.fromJson(goods.getGoodsAttrs(), List.class);
-            if(!CollectionUtils.isEmpty(goodsAttrList)){
-                if(goods.getId() == null){
-                    logger.info("商品id为空,添加商品为成功");
-                }
-                for (GoodsAttr goodsAttr:goodsAttrList) {
-                    goodsAttr.setGoodsId(goods.getId());
-                }
-                success = this.goodsAttrMapper.insertList(goodsAttrList);
-            }
-        }
-        if(success <= 0) {
-        	throw new CommonErrorException("00", "新增失败");
-        }
-        return goods;
+    public GoodsDto saveGoods(GoodsDto goodsDto) {
+//        goods.setGoodsSerial(UUID.randomUUID().toString().replace("-",""));
+//        this.checkGoods(goods);
+//        insertEntity(goods);
+//        int success = goodsMapper.insertSelective(goods);
+//        if(!StringUtils.isEmpty(goods.getGoodsAttrs())){
+//            Gson gson = new Gson();
+//            List<GoodsAttr> goodsAttrList = gson.fromJson(goods.getGoodsAttrs(), List.class);
+//            if(!CollectionUtils.isEmpty(goodsAttrList)){
+//                if(goods.getId() == null){
+//                    logger.info("商品id为空,添加商品为成功");
+//                }
+//                for (GoodsAttr goodsAttr:goodsAttrList) {
+//                    goodsAttr.setGoodsId(goods.getId());
+//                }
+//                success = this.goodsAttrMapper.insertList(goodsAttrList);
+//            }
+//        }
+//        if(success <= 0) {
+//        	throw new CommonErrorException("00", "新增失败");
+//        }
+//        return goods;
+    	return null;
     }
 
     @Override
-    public Goods getGoodsById(Long id) {
+    public GoodsDto getGoodsById(Long id) {
 	    Example example = new Example(GoodsAttr.class);
         Criteria criteria = example.createCriteria();
         criteria.andEqualTo("goodsId",id);
         List<GoodsAttr> goodsAttrList = goodsAttrMapper.selectByExample(example);
         Goods goods = goodsMapper.selectByPrimaryKey(id);
-        goods.setGoodsAttrList(goodsAttrList);
-        return goods;
+        //对象转换成goodsDto
+        GoodsDto goodsDto = (GoodsDto) goods;
+        goodsDto.setGoodsAttrs(goodsAttrList);
+        return goodsDto;
     }
 
     @Override
     @Transactional
-    public Goods updateGoods(Goods goods) {
-        if(goods.getId() == null || goods.getId() <= 0){
-            throw new CommonErrorException("01","商户id有误");
-        }
-        this.checkGoods(goods);
-        int result = goodsMapper.updateByPrimaryKeySelective(goods);
-        GoodsAttr ga = new GoodsAttr();
-        ga.setGoodsId(goods.getId());
-        if(ga.getGoodsId() != null){
-            result = goodsAttrMapper.deleteByPrimaryKey(ga);
-        }
-        if(result <= 0){
-        	throw new CommonErrorException("00", "编辑");
-        }
-        return goods;
+    public GoodsDto updateGoods(GoodsDto goodsDto) {
+//        if(goods.getId() == null || goods.getId() <= 0){
+//            throw new CommonErrorException("01","商户id有误");
+//        }
+//        this.checkGoods(goods);
+//        int result = goodsMapper.updateByPrimaryKeySelective(goods);
+//        GoodsAttr ga = new GoodsAttr();
+//        ga.setGoodsId(goods.getId());
+//        if(ga.getGoodsId() != null){
+//            result = goodsAttrMapper.deleteByPrimaryKey(ga);
+//        }
+//        if(result <= 0){
+//        	throw new CommonErrorException("00", "编辑");
+//        }
+        return null;
     }
 
     @Override
