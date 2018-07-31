@@ -1,7 +1,6 @@
 package org.business.system.notice.service.impl;
 
 import java.util.Date;
-
 import java.util.List;
 
 import org.business.system.common.base.service.impl.BaseServiceImpl;
@@ -9,7 +8,7 @@ import org.business.system.common.cloud.user.UserCloudService;
 import org.business.system.common.em.BooleanType;
 import org.business.system.common.em.BusinessType;
 import org.business.system.common.exception.CommonErrorException;
-import org.business.system.common.model.UserModel;
+import org.business.system.common.model.dto.UserModelDto;
 import org.business.system.common.response.ResponseMessage;
 import org.business.system.common.util.PatternUtils;
 import org.business.system.notice.mapper.MobileCodeMapper;
@@ -38,7 +37,7 @@ public class MobileCodeServiceImpl extends BaseServiceImpl<MobileCode, Long> imp
     
 	@Override
 	public void validateCode(String mobile, String code, BusinessType businessType) {
-		ResponseMessage<UserModel> model = null;
+		ResponseMessage<UserModelDto> model = null;
 		try {
 			 model = userCloudService.getUserByMobile(mobile);
 		} catch (Exception e) {
