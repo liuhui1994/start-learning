@@ -65,6 +65,11 @@ increment by 1
 minvalue 1 
 no maxvalue start with 1;
 
+create sequence menu_id_sequence
+increment by 1 
+minvalue 1 
+no maxvalue start with 1;
+
 -- ----------------------------
 -- Table structure for t_system_mobile_code
 -- ----------------------------
@@ -565,6 +570,8 @@ CREATE TABLE "public"."t_system_goods" (
 "is_warranty" bool NOT NULL,
 "other_service" varchar(100),
 "remark" varchar(100),
+"one_menu" int8 NOT NULL,
+"two_menu" int8 NOT NULL,
 "create_date" timestamp(6) NOT NULL,
 "modify_date" timestamp(6) NOT NULL,
 "status" varchar(20) NOT NULL,
@@ -592,6 +599,8 @@ COMMENT ON COLUMN "public"."t_system_goods"."is_invoice" IS '是否开发票';
 COMMENT ON COLUMN "public"."t_system_goods"."is_warranty" IS '是否保修';
 COMMENT ON COLUMN "public"."t_system_goods"."other_service" IS '其他服务';
 COMMENT ON COLUMN "public"."t_system_goods"."remark" IS '备注';
+COMMENT ON COLUMN "public"."t_system_goods"."one_menu" IS '一级类目';
+COMMENT ON COLUMN "public"."t_system_goods"."two_menu" IS '二级类目';
 
 -- ----------------------------
 -- Alter Sequences Owned By 
@@ -640,3 +649,28 @@ COMMENT ON COLUMN "public"."t_system_goods_attr"."skuDesc1" IS 'sku描述';
 -- ----------------------------
 ALTER TABLE "public"."t_system_goods_attr" ADD PRIMARY KEY ("id")
 
+-- ----------------------------
+-- Table structure for t_system_goods_attr
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_system_menu";
+CREATE TABLE "public"."t_system_menu" (
+"id" int8 DEFAULT nextval('menu_id_sequence'::regclass) NOT NULL,
+"menu_name" varchar(50) NOT NULL,
+"menu_type" varchar(50) NOT NULL,
+"parent_id" int8
+)
+WITH (OIDS=FALSE)
+;
+
+COMMENT ON COLUMN "public"."t_system_menu"."menu_name" IS '类目名称';
+COMMENT ON COLUMN "public"."t_system_menu"."menu_type" IS '类目类型';
+COMMENT ON COLUMN "public"."t_system_menu"."parent_id" IS '父级id';
+
+-- ----------------------------
+-- Alter Sequences Owned By 
+-- ----------------------------
+
+-- ----------------------------
+-- Primary Key structure for table t_system_goods
+-- ----------------------------
+ALTER TABLE "public"."t_system_menu" ADD PRIMARY KEY ("id")

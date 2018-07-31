@@ -46,6 +46,10 @@ public class Goods  extends Entity {
     private String otherService;
     //备注
     private String remark;
+    //一级类目
+    private Long oneMenu;  
+    //二级类目
+    private Long twoMenu;
 
     public Long getId() {
         return id;
@@ -198,4 +202,38 @@ public class Goods  extends Entity {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+	public Boolean getIsInvoice() {
+		return isInvoice;
+	}
+
+	public void setIsInvoice(Boolean isInvoice) {
+		this.isInvoice = isInvoice;
+	}
+
+	public Boolean getIsWarranty() {
+		return isWarranty;
+	}
+
+	public void setIsWarranty(Boolean isWarranty) {
+		this.isWarranty = isWarranty;
+	}
+
+	public Long getOneMenu() {
+		return oneMenu;
+	}
+
+	public void setOneMenu(Long oneMenu) {
+		this.oneMenu = oneMenu;
+	}
+
+	public Long getTwoMenu() {
+		return twoMenu;
+	}
+
+	public void setTwoMenu(Long twoMenu) {
+		this.twoMenu = twoMenu;
+	}
+    
+    
 }

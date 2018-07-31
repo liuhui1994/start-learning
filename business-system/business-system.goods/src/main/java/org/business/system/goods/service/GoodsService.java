@@ -2,39 +2,42 @@ package org.business.system.goods.service;
 
 
 
-import org.business.system.goods.model.Goods;
-import org.business.system.goods.model.dto.GoodsDto;
-
 import java.util.List;
+
+import org.business.system.goods.model.GoodsAttr;
+import org.business.system.goods.model.dto.GoodsDto;
 
 public interface GoodsService {
 	/**
-	 * 新增商户
+	 * 新增一类商品
 	 * @param goods
 	 * @return
 	 */
-    Goods saveGoods(GoodsDto goods);
+	GoodsDto saveGoods(GoodsDto goods);
+	
+	/**
+	 * 新增单个商品
+	 * @param goodsAttr
+	 * @return
+	 */
+	GoodsAttr saveGoodsAttr(GoodsAttr goodsAttr);
 
     /**
-     * 通过id获取商户详情
+     * 通过商品id获取该类商品
      * @param id
      * @return
      */
-    Goods getGoodsById(Long id,Integer isIncludeAttr);
-
+	List<GoodsDto> getGoodsListByGoodsId(Long goodsId);
+	
     /**
-     * 编辑商户
-     * @param goods
+     * 通过商品属性id获取商品所有信息
+     * @param id
      * @return
      */
-    Goods updateGoods(Goods goods);
+	GoodsDto getGoodsDtoByGoodsId(Long attrId);
 
-    /**
-     * 通过dto获取商户列表
-     * @param goodsDto
-     * @return
-     */
-    List<Goods> getGoodsListByDto(GoodsDto goodsDto);
+  
+   
 
     /**
      * 通过id删除商户

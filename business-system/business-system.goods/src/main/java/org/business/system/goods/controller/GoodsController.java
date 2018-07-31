@@ -1,38 +1,38 @@
 package org.business.system.goods.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import java.util.List;
+
 import org.business.system.common.response.ResponseMessage;
 import org.business.system.goods.model.Goods;
 import org.business.system.goods.model.dto.GoodsDto;
 import org.business.system.goods.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/goods")
+@RequestMapping("/manager")
 public class GoodsController {
 
     @Autowired
     private GoodsService goodsService;
 
-    /**
-     * @param id
-     * @param isIncludeAttr 1、包含商品属性
-     * @return
-     */
+
     @ApiOperation(value="通过Id获取商品详情", notes="通过Id获取商品详情" )
     @ApiImplicitParams({
             @ApiImplicitParam(name="id", value="商品id",required = true,dataType="Long",paramType="path"),
     })
     @RequestMapping(value ="/{id}", method = RequestMethod.GET)
-    public ResponseMessage<Goods> goodsDetail(@PathVariable(name="id") Long id,@RequestParam(name="isIncludeAttr") Integer isIncludeAttr) {
-        return ResponseMessage.success(goodsService.getGoodsById(id,isIncludeAttr));
+    public ResponseMessage<List<GoodsDto>> goodsDetail(@PathVariable(name="id") Long id) {
+        return ResponseMessage.success(goodsService.getGoodsListByGoodsId(id));
     }
 
 
@@ -68,12 +68,13 @@ public class GoodsController {
 
     @ApiOperation(value="编辑商品", notes="商品活动" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name="goods", value="商品id",required = true,dataType="goods"),
+            @ApiImplicitParam(name="goodsDto", value="商品id",required = true,dataType="GoodsDto"),
     })
     @RequestMapping(value ="/update", method = RequestMethod.POST)
-    public ResponseMessage<Goods> updategoods(
-            @RequestBody Goods goods) {
-        return ResponseMessage.success(goodsService.updateGoods(goods));
+    public ResponseMessage<GoodsDto> updategoods(
+            @RequestBody GoodsDto goodsDto) {
+//        return ResponseMessage.success(goodsService.updateGoods(goodsDto));
+    	return null;
     }
     @ApiOperation(value="获取商品列表", notes="获取商品列表" )
     @ApiImplicitParams({
@@ -89,10 +90,11 @@ public class GoodsController {
             @RequestParam(name="pageNum") Integer pageNum,
             @RequestParam(name="pageSize",defaultValue="1") Integer pageSize,
             @RequestParam(name="orderBy",defaultValue="id") String orderBy){
-        PageHelper.startPage(pageNum, pageSize, orderBy);
-        List<Goods> goodsList = goodsService.getGoodsListByDto(goodsDto);
-        PageInfo<Goods> pageInfo = new PageInfo<Goods>(goodsList);
-        return ResponseMessage.success(pageInfo);
+//        PageHelper.startPage(pageNum, pageSize, orderBy);
+//        List<Goods> goodsList = goodsService.getGoodsListByDto(goodsDto);
+//        PageInfo<Goods> pageInfo = new PageInfo<Goods>(goodsList);
+//        return ResponseMessage.success(pageInfo);
+    	return null;
 
     }
 }
