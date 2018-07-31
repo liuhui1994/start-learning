@@ -13,14 +13,14 @@ public interface GoodsService {
 	 * @param goods
 	 * @return
 	 */
-    Goods saveGoods(Goods goods);
+    Goods saveGoods(GoodsDto goods);
 
     /**
      * 通过id获取商户详情
      * @param id
      * @return
      */
-    Goods getGoodsById(Long id);
+    Goods getGoodsById(Long id,Integer isIncludeAttr);
 
     /**
      * 编辑商户

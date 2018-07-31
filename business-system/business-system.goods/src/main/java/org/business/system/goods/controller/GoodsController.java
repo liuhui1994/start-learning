@@ -21,13 +21,18 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
+    /**
+     * @param id
+     * @param isIncludeAttr 1、包含商品属性
+     * @return
+     */
     @ApiOperation(value="通过Id获取商品详情", notes="通过Id获取商品详情" )
     @ApiImplicitParams({
             @ApiImplicitParam(name="id", value="商品id",required = true,dataType="Long",paramType="path"),
     })
     @RequestMapping(value ="/{id}", method = RequestMethod.GET)
-    public ResponseMessage<Goods> goodsDetail(@PathVariable(name="id") Long id) {
-        return ResponseMessage.success(goodsService.getGoodsById(id));
+    public ResponseMessage<Goods> goodsDetail(@PathVariable(name="id") Long id,@RequestParam(name="isIncludeAttr") Integer isIncludeAttr) {
+        return ResponseMessage.success(goodsService.getGoodsById(id,isIncludeAttr));
     }
 
 
@@ -53,10 +58,10 @@ public class GoodsController {
 
     @ApiOperation(value="新增商品", notes="新增商品" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name="goods", value="商品id",required = true,dataType="goods"),
+            @ApiImplicitParam(name="goods", value="商品id",required = true,dataType="GoodsDto"),
     })
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
-    public ResponseMessage<Goods> insertgoods(@RequestBody Goods goods){
+    public ResponseMessage<Goods> insertgoods(@RequestBody GoodsDto goods){
         return ResponseMessage.success(goodsService.saveGoods(goods));
     }
 

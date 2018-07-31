@@ -1,5 +1,7 @@
 package org.business.system.goods.service.impl;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.business.system.common.base.service.DefaultService;
 import org.business.system.common.base.service.impl.BaseServiceImpl;
@@ -50,7 +52,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods,Long> implements Goo
 
     @Override
     @Transactional
-    public Goods saveGoods(Goods goods) {
+    public Goods saveGoods(GoodsDto goods) {
         goods.setGoodsSerial(UUID.randomUUID().toString().replace("-",""));
         this.checkGoods(goods);
         insertEntity(goods);
@@ -75,14 +77,17 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods,Long> implements Goo
     }
 
     @Override
-    public Goods getGoodsById(Long id) {
-	    Example example = new Example(GoodsAttr.class);
-        Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("goodsId",id);
-        List<GoodsAttr> goodsAttrList = goodsAttrMapper.selectByExample(example);
-        Goods goods = goodsMapper.selectByPrimaryKey(id);
-        goods.setGoodsAttrList(goodsAttrList);
-        return goods;
+    public GoodsDto getGoodsById(Long id,Integer isIncludeAttr) {
+        Goods goods =  goodsMapper.selectByPrimaryKey(id);
+        GoodsDto gd = new GoodsDto(goods);
+	    if(isIncludeAttr == 1){
+            Example example = new Example(GoodsAttr.class);
+            Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("goodsId",id);
+            List<GoodsAttr> goodsAttrList = goodsAttrMapper.selectByExample(example);
+            gd.setGoodsAttrList(goodsAttrList);
+        }
+        return gd;
     }
 
     @Override
@@ -129,7 +134,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods,Long> implements Goo
             return 0;
         }
         for (Long id:ids) {
-            Goods goodsById = this.getGoodsById(id);
+            Goods goodsById = this.getGoodsById(id,0);
             goodsById.setStatus(BooleanType.TRUE);
             result = goodsMapper.updateByPrimaryKey(goodsById);
             GoodsAttr ga = new GoodsAttr();

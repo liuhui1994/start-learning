@@ -46,26 +46,6 @@ public class Goods  extends Entity {
     private String otherService;
     //备注
     private String remark;
-    //商品属性
-    private String goodsAttrs;
-    //商品属性
-    private List<GoodsAttr> goodsAttrList;
-
-    public String getGoodsAttrs() {
-        return goodsAttrs;
-    }
-
-    public void setGoodsAttrs(String goodsAttrs) {
-        this.goodsAttrs = goodsAttrs;
-    }
-
-    public List<GoodsAttr> getGoodsAttrList() {
-        return goodsAttrList;
-    }
-
-    public void setGoodsAttrList(List<GoodsAttr> goodsAttrList) {
-        this.goodsAttrList = goodsAttrList;
-    }
 
     public Long getId() {
         return id;

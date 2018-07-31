@@ -1,8 +1,12 @@
 package org.business.system.goods.model;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Table(name="t_sys_goods_attr")
 public class GoodsAttr {
     //商品详情id
+    @Id
     private Long id;
     //商品id
     private Long goodsId;
