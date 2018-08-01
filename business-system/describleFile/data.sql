@@ -625,7 +625,8 @@ CREATE TABLE "public"."t_system_goods_attr" (
 "inventory" decimal(20) NOT NULL,
 "sales" decimal(20) NOT NULL,
 "sku1" varchar(20) NOT NULL,
-"skuDesc1" varchar(20) NOT NULL
+"sku_desc1" varchar(20) NOT NULL,
+"sku_pic" varchar(20) NOT NULL
 
 )
 WITH (OIDS=FALSE)
@@ -637,7 +638,8 @@ COMMENT ON COLUMN "public"."t_system_goods_attr"."sell_price" IS '售价';
 COMMENT ON COLUMN "public"."t_system_goods_attr"."inventory" IS '库存';
 COMMENT ON COLUMN "public"."t_system_goods_attr"."sales" IS '销量';
 COMMENT ON COLUMN "public"."t_system_goods_attr"."sku1" IS 'sku';
-COMMENT ON COLUMN "public"."t_system_goods_attr"."skuDesc1" IS 'sku描述';
+COMMENT ON COLUMN "public"."t_system_goods_attr"."sku_desc1" IS 'sku描述';
+COMMENT ON COLUMN "public"."t_system_goods_attr"."sku_pic" IS 'sku图片';
 
 
 -- ----------------------------

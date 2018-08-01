@@ -26,24 +26,25 @@ public class GoodsController {
     private GoodsService goodsService;
 
 
-    @ApiOperation(value="通过Id获取商品详情", notes="通过Id获取商品详情" )
+    @ApiOperation(value="通过商品Id获取商品详情", notes="通过商品Id获取商品详情" )
     @ApiImplicitParams({
             @ApiImplicitParam(name="id", value="商品id",required = true,dataType="Long",paramType="path"),
     })
-    @RequestMapping(value ="/{id}", method = RequestMethod.GET)
+    @RequestMapping(value ="/list/{id}", method = RequestMethod.GET)
     public ResponseMessage<List<GoodsDto>> goodsDetail(@PathVariable(name="id") Long id) {
         return ResponseMessage.success(goodsService.getGoodsListByGoodsId(id));
     }
 
-
-    /*@ApiOperation(value="通过Id删除商户", notes="通过Id删除商户" )
+    
+    @ApiOperation(value="通过商品attrId获取单个商品详情", notes="通过商品attrId获取单个商品详情" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name="id", value="商户id",required = true,dataType="Long",paramType="path"),
+            @ApiImplicitParam(name="id", value="商品id",required = true,dataType="Long",paramType="path"),
     })
-    @RequestMapping(value ="/{id}", method = RequestMethod.DELETE)
-    public ResponseMessage<Integer> goodsDelete(@PathVariable(name="id") Long id) {
-        return ResponseMessage.success(goodsService.deletegoodsById(id));
-    }*/
+    @RequestMapping(value ="/single/{id}", method = RequestMethod.GET)
+    public ResponseMessage<GoodsDto> singelGoods(@PathVariable(name="id") Long id) {
+        return ResponseMessage.success(goodsService.getGoodsDtoByGoodsId(id));
+    }
+
 
     @ApiOperation(value="通过Id列表删除商品", notes="通过Id列表删除商品" )
     @ApiImplicitParams({

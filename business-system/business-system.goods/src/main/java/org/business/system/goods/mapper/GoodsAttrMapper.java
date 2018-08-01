@@ -9,4 +9,6 @@ import org.business.system.goods.model.dto.GoodsDto;
 public interface GoodsAttrMapper extends BaseMapper<GoodsAttr> {
 	
 	public List<GoodsDto> selectGoodsDtoById(Long goodsId);
+	
+	public GoodsDto selectGoodsByattrId(Long attrId);
 }

@@ -171,21 +171,7 @@ public class Goods  extends Entity {
         this.keyword = keyword;
     }
 
-    public Boolean getInvoice() {
-        return isInvoice;
-    }
-
-    public void setInvoice(Boolean invoice) {
-        isInvoice = invoice;
-    }
-
-    public Boolean getWarranty() {
-        return isWarranty;
-    }
-
-    public void setWarranty(Boolean warranty) {
-        isWarranty = warranty;
-    }
+    
 
     public String getOtherService() {
         return otherService;

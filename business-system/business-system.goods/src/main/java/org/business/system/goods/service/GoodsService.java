@@ -13,14 +13,28 @@ public interface GoodsService {
 	 * @param goods
 	 * @return
 	 */
-	GoodsDto saveGoods(GoodsDto goods);
+	GoodsDto saveGoods(GoodsDto goodsDto);
 	
 	/**
-	 * 新增单个商品
+	 * 编辑一类商品
+	 * @param goodsDto
+	 * @return
+	 */
+	GoodsDto updateGoods(GoodsDto goodsDto);
+	
+	/**
+	 * 新增单个商品属性
 	 * @param goodsAttr
 	 * @return
 	 */
 	GoodsAttr saveGoodsAttr(GoodsAttr goodsAttr);
+	
+	/**
+	 * 编辑单个属性
+	 * @param goodsAttr
+	 * @return
+	 */
+	GoodsAttr updateGoodsAttr(GoodsAttr goodsAttr);
 
     /**
      * 通过商品id获取该类商品

@@ -22,6 +22,8 @@ public class GoodsAttr {
     private String sku1;
     //sku描述
     private String skuDesc1;
+    
+    private String skuPic;
 
     public Long getId() {
         return id;
@@ -86,4 +88,13 @@ public class GoodsAttr {
     public void setSkuDesc1(String skuDesc1) {
         this.skuDesc1 = skuDesc1;
     }
+
+	public String getSkuPic() {
+		return skuPic;
+	}
+
+	public void setSkuPic(String skuPic) {
+		this.skuPic = skuPic;
+	}
+    
 }
