@@ -1,70 +1,84 @@
 ﻿-----------------
+DROP SEQUENCE IF EXISTS "public"."notice_id_sequence";
 create sequence notice_id_sequence
 increment by 1 
 minvalue 1 
 no maxvalue start with 1; 
 
+DROP SEQUENCE IF EXISTS "public"."mobile_code_id_sequence";
 create sequence mobile_code_id_sequence
 increment by 1 
 minvalue 1 
 no maxvalue start with 1;
 
+DROP SEQUENCE IF EXISTS "public"."user_id_sequence";
 create sequence user_id_sequence
 increment by 1 
 minvalue 10000 
 no maxvalue start with 10000;
 
+DROP SEQUENCE IF EXISTS "public"."account_id_sequence";
 create sequence account_id_sequence
 increment by 1 
 minvalue 1 
 no maxvalue start with 1;
 
+DROP SEQUENCE IF EXISTS "public"."account_flow_id_sequence";
 create sequence account_flow_id_sequence
 increment by 1 
 minvalue 1 
 no maxvalue start with 1;
 
+DROP SEQUENCE IF EXISTS "public"."activity_id_sequence";
 create sequence activity_id_sequence
 increment by 1 
 minvalue 1 
 no maxvalue start with 1;
 
+DROP SEQUENCE IF EXISTS "public"."rule_id_sequence";
 create sequence rule_id_sequence
 increment by 1 
 minvalue 1 
 no maxvalue start with 1;
 
+DROP SEQUENCE IF EXISTS "public"."activity_rule_id_sequence";
 create sequence activity_rule_id_sequence
 increment by 1 
 minvalue 1 
 no maxvalue start with 1;
 
+
+DROP SEQUENCE IF EXISTS "public"."member_id_sequence";
 create sequence member_id_sequence
 increment by 1 
 minvalue 1 
 no maxvalue start with 1;
 
+DROP SEQUENCE IF EXISTS "public"."address_id_sequence";
 create sequence address_id_sequence
 increment by 1 
 minvalue 1 
 no maxvalue start with 1;
 
+DROP SEQUENCE IF EXISTS "public"."merchant_id_sequence";
 create sequence merchant_id_sequence
 increment by 1 
 minvalue 1 
 no maxvalue start with 1;
 
+DROP SEQUENCE IF EXISTS "public"."goods_id_sequence";
 create sequence goods_id_sequence
 increment by 1 
 minvalue 1 
 no maxvalue start with 1;
 
-
+DROP SEQUENCE IF EXISTS "public"."goods_attr_id_sequence";
 create sequence goods_attr_id_sequence
 increment by 1 
 minvalue 1 
 no maxvalue start with 1;
 
+DROP SEQUENCE IF EXISTS "public"."menu_id_sequence";
 create sequence menu_id_sequence
 increment by 1 
 minvalue 1 
@@ -649,7 +663,7 @@ COMMENT ON COLUMN "public"."t_system_goods_attr"."sku_pic" IS 'sku图片';
 -- ----------------------------
 -- Primary Key structure for table t_system_goods
 -- ----------------------------
-ALTER TABLE "public"."t_system_goods_attr" ADD PRIMARY KEY ("id")
+ALTER TABLE "public"."t_system_goods_attr" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Table structure for t_system_goods_attr

@@ -34,11 +34,16 @@
 		</where>
 	</sql>
 
-  <select id="selectGoodsDtoById" parameterType="Long" resultType="java.util.List">
-      select  a.*  
-        from t_system_goods a
-        left join t_system_goods_attr b  on a.id = b.goods_id
-        where b.goods_id = #{goodsId}
+  <select id="selectGoodsDtoById" parameterType="Long" resultType="org.business.system.goods.model.dto.GoodsDto">
+      select  a.cost_price as costPrice,a.sell_price as sellPrice,a.inventory as inventory,a.sales as sales,a.sku1 as sku1,a.sku_desc1 as skuDesc1,a.sku_pic as skuPic,
+              b.id as id,b.goods_serial as goodsSerial,b.goods_name as goodsName,b.describle as describle,b.brand_id as brandId,b.merchant_id as merchantId,
+              b.material as material,b.specifications as specifications,b.style as style,b.product  as product,b.weight as weight,b.suitable as suitable,b.pic as pic,
+              b.detail as detail,b.keyword  as keyword,b.is_invoice as isInvoice,b.is_warranty as isWarranty,b.other_service as otherService,b.remark as  remark,
+              b.one_menu as oneMenu,b.two_menu as twoMenu,b.create_date  as createDate,b.modify_date as  modifyDate,b.status as  status ,b.creator as  creator,
+              b.modifier as modifier
+        from t_system_goods b
+        left join t_system_goods_attr a  on b.id = a.goods_id
+        where a.goods_id = #{goodsId}
   </select>
   
     <select id="selectGoodsByattrId" parameterType="Long" resultType="org.business.system.goods.model.dto.GoodsDto">
