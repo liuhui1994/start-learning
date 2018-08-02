@@ -4,9 +4,9 @@ import org.business.system.cart.mapper.CartMapper;
 import org.business.system.cart.model.Cart;
 import org.business.system.cart.service.CartService;
 import org.business.system.common.base.service.impl.BaseServiceImpl;
+import org.business.system.common.cloud.goods.GoodsCloudService;
 import org.business.system.common.model.UserModel;
-import org.business.system.goods.model.dto.GoodsDto;
-import org.business.system.goods.service.GoodsService;
+import org.business.system.common.model.dto.GoodsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -23,7 +23,7 @@ public class CartServiceImpl extends BaseServiceImpl<Cart,Long> implements CartS
     private CartMapper cartMapper;
 
     @Autowired
-    private GoodsService goodsService;
+    private GoodsCloudService goodsService;
     @Override
     public int addItemToCart(Long itemId,UserModel user) {
        int result = 0;
@@ -37,7 +37,7 @@ public class CartServiceImpl extends BaseServiceImpl<Cart,Long> implements CartS
             selectCart.setModifyDate(new Date());
             result= cartMapper.updateByPrimaryKey(cart);
         }else{
-            GoodsDto goodsDto = goodsService.getGoodsDtoByGoodsId(itemId);
+            GoodsDto goodsDto = goodsService.singelGoods(itemId).getData();
             cart.setNum(1l);
             cart.setItemTitle(goodsDto.getDescrible());
             cart.setItemPrice(goodsDto.getSellPrice());

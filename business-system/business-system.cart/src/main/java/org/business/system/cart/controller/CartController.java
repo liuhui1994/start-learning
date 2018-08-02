@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,9 +79,9 @@ public class CartController {
     @ApiImplicitParams({
     })
     @RequestMapping(value = "/cartList", method = RequestMethod.GET)
-    public ResponseMessage<Map<String, Object>> queryCars(String token, HttpServletRequest request) throws IOException {
+    public ResponseMessage<Map> queryCars(String token, HttpServletRequest request) throws IOException {
         UserModel user = oauthCloudService.getUserBytoken(token).getData();
-        Map map = new HashMap();
+        Map map = new HashMap<String,Object>();
         int totalPrice = 0;
         List<Cart> cartList;
         if (user != null) {

@@ -22,6 +22,7 @@
     <module>business-system.merchant</module>
     <module>business-system.pay</module>
       <module>business-system.goods</module>
+      <module>business-system.cart</module>
   </modules>
   
   <parent>

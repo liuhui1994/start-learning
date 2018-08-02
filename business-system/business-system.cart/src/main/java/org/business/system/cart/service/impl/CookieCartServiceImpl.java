@@ -5,10 +5,9 @@ import org.apache.commons.lang.StringUtils;
 import org.business.system.cart.model.Cart;
 import org.business.system.cart.service.CookieCartService;
 import org.business.system.common.base.service.impl.BaseServiceImpl;
-import org.business.system.common.model.UserModel;
-import org.business.system.goods.model.dto.GoodsDto;
-import org.business.system.goods.service.GoodsService;
-import org.business.system.goods.utils.CookieUtils;
+import org.business.system.common.cloud.goods.GoodsCloudService;
+import org.business.system.common.model.dto.GoodsDto;
+import org.business.system.common.util.CookieUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -16,14 +15,14 @@ import org.springframework.util.CollectionUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class CookieCartServiceImpl extends BaseServiceImpl<Cart,Long> implements CookieCartService {
     @Autowired
-    private GoodsService goodsService;
+    private GoodsCloudService goodsService;
 
     private String TK = "COOKIE_TICKET";
 
@@ -45,7 +44,7 @@ public class CookieCartServiceImpl extends BaseServiceImpl<Cart,Long> implements
             if(c == null){
                 c = new Cart();
                 c.setItemId(itemId);
-                GoodsDto goodsDto = goodsService.getGoodsDtoByGoodsId(itemId);
+                GoodsDto goodsDto = goodsService.singelGoods(itemId).getData();
                 c.setItemImage(goodsDto.getPic());
                 c.setItemPrice(goodsDto.getSellPrice());
                 c.setItemTitle(goodsDto.getDescrible());
@@ -82,7 +81,7 @@ public class CookieCartServiceImpl extends BaseServiceImpl<Cart,Long> implements
         List<Cart> cartList = queryCartList(request);
         if(CollectionUtils.isEmpty(cartList)){
             return 0;
-        }
+    }
         for (Cart cart:cartList) {
             for (Long id:ids) {
                 if(cart.getItemId().longValue() == id.longValue()){

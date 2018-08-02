@@ -62,7 +62,7 @@ public class GoodsController {
             @ApiImplicitParam(name="goods", value="商品id",required = true,dataType="GoodsDto"),
     })
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
-    public ResponseMessage<Goods> insertgoods(@RequestBody GoodsDto goods){
+    public ResponseMessage<GoodsDto> insertgoods(@RequestBody GoodsDto goods){
         return ResponseMessage.success(goodsService.saveGoods(goods));
     }
 
