@@ -1,14 +1,8 @@
 package org.business.system.auth.util;
 
-import java.io.IOException;
-import java.nio.charset.UnsupportedCharsetException;
-import java.util.Base64;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
 
 public class AuthServiceUtil {
 	
@@ -49,13 +43,7 @@ public class AuthServiceUtil {
 //			httpClient.close();
 			
 			return submitResult;
-		} catch (UnsupportedCharsetException e) {
-			e.printStackTrace();
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

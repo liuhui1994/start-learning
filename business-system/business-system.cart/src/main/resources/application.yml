@@ -1,0 +1,40 @@
+server:
+   port: 8089
+   context-path: /cart
+   
+   
+spring:
+    datasource:
+      url: jdbc:postgresql://localhost:5432/postgres  
+      username: postgres
+      password: admin
+      driver-class-name: org.postgresql.Driver  
+    application:
+      name: cart-service
+    rabbitmq:
+      host: localhost
+      port: 5672
+      username: guest
+      password: guest
+      
+      
+logging:  
+  level:   
+    org.business.system.cart.mapper: debug
+#    com:
+#      codingapi: debug
+    
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka/
+      
+#txmanager地址
+#tm:
+#  manager:
+#    url: http://127.0.0.1:8899/tx/manager/
+      
+
+
+
+   
