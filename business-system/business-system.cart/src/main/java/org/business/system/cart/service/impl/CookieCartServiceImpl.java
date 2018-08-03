@@ -15,7 +15,7 @@ import org.springframework.util.CollectionUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,12 +31,14 @@ public class CookieCartServiceImpl extends BaseServiceImpl<Cart,Long> implements
     ObjectMapper mapper = new ObjectMapper();
     @Override
     public int addItemToCart(Long itemId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+          if(itemId == null || itemId < 0){
+              return 0;
+          }
             List<Cart> cartList = this.queryCartList(request);
             Cart c = null;
             for ( Cart cart:cartList) {
                 if(itemId.longValue() == cart.getItemId().longValue()){
                     cart.setNum(cart.getNum()+1);
-                    cart.setModifyDate(new Date());
                     c = cart;
                     break;
                 }
@@ -50,7 +52,6 @@ public class CookieCartServiceImpl extends BaseServiceImpl<Cart,Long> implements
                 c.setItemTitle(goodsDto.getDescrible());
                 c.setSku(goodsDto.getSku1());
                 c.setNum(1l);
-                c.setCreateDate(new Date());
                 cartList.add(c);
             }
             CookieUtils.setCookie(response,TK,mapper.writeValueAsString(cartList),maxTime);
@@ -60,13 +61,19 @@ public class CookieCartServiceImpl extends BaseServiceImpl<Cart,Long> implements
     public List<Cart> queryCartList(HttpServletRequest request) throws IOException {
         String values = CookieUtils.getValues(request, TK);
         if(StringUtils.isEmpty(values)){
-            return Collections.EMPTY_LIST;
+            return new ArrayList<>();
         }
         return  mapper.readValue(values, mapper.getTypeFactory().constructCollectionType(List.class, Cart.class));
     }
 
     public int updateCart(Long itemId,Long num,HttpServletRequest request,HttpServletResponse response) throws IOException {
+        if(itemId == null || itemId < 0 || num == null || num < 0){
+            return 0;
+        }
         List<Cart> cartList = queryCartList(request);
+        if(CollectionUtils.isEmpty(cartList)){
+            return 0;
+        }
         for (Cart cart:cartList) {
             if(itemId.longValue() == cart.getItemId().longValue()){
                 cart.setNum(num);
@@ -78,6 +85,9 @@ public class CookieCartServiceImpl extends BaseServiceImpl<Cart,Long> implements
 
     @Override
     public int deleteCart(List<Long> ids,HttpServletRequest request,HttpServletResponse response) throws IOException {
+        if(CollectionUtils.isEmpty(ids)){
+            return 0;
+        }
         List<Cart> cartList = queryCartList(request);
         if(CollectionUtils.isEmpty(cartList)){
             return 0;

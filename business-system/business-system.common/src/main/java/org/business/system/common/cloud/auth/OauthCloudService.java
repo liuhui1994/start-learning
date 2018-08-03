@@ -1,6 +1,7 @@
 package org.business.system.common.cloud.auth;
 
 import org.business.system.common.model.UserModel;
+import org.business.system.common.model.dto.UserModelDto;
 import org.business.system.common.response.ResponseMessage;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface OauthCloudService {
 	
 	@RequestMapping(value="/getUserBytoken",method = RequestMethod.GET)
-	public  ResponseMessage<UserModel> getUserBytoken(@RequestParam(name="token")String token);
+	  ResponseMessage<UserModelDto> getUserBytoken(@RequestParam(name="token")String token);
 	
 
 }

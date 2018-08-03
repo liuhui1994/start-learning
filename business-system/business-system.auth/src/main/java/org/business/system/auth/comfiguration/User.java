@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.business.system.common.model.UserModel;
+import org.business.system.common.model.dto.UserModelDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,9 +16,9 @@ public class User extends UserModel implements UserDetails {
 	
 	private String password;
 	
-	private UserModel userModel;
+	private UserModelDto userModel;
 	
-	public User(UserModel userModel) {
+	public User(UserModelDto userModel) {
 		this.userModel = userModel;
 		this.userName = userModel.getUsername();
 		this.password = userModel.getPassword();
@@ -65,11 +66,11 @@ public class User extends UserModel implements UserDetails {
 		return true;
 	}
 
-	public UserModel getUserModel() {
+	public UserModelDto getUserModel() {
 		return userModel;
 	}
 
-	public void setUserModel(UserModel userModel) {
+	public void setUserModel(UserModelDto userModel) {
 		this.userModel = userModel;
 	}
 

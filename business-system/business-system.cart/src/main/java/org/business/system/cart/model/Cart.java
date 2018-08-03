@@ -4,9 +4,10 @@ import org.business.system.common.base.model.Entity;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Table(name="t_system_cart")
-public class Cart extends Entity {
+public class Cart{
     @Id
     private Long id;
     private Long userId;
@@ -16,7 +17,7 @@ public class Cart extends Entity {
     private Float itemPrice;
     private Long num;
     private String sku;
-
+    @Transient
     private Float subTotal;
 
     public Long getId() {

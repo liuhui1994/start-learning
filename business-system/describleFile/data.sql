@@ -819,3 +819,9 @@ ALTER TABLE "public"."t_system_rule" ADD PRIMARY KEY ("id");
 -- Primary Key structure for table t_system_user
 -- ----------------------------
 ALTER TABLE "public"."t_system_user" ADD PRIMARY KEY ("id");
+
+
+
+
+
+

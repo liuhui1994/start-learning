@@ -8,6 +8,7 @@ import org.business.system.cart.service.CartService;
 import org.business.system.cart.service.CookieCartService;
 import org.business.system.common.cloud.auth.OauthCloudService;
 import org.business.system.common.model.UserModel;
+import org.business.system.common.model.dto.UserModelDto;
 import org.business.system.common.response.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,11 +49,11 @@ public class CartController {
     }*/
     @ApiOperation(value = "添加商品至购物车", notes = "添加商品至购物车")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "商品id", value = "商品id", required = true, dataType = "Long"),
+            @ApiImplicitParam(name = "商品id", value = "商品id", required = true, dataType = "path"),
     })
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public ResponseMessage<Integer> insertCarts(Long itemId, String token, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserModel user = oauthCloudService.getUserBytoken(token).getData();
+    @RequestMapping(value = "/insert/{itemId}", method = RequestMethod.POST)
+    public ResponseMessage<Integer> insertCarts(@PathVariable(name="itemId") Long itemId, String token, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        UserModelDto user =  oauthCloudService.getUserBytoken(token).getData();
         if (user != null) {
             return ResponseMessage.success(cartService.addItemToCart(itemId, user));
         } else {
@@ -67,7 +68,7 @@ public class CartController {
     })
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResponseMessage<Integer> updateCarts(Long itemId, Long num, String token, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserModel user = oauthCloudService.getUserBytoken(token).getData();
+        UserModelDto user = oauthCloudService.getUserBytoken(token).getData();
         if (user != null) {
             return ResponseMessage.success(cartService.updateCart(itemId, num, user, request, response));
         } else {
@@ -80,7 +81,7 @@ public class CartController {
     })
     @RequestMapping(value = "/cartList", method = RequestMethod.GET)
     public ResponseMessage<Map> queryCars(String token, HttpServletRequest request) throws IOException {
-        UserModel user = oauthCloudService.getUserBytoken(token).getData();
+        UserModelDto user = oauthCloudService.getUserBytoken(token).getData();
         Map map = new HashMap<String,Object>();
         int totalPrice = 0;
         List<Cart> cartList;
@@ -102,7 +103,7 @@ public class CartController {
     })
     @RequestMapping(value ="/{ids}", method = RequestMethod.POST)
     public ResponseMessage<Integer> goodsDeletes(@PathVariable(name="ids") List<Long> ids,String token,HttpServletRequest request,HttpServletResponse response) throws IOException {
-        UserModel user = oauthCloudService.getUserBytoken(token).getData();
+        UserModelDto user = oauthCloudService.getUserBytoken(token).getData();
         if(user != null){
             return ResponseMessage.success(cartService.deleteCart(ids));
         }else{
