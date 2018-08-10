@@ -12,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableFeignClients(basePackages="org.business.system.*")
 @ComponentScan(basePackages="org.business.system.*")
 public class AccountApp {
+
 	public static void main(String[] args) {
 		 SpringApplication.run(AccountApp.class, args);	
 	}
