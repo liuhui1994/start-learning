@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableDiscoveryClient
 public class ActivityApp 
 {
-    //提交测试
+    //提交测试11
     public static void main( String[] args )
     {
     	SpringApplication.run(ActivityApp.class, args);
