@@ -1,0 +1,48 @@
+.mui-input-group {
+	margin-top: 10px;
+}
+
+.mui-input-group:first-child {
+	margin-top: 20px;
+}
+
+.mui-input-group label {
+	width: 30%;
+}
+
+.mui-input-row label~input,
+.mui-input-row label~select,
+.mui-input-row label~textarea {
+	float: left;
+	width: 65%;
+}
+
+.hqyzm{
+	height: 40px;
+	width: 116px;
+	text-align: center;
+	position: absolute;
+	right: 0px;
+	font-family: simhei;
+	font-size: medium;
+	border: none;
+}
+.hqyzm_unClick{
+	color: white;
+	background-color: #EA6F5A;
+}
+.hqyzm_clicked{
+	color: #9DADC6;
+	background-color: #E3E4E9;
+}
+
+
+
+.link-area {
+	display: block;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	text-align: center;
+	font-family: simhei;
+	font-size: medium;
+}

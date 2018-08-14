@@ -1,0 +1,287 @@
+/*个人中心*/
+/*设置列表图标颜色*/
+#tabbar_user .iconfont{
+	color: #ea7425;
+}
+
+/*退出登录*/
+.layout{
+	text-align: center;
+}
+
+/*个人资料*/
+/*表单*/
+.userInfo .mui-input-group label {
+	font-family: simhei;
+    line-height: 1.4;
+	font-size: 13px;
+	color: #6F7375;
+	width: 28%;
+}
+
+.userInfo .mui-input-row label~input,
+.userInfo .mui-input-row label~select,
+.userInfo .mui-input-row label~textarea {
+	font-family: simhei;
+	font-size: 12px;
+	color: #1D1D1D;
+	text-align: right;
+	float: left;
+	width: 67%;
+}
+
+/*消息通知*/
+.messageNotify ul li{
+	background-color: #FFFFFF;
+}
+/*设置上拉/下拉加载背景颜色和字体*/
+.messageNotify .mui-pull-top-pocket,.messageNotify .mui-pull-bottom-pocket{
+	/*background-color: #FFFFFF;*/
+	top:0px !important;/*下拉刷新加载效果置顶*/
+}
+.messageNotify .mui-pull-caption{
+	color: #B6B6B6;
+}
+
+/*我的钱包*/
+.theme{
+	margin: 0px;
+	background-color: #FFFFFF;
+}
+
+.details{
+	margin: 0px;
+	margin-top: 15px;
+	margin-bottom: 0px;
+	background-color: #FFFFFF;
+}
+
+.theme .mui-card-header,.details .mui-card-header{
+	padding: 2px 6px;
+	font-size: 14px;
+	min-height: 30px;
+}
+
+.theme .mui-card-content-inner{
+	padding: 0px;
+}
+
+.money{
+	text-align: center;
+	font-size: medium;
+	font-weight: bold;
+	color: #EA6F5A;
+	padding: 25px;
+}
+
+.opBtn{
+	padding: 5px 10px;
+	height: 40px;
+	text-align: center;
+}
+
+.opBtn span{
+	display: inline-block;
+	width: 32%;
+	background-color: #EA6F5A;
+	color: white;
+	font-family: simhei;
+	font-size: 14px;
+	border-radius: 3px;
+}
+
+.opBtn span:active{
+	background-color: #FA9D8E;
+}
+
+.details ul li{
+	padding: 6px 15px;
+	background-color: #FFFFFF;
+}
+
+
+/*资金详情:参考微信钱包中零钱明细+支付宝收支明细*/
+.accountDetail .mui-card:first-child{
+	margin: 0px;
+	background-color: #FFFFFF;
+	box-shadow:none;
+	border-bottom: 1px solid #C8C7CC;
+}
+
+.accountDetail .mui-card-header:first-child{
+	font-size: 14px;
+	height: 60px;
+	color: #8f8f94;
+}
+
+.accountDetail .mui-card-header:first-child span{
+	display: inline-block;
+}
+
+.detailContent{
+	padding: 10px 15px;
+}
+
+.detailContent span{
+	display: block;
+	float: left;
+}
+
+.fontColor{
+	color: black;
+}
+
+/*地址管理*/
+.addAddress{
+	font-family: simhei;
+	font-size: medium;
+	color: white !important;
+	background-color: #EA6F5A;
+}
+
+.addressList{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+/*不用设置固定高度，让他随内容增加而增大*/
+.address{
+	width: 100%;
+	margin-bottom: 15px;
+	background-color: #FFFFFF;
+	border-top: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+}
+.address div{
+	width: 100%;
+	font-family: simhei;
+	font-size: smaller;
+}
+.addrHeader{
+	height: 25px;
+}
+.nicheng{
+	height: 25px;
+	line-height: 25px;
+	float: left;
+	margin-left: 5px;
+}
+.phone{
+	height: 25px;
+	line-height: 25px;
+	float: right;
+	margin-right: 5px;
+}
+/*内容增加，会使整个高度增加*/
+.addrContent{
+	margin-left: 5px;
+	white-space: normal;
+	border-bottom: 1px solid #CCCCCC;
+}
+.addrFooter{
+	font-size: smaller !important;
+	height: 30px;
+	line-height: 30px;
+}
+.setDefault{
+	color: #ea7425;
+	font-size: smaller !important;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	margin-left: 5px;
+}
+.opAddr{
+	font-size: smaller !important;
+	float: right;
+	height: 30px;
+	line-height: 30px;
+	margin-right: 5px;
+}
+
+/*底部上拉加载样式->common.css设置*/
+.addressList ~ .mui-pull-bottom-pocket{
+	/*margin-top: -15px;*/
+}
+
+/*添加新地址：参考淘宝*/
+.addressAdd .mui-input-group .mui-input-row label{
+	font-family: simhei;
+    line-height: 1.4;
+	font-size: 13px;
+	color: #6F7375;
+	width: 23%;
+}
+
+.addressAdd .mui-table-view .mui-table-view-cell{
+	font-family: simhei;
+	font-size: 13px;
+	color: #6F7375;
+}
+
+.addressAdd .mui-input-row label~input,
+.addressAdd .mui-input-row label~select,
+.addressAdd .mui-input-row label~textarea {
+	width: 72%;
+	float: left;
+	font-family: simhei;
+	font-size: 12px;
+	color: #1D1D1D;
+}
+
+.textareaStyle{
+	min-height: 90px;
+}
+
+.textareaStyle textarea{
+	height: 90px;
+	width: 100%;
+	font-family: simhei;
+	font-size: 12px;
+	color: #1D1D1D;
+	overflow: hidden;
+}
+.setDefaultAddress .mui-table-view-cell{
+	border: none;
+	font-family: simhei;
+	font-size: 12px;
+	color: #1D1D1D;
+}
+
+.setDefaultAddress span{
+	color: #6F7375;/*点击后颜色: #ea7425;*/
+	font-size: 13px;
+	font-family: simhei;
+}
+
+.delAddress{
+	color: #EA6F5A !important;/*EE8C7B*/
+}
+
+/*修改密码*/
+.alterPassword{
+	margin-top: 15px;
+}
+.alterPassword .mui-input-group .mui-input-row label{
+	font-family: simhei;
+    line-height: 1.4;
+	font-size: 13px;
+	color: #6F7375;
+	width: 23%;
+}
+
+.alterPassword .mui-table-view .mui-table-view-cell{
+	font-family: simhei;
+	font-size: 13px;
+	color: #6F7375;
+}
+
+.alterPassword .mui-input-row label~input,
+.alterPassword .mui-input-row label~select,
+.alterPassword .mui-input-row label~textarea {
+	width: 72%;
+	float: left;
+	font-family: simhei;
+	font-size: 12px;
+	color: #1D1D1D;
+}
