@@ -28,7 +28,7 @@ public class MerchantServiceImpl extends BaseServiceImpl<Merchant,Long> implemen
     
     /**
 	 * 生成查询的example
-	 * @param userModel
+	 * @param
 	 * @return
 	 */
 	private Example createaExample(MerchantDto merchantDto){

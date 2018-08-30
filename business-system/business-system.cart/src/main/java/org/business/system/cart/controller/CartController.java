@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -72,6 +73,14 @@ public class CartController {
         if (user != null) {
             return ResponseMessage.success(cartService.updateCart(itemId, num, user, request, response));
         } else {
+            Cookie[] cookies = request.getCookies();
+            for (Cookie cookie:cookies) {
+                if(cookie.getName().equals("COOKIE_TICKET")){
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                    break;
+                }
+            }
             return ResponseMessage.success(cookieCartService.updateCart(itemId, num, request, response));
         }
     }
@@ -85,7 +94,7 @@ public class CartController {
         Map map = new HashMap<String,Object>();
         int totalPrice = 0;
         List<Cart> cartList;
-        if (user != null) {
+        if (user == null) {
             cartList = cookieCartService.queryCartList(request);
         } else {
             cartList = cartService.queryCartList(user);

@@ -61,7 +61,7 @@ public class CookieCartServiceImpl extends BaseServiceImpl<Cart,Long> implements
     public List<Cart> queryCartList(HttpServletRequest request) throws IOException {
         String values = CookieUtils.getValues(request, TK);
         if(StringUtils.isEmpty(values)){
-            return new ArrayList<>();
+            return new ArrayList<Cart>();
         }
         return  mapper.readValue(values, mapper.getTypeFactory().constructCollectionType(List.class, Cart.class));
     }

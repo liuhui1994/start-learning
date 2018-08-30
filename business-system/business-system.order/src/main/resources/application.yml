@@ -1,14 +1,16 @@
 server:
-   port: 8087
-   context-path: /merchant
-   spring:
+   port: 8090
+   context-path: /order
+   
+   
+spring:
     datasource:
       url: jdbc:postgresql://localhost:5432/postgres  
       username: postgres
       password: admin
       driver-class-name: org.postgresql.Driver  
     application:
-      name: merchant-service
+      name: order-service
     rabbitmq:
       host: localhost
       port: 5672
@@ -18,7 +20,7 @@ server:
       
 logging:  
   level:   
-    org.business.system.notice.mapper: debug
+    org.business.system.order.mapper: debug
 #    com:
 #      codingapi: debug
     

@@ -7,6 +7,7 @@ import org.business.system.auth.util.AuthServiceUtil;
 import org.business.system.auth.util.Oauth2ResponseToken;
 import org.business.system.common.em.UserType;
 import org.business.system.common.model.UserModel;
+import org.business.system.common.model.dto.UserModelDto;
 import org.business.system.common.response.ResponseMessage;
 import org.business.system.common.util.Md5;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class Oauth2Controller {
             @ApiImplicitParam(name = "token", value = "token", required = true, dataType = "String",paramType = "query"),
     })
 	@RequestMapping(value="/getUserBytoken",method=RequestMethod.GET)
-	public ResponseMessage<UserModel> token(@RequestParam(name="token")String token) {
+	public ResponseMessage<UserModelDto> token(@RequestParam(name="token")String token) {
 //		String token = request.getParameter("access_token");
 //		//CheckTokenEndpoint  ResourceServerTokenServices
 ////		System.out.println(resourceServerTokenServices.readAccessToken(token));
@@ -62,7 +63,7 @@ public class Oauth2Controller {
 	public ResponseMessage<Oauth2ResponseToken> ssoLogin(
 			@RequestParam(name="userName" ,required = true) String userName,
 			@RequestParam(name="password" ,required = true) String password,
-			@RequestParam(name="userType",required = true) UserType userType) throws JsonParseException, JsonMappingException, IOException{
+			@RequestParam(name="userType",required = true) UserType userType) throws IOException{
         String  json = AuthServiceUtil.doPost(auth_url, userName, Md5.encode(password));
         Oauth2ResponseToken token  = new ObjectMapper().readValue(json, Oauth2ResponseToken.class);
 		return ResponseMessage.success(token);

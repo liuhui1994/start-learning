@@ -152,7 +152,6 @@ CREATE SEQUENCE "public"."notice_id_sequence"
 -- ----------------------------
 -- Sequence structure for order_id_sequence
 -- ----------------------------
-DROP SEQUENCE "public"."order_id_sequence";
 CREATE SEQUENCE "public"."order_id_sequence"
  INCREMENT 1
  MINVALUE 1
@@ -163,7 +162,6 @@ CREATE SEQUENCE "public"."order_id_sequence"
 -- ----------------------------
 -- Sequence structure for order_item_id_sequence
 -- ----------------------------
-DROP SEQUENCE "public"."order_item_id_sequence";
 CREATE SEQUENCE "public"."order_item_id_sequence"
  INCREMENT 1
  MINVALUE 1
