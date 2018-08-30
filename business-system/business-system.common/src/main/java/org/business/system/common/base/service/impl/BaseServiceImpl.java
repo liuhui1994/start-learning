@@ -7,9 +7,8 @@ import org.business.system.common.configuration.BaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.pagehelper.PageInfo;
-import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class BaseServiceImpl<T,PK> implements BaseService<T, PK> {
 	
 	@Autowired

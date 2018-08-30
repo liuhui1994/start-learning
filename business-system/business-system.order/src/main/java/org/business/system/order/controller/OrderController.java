@@ -1,23 +1,25 @@
 package org.business.system.order.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import org.business.system.common.base.model.Entity;
-import org.business.system.common.em.BooleanType;
+import java.util.List;
+
 import org.business.system.common.response.ResponseMessage;
-import org.business.system.order.em.OrderStatusType;
-import org.business.system.order.em.PayStatus;
 import org.business.system.order.model.Order;
 import org.business.system.order.model.dto.OrderDto;
 import org.business.system.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.UUID;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/order")
@@ -41,7 +43,7 @@ public class OrderController  {
             @ApiImplicitParam(name="order", value="订单",required = true,dataType="OrderDto"),
     })
 
-    @RequestMapping(value = "/insert",method = RequestMethod.POST)
+    @RequestMapping(value = "/insert",method = RequestMethod.PUT)
     public ResponseMessage<OrderDto> updateOrder(@RequestBody OrderDto order){
 
         return ResponseMessage.success(orderService.updateOrder(order));

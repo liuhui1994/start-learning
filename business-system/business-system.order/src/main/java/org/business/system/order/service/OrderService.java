@@ -1,11 +1,12 @@
 package org.business.system.order.service;
 
+import org.business.system.common.base.service.BaseService;
 import org.business.system.order.model.Order;
 import org.business.system.order.model.dto.OrderDto;
 
 import java.util.List;
 
-public interface OrderService {
+public interface OrderService extends BaseService<Order, Long> {
     OrderDto buildOrder(OrderDto order,String accessToken);
 
     int deleteOrderById(Long id);

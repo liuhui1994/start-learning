@@ -14,6 +14,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
@@ -50,6 +52,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
             .tokenStore(tokenStore)
+            .accessTokenConverter(accessTokenConverter())  //jwt token
             .authenticationManager(authenticationManager)
             .userDetailsService(userService);
     }
@@ -68,11 +71,18 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .allowFormAuthenticationForClients();
 
     }
+    
+    @Bean
+    public JwtAccessTokenConverter accessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey("123");
+        return converter;
+    }
 
     @Bean
     public TokenStore tokenStore() {
-//    	return new JwtTokenStore(new JwtAccessTokenConverter());
-        return new InMemoryTokenStore();
+    	return new JwtTokenStore(accessTokenConverter());
+//        return new InMemoryTokenStore();
         
 //        InMemoryTokenStore：这个版本的实现是被默认采用的，它可以完美的工作在单服务器上（即访问并发量压力不大的情况下，并且它在失败的时候不会进行备份），
 //                                    大多数的项目都可以使用这个版本的实现来进行尝试，你可以在开发的时候使用它来进行管理，因为不会被保存到磁盘中，所以更易于调试。
@@ -91,5 +101,11 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         tokenServices.setTokenStore(tokenStore); // use in-memory token store
         return tokenServices;
     }
+    
+    
+//    请求/oauth/token的，如果配置支持allowFormAuthenticationForClients的，且url中有client_id和client_secret的会走ClientCredentialsTokenEndpointFilter
+//    请求/oauth/token的，如果没有支持allowFormAuthenticationForClients或者有支持但是url中没有client_id和client_secret的，走basic认证
+//    client detail认证(走AuthorizationServerSecurityConfigurer的配置)成功之后，如果是password模式，要走用户账号密码认证
+//    走password的就是用AuthorizationServerEndpointsConfigurer中配置的userDetailsService来进行认证
 
 }

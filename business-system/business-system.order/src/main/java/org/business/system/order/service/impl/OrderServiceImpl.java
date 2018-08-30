@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class OrderServiceImpl extends BaseServiceImpl<OrderDto,Long> implements OrderService {
+public class OrderServiceImpl extends BaseServiceImpl<Order,Long> implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
     @Autowired
