@@ -1,8 +1,6 @@
 server:
    port: 8090
    context-path: /order
-   
-   
 spring:
     datasource:
       url: jdbc:postgresql://localhost:5432/postgres  

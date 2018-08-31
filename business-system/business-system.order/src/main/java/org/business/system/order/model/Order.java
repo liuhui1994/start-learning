@@ -22,7 +22,7 @@ public class Order extends Entity {
     //支付状态
     private PayStatus payStatus;
     //站外订单号
-    private String outOrderNo;
+    private String outTradeNo;
     //支付时间
     private Date payDateTime;
     //支付金额
@@ -39,9 +39,63 @@ public class Order extends Entity {
     private Date limitPayTime;
     //退款金额
     private Float refundPrice;
+    //商户id
+    private Long merchantId;
+    //订单说明
+    private String orderTitle;
+    //消费奖励
+    private String award;
+    //收货地址
+    private String collectionAddress;
+    //物流信息
+    private String logistics;
+
+
+
 
     private Long userId;
     private String fee;
+
+
+    public Long getMerchantId() {
+        return merchantId;
+    }
+
+    public void setMerchantId(Long merchantId) {
+        this.merchantId = merchantId;
+    }
+
+    public String getOrderTitle() {
+        return orderTitle;
+    }
+
+    public void setOrderTitle(String orderTitle) {
+        this.orderTitle = orderTitle;
+    }
+
+    public String getAward() {
+        return award;
+    }
+
+    public void setAward(String award) {
+        this.award = award;
+    }
+
+    public String getCollectionAddress() {
+        return collectionAddress;
+    }
+
+    public void setCollectionAddress(String collectionAddress) {
+        this.collectionAddress = collectionAddress;
+    }
+
+    public String getLogistics() {
+        return logistics;
+    }
+
+    public void setLogistics(String logistics) {
+        this.logistics = logistics;
+    }
 
     public void setUserId(Long userId) {
         this.userId = userId;
@@ -91,12 +145,12 @@ public class Order extends Entity {
         this.payStatus = payStatus;
     }
 
-    public String getOutOrderNo() {
-        return outOrderNo;
+    public String getOutTradeNo() {
+        return outTradeNo;
     }
 
-    public void setOutOrderNo(String outOrderNo) {
-        this.outOrderNo = outOrderNo;
+    public void setOutTradeNo(String outTradeNo) {
+        this.outTradeNo = outTradeNo;
     }
 
     public Date getPayDateTime() {

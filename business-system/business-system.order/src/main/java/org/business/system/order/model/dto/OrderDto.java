@@ -7,6 +7,9 @@ import java.util.*;
 
 public class OrderDto extends Order {
 
+    public OrderDto(){
+
+    }
     public OrderDto(Order order) {
         this.setId(order.getId());
         this.setUserId(order.getUserId());
@@ -15,7 +18,7 @@ public class OrderDto extends Order {
         this.setLimitPayTime(order.getLimitPayTime());
         this.setOrderStatus(order.getOrderStatus());
         this.setOrderTotalPrice(order.getOrderTotalPrice());
-        this.setOutOrderNo(order.getOutOrderNo());
+        this.setOutTradeNo(order.getOutTradeNo());
         this.setPayDateTime(order.getPayDateTime());
         this.setPayPrice(order.getPayPrice());
         this.setPayStatus(order.getPayStatus());

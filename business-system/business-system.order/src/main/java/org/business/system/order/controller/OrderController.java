@@ -43,7 +43,7 @@ public class OrderController  {
             @ApiImplicitParam(name="order", value="订单",required = true,dataType="OrderDto"),
     })
 
-    @RequestMapping(value = "/insert",method = RequestMethod.PUT)
+    @RequestMapping(value = "/update",method = RequestMethod.PUT)
     public ResponseMessage<OrderDto> updateOrder(@RequestBody OrderDto order){
 
         return ResponseMessage.success(orderService.updateOrder(order));
@@ -70,6 +70,7 @@ public class OrderController  {
     @ApiOperation(value="获取订单列表", notes="获取订单列表" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "accessToken", value = "登录密钥", required = true, dataType = "String"),
+            @ApiImplicitParam(name="order", value="查询条件",required = false,dataType = "Order"),
             @ApiImplicitParam(name = "pageNum", value = "第几页", required = true, dataType = "Integer",paramType = "query"),
             @ApiImplicitParam(name = "pageSize", value = "每页数量", required = false, dataType = "Integer",paramType = "query"),
             @ApiImplicitParam(name = "orderBy", value = "排序", required = false, dataType = "String",paramType = "query"),
@@ -86,13 +87,19 @@ public class OrderController  {
         PageInfo<Order> pageInfo = new PageInfo<>(orders);
         return ResponseMessage.success(pageInfo);
     }
-
+    @ApiOperation(value="通过Id取消订单", notes="通过Id取消订单" )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="id", value="订单id",required = true,dataType="Long",paramType="path"),
+    })
     @RequestMapping(value = "refendOrder/{id}",method = RequestMethod.POST)
     public ResponseMessage<Order> refendOrder(@PathVariable Long id){
         return ResponseMessage.success(this.orderService.refendOrder(id));
     }
 
-
+    @ApiOperation(value="通过Id退货确认收货", notes="通过Id退货确认收货" )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="id", value="订单id",required = true,dataType="Long",paramType="path"),
+    })
     @RequestMapping(value = "confirmRecieve/{id}",method = RequestMethod.POST)
     public ResponseMessage confirmRecieve(@PathVariable Long id){
 

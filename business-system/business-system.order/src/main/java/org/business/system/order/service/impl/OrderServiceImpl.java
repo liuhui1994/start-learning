@@ -44,23 +44,27 @@ public class OrderServiceImpl extends BaseServiceImpl<Order,Long> implements Ord
         UserModelDto user = oauthCloudService.getUserBytoken(accessToken).getData();
         Long userId = securityValidateService.getUserIdByUserIdEnc(user.getUserIdEnc());
         order.setUserId(userId);
-        int success = orderMapper.insertUseGeneratedKeys(order);
+        order.setOrderStatus(OrderStatusType.UNSEND);
+        order.setId(1l);
+        int success = orderMapper.insert(order);
        if(success < 0){
            throw new CommonErrorException("00","插入订单失败");
        }
         if(!CollectionUtils.isEmpty(order.getOrderItemList())){
             List<OrderItem> orderItemList = order.getOrderItemList();
             orderItemList.stream().forEach( orderItem -> {
+                insertEntity(orderItem);
                 orderItem.setOrderId(order.getId());
+                orderItemMapper.insert(orderItem);
             });
-            success = orderItemMapper.insertList(orderItemList);
+            //success = orderItemMapper.insertList(orderItemList);
         }
         if(success < 0){
             throw new CommonErrorException("00","插入订单详情失败");
         }
         return order;
     }
-
+    @Transactional
     @Override
     public int deleteOrderById(Long id) {
         if(id == null || id < 0){
@@ -106,12 +110,14 @@ public class OrderServiceImpl extends BaseServiceImpl<Order,Long> implements Ord
         return orderMapper.selectByExample(example);
     }
 
+    @Transactional
     @Override
     public OrderDto updateOrder(OrderDto order) {
         orderMapper.updateByPrimaryKeySelective(order);
         return order;
     }
 
+    @Transactional
     @Override
     public OrderDto refendOrder(Long id) {
         checkId(id);

@@ -79,7 +79,7 @@ public class MerchantController {
     }
     @ApiOperation(value="获取商户列表", notes="获取商户列表" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "merchant", value = "商户查询对象", required = false, dataType = "Merchant"),
+            //@ApiImplicitParam(name = "merchant", value = "商户查询对象", required = false, dataType = "Merchant"),
             @ApiImplicitParam(name = "pageNum", value = "第几页", required = true, dataType = "Integer",paramType = "query"),
             @ApiImplicitParam(name = "pageSize", value = "每页数量", required = false, dataType = "Integer",paramType = "query"),
             @ApiImplicitParam(name = "orderBy", value = "排序", required = false, dataType = "String",paramType = "query"),
