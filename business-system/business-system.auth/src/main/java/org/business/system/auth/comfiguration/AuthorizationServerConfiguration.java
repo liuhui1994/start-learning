@@ -52,7 +52,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
             .tokenStore(tokenStore)
-            .accessTokenConverter(accessTokenConverter())  //jwt token
+//            .accessTokenConverter(accessTokenConverter())  //jwt token
             .authenticationManager(authenticationManager)
             .userDetailsService(userService);
     }
@@ -72,17 +72,17 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     }
     
-    @Bean
-    public JwtAccessTokenConverter accessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey("123");
-        return converter;
-    }
+//    @Bean
+//    public JwtAccessTokenConverter accessTokenConverter() {
+//        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+//        converter.setSigningKey("123");
+//        return converter;
+//    }
 
     @Bean
     public TokenStore tokenStore() {
-    	return new JwtTokenStore(accessTokenConverter());
-//        return new InMemoryTokenStore();
+//    	return new JwtTokenStore(accessTokenConverter());
+        return new InMemoryTokenStore();
         
 //        InMemoryTokenStore：这个版本的实现是被默认采用的，它可以完美的工作在单服务器上（即访问并发量压力不大的情况下，并且它在失败的时候不会进行备份），
 //                                    大多数的项目都可以使用这个版本的实现来进行尝试，你可以在开发的时候使用它来进行管理，因为不会被保存到磁盘中，所以更易于调试。
