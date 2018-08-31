@@ -69,7 +69,7 @@ public class OrderController  {
 
     @ApiOperation(value="获取订单列表", notes="获取订单列表" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "accessToken", value = "登录密钥", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "accessToken", value = "登录密钥", required = true, dataType = "String",paramType = "query"),
             @ApiImplicitParam(name="order", value="查询条件",required = false,dataType = "Order"),
             @ApiImplicitParam(name = "pageNum", value = "第几页", required = true, dataType = "Integer",paramType = "query"),
             @ApiImplicitParam(name = "pageSize", value = "每页数量", required = false, dataType = "Integer",paramType = "query"),
