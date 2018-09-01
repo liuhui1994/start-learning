@@ -2,8 +2,9 @@ package org.business.system.activity.service;
 
 import java.util.List;
 
-import org.business.system.activity.model.ActiveityRule;
+import org.business.system.activity.model.ActivityRule;
 import org.business.system.activity.model.Activity;
+import org.business.system.activity.model.dto.ActivityAwardDto;
 import org.business.system.common.base.service.BaseService;
 
 public interface ActivityService  extends BaseService<Activity, Long>{
@@ -39,7 +40,7 @@ public interface ActivityService  extends BaseService<Activity, Long>{
 	/**
 	 * 活动奖励
 	 */
-	public void activityAward();
+	public void activityAward(ActivityAwardDto activityAwardDto);
 	
 	/**
 	 * 绑定活动规则

@@ -11,7 +11,7 @@ Target Server Type    : PGSQL
 Target Server Version : 90301
 File Encoding         : 65001
 
-Date: 2018-08-02 18:15:23
+Date: 2018-08-31 15:13:34
 */
 
 
@@ -36,7 +36,29 @@ CREATE SEQUENCE "public"."account_id_sequence"
  MAXVALUE 9223372036854775807
  START 1
  CACHE 1;
-SELECT setval('"public"."account_id_sequence"', 1, true);
+
+
+-- ----------------------------
+-- Sequence structure for activity_claim_statistics_id_sequence
+-- ----------------------------
+DROP SEQUENCE "public"."activity_claim_statistics_id_sequence";
+CREATE SEQUENCE "public"."activity_claim_statistics_id_sequence"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 10014
+ CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for activity_flow_id_sequence
+-- ----------------------------
+DROP SEQUENCE "public"."activity_flow_id_sequence";
+CREATE SEQUENCE "public"."activity_flow_id_sequence"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 1
+ CACHE 1;
 
 -- ----------------------------
 -- Sequence structure for activity_id_sequence
@@ -152,6 +174,7 @@ CREATE SEQUENCE "public"."notice_id_sequence"
 -- ----------------------------
 -- Sequence structure for order_id_sequence
 -- ----------------------------
+DROP SEQUENCE "public"."order_id_sequence";
 CREATE SEQUENCE "public"."order_id_sequence"
  INCREMENT 1
  MINVALUE 1
@@ -162,6 +185,7 @@ CREATE SEQUENCE "public"."order_id_sequence"
 -- ----------------------------
 -- Sequence structure for order_item_id_sequence
 -- ----------------------------
+DROP SEQUENCE "public"."order_item_id_sequence";
 CREATE SEQUENCE "public"."order_item_id_sequence"
  INCREMENT 1
  MINVALUE 1
@@ -188,9 +212,9 @@ CREATE SEQUENCE "public"."user_id_sequence"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 10014
+ START 10021
  CACHE 1;
-SELECT setval('"public"."user_id_sequence"', 10014, true);
+SELECT setval('"public"."user_id_sequence"', 10021, true);
 
 -- ----------------------------
 -- Table structure for t_system_account
@@ -282,6 +306,65 @@ COMMENT ON COLUMN "public"."t_system_activity"."activity_state" IS '活动状态
 COMMENT ON COLUMN "public"."t_system_activity"."activity_no" IS '活动编号';
 COMMENT ON COLUMN "public"."t_system_activity"."remark" IS '备注';
 COMMENT ON COLUMN "public"."t_system_activity"."limit_date_end" IS '活动结束时间限制';
+
+-- ----------------------------
+-- Table structure for t_system_activity_claim_statistics
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_system_activity_claim_statistics";
+CREATE TABLE "public"."t_system_activity_claim_statistics" (
+"id" int8 DEFAULT nextval('activity_claim_statistics_id_sequence'::regclass) NOT NULL,
+"activity_id" int8 NOT NULL,
+"rule_id" int8,
+"user_id" int8,
+"claim_num" int8,
+"claim_num_by_week" int8,
+"claim_num_by_hour" int8,
+"claim_num_by_year" int8,
+"claim_amount" numeric(20,2),
+"create_date" timestamp(6) NOT NULL
+)
+WITH (OIDS=FALSE)
+
+;
+COMMENT ON COLUMN "public"."t_system_activity_claim_statistics"."activity_id" IS '活动id';
+COMMENT ON COLUMN "public"."t_system_activity_claim_statistics"."rule_id" IS '规则id';
+COMMENT ON COLUMN "public"."t_system_activity_claim_statistics"."user_id" IS '领取用户ID';
+COMMENT ON COLUMN "public"."t_system_activity_claim_statistics"."claim_num" IS '领取总数';
+COMMENT ON COLUMN "public"."t_system_activity_claim_statistics"."claim_num_by_week" IS '一周领取总数';
+COMMENT ON COLUMN "public"."t_system_activity_claim_statistics"."claim_num_by_hour" IS '一小时领取总数';
+COMMENT ON COLUMN "public"."t_system_activity_claim_statistics"."claim_num_by_year" IS '一年领取总数';
+COMMENT ON COLUMN "public"."t_system_activity_claim_statistics"."claim_amount" IS '领取金额';
+
+-- ----------------------------
+-- Table structure for t_system_activity_flow
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_system_activity_flow";
+CREATE TABLE "public"."t_system_activity_flow" (
+"id" int8 DEFAULT nextval('activity_flow_id_sequence'::regclass) NOT NULL,
+"activity_id" int8 NOT NULL,
+"activity_name" varchar(50) COLLATE "default" NOT NULL,
+"flow_type" varchar(20) COLLATE "default" NOT NULL,
+"user_id" int8 NOT NULL,
+"prize" varchar(20) COLLATE "default" NOT NULL,
+"is_claim" varchar(20) COLLATE "default" NOT NULL,
+"flow_no" varchar(50) COLLATE "default" NOT NULL,
+"create_date" timestamp(6) NOT NULL,
+"claim_date" timestamp(6),
+"prize_type" varchar(20) COLLATE "default" NOT NULL
+)
+WITH (OIDS=FALSE)
+
+;
+COMMENT ON COLUMN "public"."t_system_activity_flow"."activity_id" IS '活动id';
+COMMENT ON COLUMN "public"."t_system_activity_flow"."activity_name" IS '活动名称';
+COMMENT ON COLUMN "public"."t_system_activity_flow"."flow_type" IS '流水类型';
+COMMENT ON COLUMN "public"."t_system_activity_flow"."user_id" IS '领取用户ID';
+COMMENT ON COLUMN "public"."t_system_activity_flow"."prize" IS '奖品';
+COMMENT ON COLUMN "public"."t_system_activity_flow"."is_claim" IS '是否领奖';
+COMMENT ON COLUMN "public"."t_system_activity_flow"."flow_no" IS '流水编号';
+COMMENT ON COLUMN "public"."t_system_activity_flow"."create_date" IS '创建时间';
+COMMENT ON COLUMN "public"."t_system_activity_flow"."claim_date" IS '领取时间';
+COMMENT ON COLUMN "public"."t_system_activity_flow"."prize_type" IS '奖品类型';
 
 -- ----------------------------
 -- Table structure for t_system_activity_rule
@@ -603,7 +686,8 @@ CREATE TABLE "public"."t_system_order" (
 "order_title" varchar(200) COLLATE "default" NOT NULL,
 "award" varchar(50) COLLATE "default",
 "collection_address" varchar(50) COLLATE "default" NOT NULL,
-"logistics" varchar(200) COLLATE "default"
+"logistics" varchar(200) COLLATE "default",
+"settlement_status" varchar(20) COLLATE "default" NOT NULL
 )
 WITH (OIDS=FALSE)
 
@@ -817,9 +901,3 @@ ALTER TABLE "public"."t_system_rule" ADD PRIMARY KEY ("id");
 -- Primary Key structure for table t_system_user
 -- ----------------------------
 ALTER TABLE "public"."t_system_user" ADD PRIMARY KEY ("id");
-
-
-
-
-
-

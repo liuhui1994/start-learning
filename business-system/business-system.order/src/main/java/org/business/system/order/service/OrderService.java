@@ -6,7 +6,8 @@ import org.business.system.order.model.dto.OrderDto;
 
 import java.util.List;
 
-public interface OrderService extends BaseService<Order, Long> {
+public interface OrderService{
+//extends BaseService<Order, Long> {
     OrderDto buildOrder(OrderDto order,String accessToken);
 
     int deleteOrderById(Long id);

@@ -1,17 +1,17 @@
 package org.business.system.activity.em;
 
 /**
- * 活动类型
+ * 活动奖品类型
  * @author Administrator
  *
  */
-public enum ActivityType {
+public enum ActivityPrizeType {
 	
 	REGISTERED("注册");
 	
 	private String text;
 	
-	ActivityType(String text) {
+	ActivityPrizeType(String text) {
 		this.text = text;
 	}
 

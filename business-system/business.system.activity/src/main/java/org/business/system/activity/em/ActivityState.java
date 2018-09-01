@@ -1,5 +1,10 @@
 package org.business.system.activity.em;
 
+/**
+ * 活动状态
+ * @author Administrator
+ *
+ */
 public enum ActivityState {
 	
 	USE("使用中"),

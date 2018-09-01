@@ -4,7 +4,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Table(name="t_system_activity_rule")
-public class ActiveityRule {
+public class ActivityRule {
 
 	@Id
 	private Long id;

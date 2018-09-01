@@ -1,17 +1,21 @@
 package org.business.system.activity.em;
 
 /**
- * 活动类型
+ * 规则限制类型
  * @author Administrator
  *
  */
-public enum ActivityType {
+public enum RuleLimitType {
 	
-	REGISTERED("注册");
+	HOUR("时"),
+	DAY("日"),
+	WEEK("周"),
+	MOTNTH("月"),
+	NONE("无限制");
 	
 	private String text;
 	
-	ActivityType(String text) {
+	RuleLimitType(String text) {
 		this.text = text;
 	}
 

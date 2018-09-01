@@ -32,6 +32,16 @@ public class RandomUtils {
         return sb.toString();
 	}
 	
+	/**
+	 * 生成两数字范围之间的数字
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public static int generateRangeNumber(int start,int end) {
+		return (int)(Math.random()*end)+start;
+	}
+	
 
 	
 

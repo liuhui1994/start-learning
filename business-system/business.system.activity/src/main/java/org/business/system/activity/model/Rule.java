@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.business.system.activity.em.ActivityPrizeType;
+import org.business.system.activity.em.RuleLimitType;
 import org.business.system.common.base.model.Entity;
 
 @Table(name="t_system_rule")
@@ -17,13 +19,13 @@ public class Rule extends Entity{
 	
 	private BigDecimal theOdds;  //中奖概率
 	
-	private String awardType;  //奖励类型
+	private ActivityPrizeType awardType;  //奖励类型
 	
 	private String prize;     //奖品
 	
-	private String limitType;  //限制类型
+	private RuleLimitType limitType;  //限制类型
 	
-	private String limitCount; //限制数量
+	private Long limitCount; //限制数量
 	
 	private String remark;  //备注
 
@@ -51,14 +53,7 @@ public class Rule extends Entity{
 		this.theOdds = theOdds;
 	}
 
-	public String getAwardType() {
-		return awardType;
-	}
-
-	public void setAwardType(String awardType) {
-		this.awardType = awardType;
-	}
-
+	
 	public String getPrize() {
 		return prize;
 	}
@@ -67,21 +62,12 @@ public class Rule extends Entity{
 		this.prize = prize;
 	}
 
-	public String getLimitType() {
-		return limitType;
-	}
 
-	public void setLimitType(String limitType) {
-		this.limitType = limitType;
-	}
-
-
-
-	public String getLimitCount() {
+	public Long getLimitCount() {
 		return limitCount;
 	}
 
-	public void setLimitCount(String limitCount) {
+	public void setLimitCount(Long limitCount) {
 		this.limitCount = limitCount;
 	}
 
@@ -91,6 +77,22 @@ public class Rule extends Entity{
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public ActivityPrizeType getAwardType() {
+		return awardType;
+	}
+
+	public void setAwardType(ActivityPrizeType awardType) {
+		this.awardType = awardType;
+	}
+
+	public RuleLimitType getLimitType() {
+		return limitType;
+	}
+
+	public void setLimitType(RuleLimitType limitType) {
+		this.limitType = limitType;
 	}
 	
 	
