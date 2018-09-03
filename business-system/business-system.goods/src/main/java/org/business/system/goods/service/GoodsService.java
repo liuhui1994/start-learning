@@ -48,7 +48,7 @@ public interface GoodsService {
      * @param id
      * @return
      */
-	GoodsDto getGoodsDtoByGoodsId(Long attrId);
+	GoodsDto getSingleGoodsDtoByAttrId(Long attrId);
 
   
    

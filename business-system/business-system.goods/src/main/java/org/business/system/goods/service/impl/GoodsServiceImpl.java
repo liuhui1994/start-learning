@@ -64,6 +64,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods,Long> implements Goo
         	List<GoodsAttr> goodsAttrList = goodsDto.getGoodsAttrList();
             goodsAttrList.stream().forEach(goodsAttr->{
             	goodsAttr.setGoodsId(goodsId);
+            	checkGoodsAttr(goodsAttr);
             });
             success = goodsAttrMapper.insertList(goodsAttrList);
         }
@@ -75,7 +76,6 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods,Long> implements Goo
     
 	@Override
 	public GoodsDto updateGoods(GoodsDto goodsDto) {
-		// TODO Auto-generated method stub
 		return null;
 	}
     
@@ -97,8 +97,43 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods,Long> implements Goo
 	
 	@Override
 	public GoodsAttr updateGoodsAttr(GoodsAttr goodsAttr) {
-		// TODO Auto-generated method stub
-		return null;
+		if(goodsAttr==null || goodsAttr.getId()==null) {
+			throw new CommonErrorException("01", "当前选择商品id有误");
+		}
+		GoodsAttr oldGoodsAttr = goodsAttrMapper.selectByPrimaryKey(goodsAttr.getId());
+		if(oldGoodsAttr == null) {
+			throw new CommonErrorException("01", "当前选择商品id有误");	
+		}
+//		if(ObjectUtils.isEmpty(goodsAttr.getGoodsId())){
+//			oldGoodsAttr.setGoodsId(goodsAttr.getGoodsId());
+//		}
+        if(!ObjectUtils.isEmpty(goodsAttr.getCostPrice())){
+        	oldGoodsAttr.setCostPrice(goodsAttr.getCostPrice());
+        }
+        if(!ObjectUtils.isEmpty(goodsAttr.getSellPrice())){
+        	oldGoodsAttr.setSellPrice(goodsAttr.getSellPrice());
+        }
+        if(!ObjectUtils.isEmpty(goodsAttr.getInventory())){
+        	oldGoodsAttr.setInventory(goodsAttr.getInventory());
+        }
+        if(!ObjectUtils.isEmpty(goodsAttr.getSales())){
+        	oldGoodsAttr.setSales(goodsAttr.getSales());
+        }
+        if(!ObjectUtils.isEmpty(goodsAttr.getSku1())){
+        	oldGoodsAttr.setSku1(goodsAttr.getSku1());
+        }
+        if(!ObjectUtils.isEmpty(goodsAttr.getSkuDesc1())){
+        	oldGoodsAttr.setSkuDesc1(goodsAttr.getSkuDesc1());
+        }
+        if(!ObjectUtils.isEmpty(goodsAttr.getSkuPic())){
+        	oldGoodsAttr.setSkuPic(goodsAttr.getSkuPic());
+        }
+        int success = goodsAttrMapper.updateByPrimaryKeySelective(oldGoodsAttr);
+        if(success<=0) {
+        	throw new CommonErrorException("00", "编辑失败");
+        }
+		
+		return oldGoodsAttr;
 	}
 	
 	@Override
@@ -107,7 +142,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods,Long> implements Goo
 	}
 	
 	@Override
-	public GoodsDto getGoodsDtoByGoodsId(Long attrId) {
+	public GoodsDto getSingleGoodsDtoByAttrId(Long attrId) {
 		return goodsAttrMapper.selectGoodsByattrId(attrId);
 	}
 	

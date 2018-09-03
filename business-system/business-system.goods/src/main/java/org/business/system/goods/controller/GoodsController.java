@@ -38,11 +38,11 @@ public class GoodsController {
     
     @ApiOperation(value="通过商品attrId获取单个商品详情", notes="通过商品attrId获取单个商品详情" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name="id", value="商品id",required = true,dataType="Long",paramType="path"),
+            @ApiImplicitParam(name="id", value="商户属性id",required = true,dataType="Long",paramType="path"),
     })
     @RequestMapping(value ="/single/{id}", method = RequestMethod.GET)
     public ResponseMessage<GoodsDto> singelGoods(@PathVariable(name="id") Long id) {
-        return ResponseMessage.success(goodsService.getGoodsDtoByGoodsId(id));
+        return ResponseMessage.success(goodsService.getSingleGoodsDtoByAttrId(id));
     }
 
 
