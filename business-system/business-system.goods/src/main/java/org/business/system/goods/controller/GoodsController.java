@@ -57,7 +57,7 @@ public class GoodsController {
 
 
 
-    @ApiOperation(value="新增商品", notes="新增商品" )
+    @ApiOperation(value="新增一类商品", notes="新增一类商品" )
     @ApiImplicitParams({
             @ApiImplicitParam(name="goods", value="商品id",required = true,dataType="GoodsDto"),
     })
