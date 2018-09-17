@@ -2,6 +2,9 @@ package org.business.system.auth.util;
 
 import java.io.Serializable;
 
+import org.business.system.auth.comfiguration.User;
+
+
 public class Oauth2ResponseToken implements Serializable{
 	
 	/**
@@ -18,6 +21,30 @@ public class Oauth2ResponseToken implements Serializable{
 	private Long expires_in;
 	
 	private String scope;
+	
+	private String jti;
+	
+	private User user;
+	
+	
+
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getJti() {
+		return jti;
+	}
+
+	public void setJti(String jti) {
+		this.jti = jti;
+	}
 
 	public String getAccess_token() {
 		return access_token;

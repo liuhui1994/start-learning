@@ -1,5 +1,7 @@
 package org.business.system.auth.comfiguration;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -12,17 +14,18 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
-
-    @Autowired
-    private TokenStore tokenStore;
+//
+//    @Autowired
+//    private TokenStore tokenStore;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -44,17 +47,26 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                     .authorizedGrantTypes("password", "refresh_token")
                     .scopes("read", "write")
                     .secret(secret);
-//        clients.inMemory().
         //自定义应用授权
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    	
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(
+          Arrays.asList(tokenEnhancer(), accessTokenConverter()));
+
         endpoints
-            .tokenStore(tokenStore)
-//            .accessTokenConverter(accessTokenConverter())  //jwt token
-            .authenticationManager(authenticationManager)
-            .userDetailsService(userService);
+      .tokenStore(tokenStore())
+      .tokenEnhancer(tokenEnhancerChain)
+      .authenticationManager(authenticationManager)
+      .userDetailsService(userService);
+        
+//        endpoints
+//            .tokenStore(tokenStore)
+//            .authenticationManager(authenticationManager)
+//            .userDetailsService(userService);
     }
     
     @Override
@@ -72,17 +84,17 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     }
     
-//    @Bean
-//    public JwtAccessTokenConverter accessTokenConverter() {
-//        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-//        converter.setSigningKey("123");
-//        return converter;
-//    }
+    @Bean
+    public JwtAccessTokenConverter accessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey("123");
+        return converter;
+    }
 
     @Bean
     public TokenStore tokenStore() {
-//    	return new JwtTokenStore(accessTokenConverter());
-        return new InMemoryTokenStore();
+    	return new JwtTokenStore(accessTokenConverter());
+//        return new InMemoryTokenStore();
         
 //        InMemoryTokenStore：这个版本的实现是被默认采用的，它可以完美的工作在单服务器上（即访问并发量压力不大的情况下，并且它在失败的时候不会进行备份），
 //                                    大多数的项目都可以使用这个版本的实现来进行尝试，你可以在开发的时候使用它来进行管理，因为不会被保存到磁盘中，所以更易于调试。
@@ -97,9 +109,17 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Primary
     public DefaultTokenServices tokenServices() {
         DefaultTokenServices tokenServices = new DefaultTokenServices();
+        tokenServices.setTokenEnhancer(accessTokenConverter());
         tokenServices.setSupportRefreshToken(true); // support refresh token
-        tokenServices.setTokenStore(tokenStore); // use in-memory token store
+//        tokenServices.setTokenStore(tokenStore); // use in-memory token store
+      tokenServices.setTokenStore(tokenStore()); // use in-memory token store
         return tokenServices;
+    }
+    
+   
+    @Bean
+    public TokenEnhancer tokenEnhancer() {
+        return new CustomTokenEnhancer();
     }
     
     

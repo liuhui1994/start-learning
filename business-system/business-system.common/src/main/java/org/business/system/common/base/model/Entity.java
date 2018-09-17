@@ -16,6 +16,7 @@ public class Entity {
 	@JsonIgnore
 	private BooleanType status;
 	
+	
 	private String creator;
 	
 	private String modifier;

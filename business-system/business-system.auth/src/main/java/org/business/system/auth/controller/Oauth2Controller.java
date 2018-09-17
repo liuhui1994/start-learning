@@ -1,6 +1,8 @@
 package org.business.system.auth.controller;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.Set;
 
 import org.business.system.auth.comfiguration.User;
 import org.business.system.auth.util.AuthServiceUtil;
@@ -44,12 +46,19 @@ public class Oauth2Controller {
             @ApiImplicitParam(name = "token", value = "token", required = true, dataType = "String",paramType = "query"),
     })
 	@RequestMapping(value="/getUserBytoken",method=RequestMethod.GET)
-	public ResponseMessage<UserModelDto> token(@RequestParam(name="token")String token) {
+	public ResponseMessage<UserModelDto> token(@RequestParam(name="token")String token) throws IOException {
 //		String token = request.getParameter("access_token");
 //		//CheckTokenEndpoint  ResourceServerTokenServices
-////		System.out.println(resourceServerTokenServices.readAccessToken(token));
-		OAuth2Authentication oAuth2Authentication = resourceServerTokenServices.loadAuthentication(token);
-		User user = (User) oAuth2Authentication.getPrincipal();
+//		System.out.println(resourceServerTokenServices.readAccessToken(token));
+		Map<String, Object> map = resourceServerTokenServices.readAccessToken(token).getAdditionalInformation();
+//		System.out.println(map.get("user"));
+//		System.out.println(map.get("user").toString());
+		String json = new ObjectMapper().writeValueAsString(map.get("user"));
+        User user  = new ObjectMapper().readValue(json, User.class);
+
+
+//		OAuth2Authentication oAuth2Authentication = resourceServerTokenServices.loadAuthentication(token);
+//		User user = (User) oAuth2Authentication.getPrincipal();
 		return ResponseMessage.success(user.getUserModel());
 	}
 	
