@@ -2,6 +2,7 @@ package org.business.system.newstart.controller;
 
 import java.util.List;
 
+import org.business.system.common.annoation.AuthAspectAnnoation;
 import org.business.system.common.constants.SecurityConstants;
 import org.business.system.common.em.UserState;
 import org.business.system.common.model.UserModel;
@@ -52,10 +53,11 @@ public class UserModelController {
     }
 	
 	
-	
+	@AuthAspectAnnoation  //自定义注解拦截主要token的url
 	@ApiOperation(value="通过手机号获取用户详情", notes="根据用户的唯一手机号来获取用户信息" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "mobile", value = "手机号", required = true, dataType = "String",paramType = "query"),
+            @ApiImplicitParam(name = "accessToekn", value = "token", required = true, dataType = "String",paramType = "Header"),
     })
     @RequestMapping(value="/detailByMobile", method= RequestMethod.GET)
     public  ResponseMessage<UserModelDto> detailByMobile(@RequestParam(name="mobile") String  mobile) { 

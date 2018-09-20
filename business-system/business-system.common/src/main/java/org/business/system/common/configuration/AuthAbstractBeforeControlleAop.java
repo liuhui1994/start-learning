@@ -9,6 +9,7 @@ import org.business.system.common.annoation.AuthAspectAnnoation;
 import org.business.system.common.exception.CommonErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 
 @Aspect
@@ -23,14 +24,17 @@ public class AuthAbstractBeforeControlleAop {
     public Object aroundInvoke(JoinPoint joinPoint,AuthAspectAnnoation AuthAspectAnnoation) 
 
             throws Throwable {
-       System.out.println(request.getParameter("mobile"));
-       System.out.println(1+"===========");
+       String access_token = request.getParameter("access_token");
+       System.out.println(access_token+"===========");
 
         Object object = joinPoint.getArgs();
 
        System.out.println(object+"");
-       
-       throw new CommonErrorException("00", "is have indivial access_token");
+       if(ObjectUtils.isEmpty(access_token) || "null".equals(access_token)) {
+    	   throw new CommonErrorException("00", "is have indivial access_token");
+
+       }
+       return  access_token;
 
 
     }

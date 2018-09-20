@@ -2,19 +2,17 @@ package org.business.system.auth.controller;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.Set;
 
 import org.business.system.auth.comfiguration.User;
 import org.business.system.auth.util.AuthServiceUtil;
 import org.business.system.auth.util.Oauth2ResponseToken;
+import org.business.system.common.cloud.user.UserCloudService;
 import org.business.system.common.em.UserType;
-import org.business.system.common.model.UserModel;
 import org.business.system.common.model.dto.UserModelDto;
 import org.business.system.common.response.ResponseMessage;
 import org.business.system.common.util.Md5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.swagger.annotations.Api;
@@ -36,6 +32,9 @@ import io.swagger.annotations.ApiOperation;
 public class Oauth2Controller {
 	@Autowired
 	private ResourceServerTokenServices resourceServerTokenServices;
+	
+	@Autowired
+	private UserCloudService  userCloudService;
 	
 	
 	@Value("${auth.url}")
@@ -51,6 +50,7 @@ public class Oauth2Controller {
 //		//CheckTokenEndpoint  ResourceServerTokenServices
 //		System.out.println(resourceServerTokenServices.readAccessToken(token));
 		Map<String, Object> map = resourceServerTokenServices.readAccessToken(token).getAdditionalInformation();
+//		userCloudService.getUserByMobile("17621875348");
 //		System.out.println(map.get("user"));
 //		System.out.println(map.get("user").toString());
 		String json = new ObjectMapper().writeValueAsString(map.get("user"));
@@ -60,6 +60,8 @@ public class Oauth2Controller {
 //		OAuth2Authentication oAuth2Authentication = resourceServerTokenServices.loadAuthentication(token);
 //		User user = (User) oAuth2Authentication.getPrincipal();
 		return ResponseMessage.success(user.getUserModel());
+        
+//        return userCloudService.getUserByMobile("17621875348");
 	}
 	
 	@CrossOrigin
