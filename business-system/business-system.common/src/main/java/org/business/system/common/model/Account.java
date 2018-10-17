@@ -22,9 +22,9 @@ public class Account  implements Serializable{
 	@JsonIgnore
 	private Long id;
 	
-	private Long accountId;
+	private Long accountId;  //关联用户id
 	
-	private String accountType;
+	private String accountType;//账户类型
 	
 	private BigDecimal amount;
 	

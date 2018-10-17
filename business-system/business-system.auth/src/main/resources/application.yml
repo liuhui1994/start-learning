@@ -1,7 +1,7 @@
 server:
    port: 8083
    context-path: /auth
-   
+   host: localhost
 ##数据库连接配置
 spring:
     datasource:

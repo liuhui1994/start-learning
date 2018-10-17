@@ -207,8 +207,8 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity, Long> impleme
     	if(activity == null || BooleanType.FALSE != activity.getStatus()) {
     		 throw new CommonErrorException("10", "活动不存在");
     	}
-    	if(ActivityState.USE == activity.getActivityState() ) {
-    		 throw new CommonErrorException("11", "活动未开启");
+    	if(ActivityState.USE != activity.getActivityState() ) {
+    		 throw new CommonErrorException("11", "活动未启用");
     	}
     	Date limitStartDate = activity.getLimitDateStart();
     	Date limitEndDate = activity.getLimitDateEnd();
@@ -254,6 +254,9 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity, Long> impleme
         }
         Long activityId = activity.getId();
         Activity oldActivity = activityMapper.selectByPrimaryKey(activityId);
+        if(ActivityState.USE == oldActivity.getActivityState()) {
+        	 throw new CommonErrorException("14", "活动使用中,请暂停后编辑");
+        }
         String activityName = activity.getActivityName();
         Date limitDateStart = activity.getLimitDateStart();
         Date limitDateEnd = activity.getLimitDateEnd();
@@ -269,7 +272,7 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity, Long> impleme
         if (!ObjectUtils.isEmpty(limitTimeArea)) {
             oldActivity.setLimitTimeArea(limitTimeArea);
         }
-        if (ObjectUtils.isEmpty(limitDateEnd)) {
+        if (!ObjectUtils.isEmpty(limitDateEnd)) {
             oldActivity.setLimitDateEnd(limitDateEnd);
         }
         if (!ObjectUtils.isEmpty(activityNo)) {
