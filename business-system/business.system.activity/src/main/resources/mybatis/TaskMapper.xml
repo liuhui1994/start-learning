@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.business.system.activity.mapper.TaskMapper">
+	
+		
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem"
+										open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+
+  <select id="selectTaskByTaskDao" parameterType="org.business.system.activity.model.dto.TaskDto" resultType="org.business.system.activity.model.dto.TaskDto">
+       select  a.id as id , a.task_title as taskTitle,a.task_desc as taskDesc,a.task_money as taskMoney,a.member_task_money as memberTaskMoney,a.money as money,
+	          a.task_url as taskUrl,a.task_resource as taskResource,a.remark  as remark,a.task_channel as taskChannel,	
+             a.task_type as taskType,	a.task_status as taskStatus,a.task_no as taskNo
+       from t_system_task a
+       left join t_system_task_order b on a.id = b.task_id 
+      <if test="selectType=='FINISHED'">
+         where  b.user_id = #{userId}
+      
+      </if>
+      
+      <if test="selectType=='UNFINISHED'">
+         where   b.user_id is null
+      </if>
+  </select>
+</mapper>

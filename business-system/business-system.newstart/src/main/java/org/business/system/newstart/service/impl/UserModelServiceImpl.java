@@ -161,7 +161,8 @@ public class UserModelServiceImpl extends BaseServiceImpl<UserModel, Long> imple
         userModel.setAppId(UUID.randomUUID().toString().replace("-", ""));
         userModel.setAppKey(UUID.randomUUID().toString().replace("-", ""));
         
-        int success = userModelMapper.insertUseGeneratedKeys(userModel); //插入返回主键
+//        int success = userModelMapper.insertUseGeneratedKeys(userModel); //插入返回主键
+        int success=  userModelMapper.insertSelective(userModel);
         
         //奖励活动
         if(!ObjectUtils.isEmpty(userType) && !userType.equals(UserType.SYSTEM)) {

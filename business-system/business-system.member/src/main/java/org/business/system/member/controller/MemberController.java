@@ -82,7 +82,7 @@ public class MemberController {
 			) {
 		PageHelper.startPage(pageNum, pageSize, orderBy);
 		List<MemberDto> memberDtoLiist = memberService.getMemberListByDto(memberDto);
-		PageInfo<MemberDto> pageInfo = new PageInfo<>(memberDtoLiist);
+		PageInfo<MemberDto> pageInfo = new PageInfo<MemberDto>(memberDtoLiist);
 		return ResponseMessage.success(pageInfo);
 	}
 
