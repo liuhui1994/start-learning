@@ -8,6 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 
+/**
+ * 服务调用token传递
+ * @author Administrator
+ *
+ */
 @Configuration
 public class FeignConfiguration implements RequestInterceptor {
 	

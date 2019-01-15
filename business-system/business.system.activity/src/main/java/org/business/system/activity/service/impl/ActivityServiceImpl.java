@@ -81,7 +81,7 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity, Long> impleme
 
     @Override
     @Transactional
-    public void activityAward(ActivityAwardDto activityAwardDto) {
+    public ActivityAwardDto activityAward(ActivityAwardDto activityAwardDto) {
     	Long activityId = activityAwardDto.getActivityId();
     	Long userId = securityValidateService.getUserIdByUserIdEnc(activityAwardDto.getUserIdEnc());
     	//活动常规校验
@@ -126,6 +126,8 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity, Long> impleme
               //派奖
             }
         }
+        
+        return null;
         
     }
     

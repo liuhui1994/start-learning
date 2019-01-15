@@ -83,7 +83,7 @@ public class ActivityController {
         return ResponseMessage.success(pageInfo);
     }
 	
-	@ApiOperation(value="活动奖励接口", notes="获取活动列表" )
+	@ApiOperation(value="活动奖励接口", notes="活动奖励接口" )
     @ApiImplicitParams({
         @ApiImplicitParam(name = "activityId", value = "活动id", required = true, dataType = "Integer",paramType = "query"),
         @ApiImplicitParam(name = "userIdEnc", value = "用户加密id", required = true, dataType = "String",paramType = "query"),

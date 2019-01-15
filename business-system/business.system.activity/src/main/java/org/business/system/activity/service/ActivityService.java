@@ -40,7 +40,7 @@ public interface ActivityService  extends BaseService<Activity, Long>{
 	/**
 	 * 活动奖励
 	 */
-	public void activityAward(ActivityAwardDto activityAwardDto);
+	public ActivityAwardDto activityAward(ActivityAwardDto activityAwardDto);
 	
 	/**
 	 * 绑定活动规则

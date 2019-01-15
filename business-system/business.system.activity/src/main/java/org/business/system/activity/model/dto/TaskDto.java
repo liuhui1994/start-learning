@@ -1,6 +1,5 @@
 package org.business.system.activity.model.dto;
 
-import org.business.system.activity.em.SelectType;
 import org.business.system.activity.model.Task;
 
 public class TaskDto extends Task {

@@ -10,7 +10,6 @@ import org.business.system.common.em.MemberState;
 import org.business.system.common.em.MemberType;
 import org.business.system.common.exception.CommonErrorException;
 import org.business.system.common.model.Member;
-import org.business.system.common.model.UserModel;
 import org.business.system.common.model.dto.UserModelDto;
 import org.business.system.common.response.ResponseMessage;
 import org.business.system.common.util.PatternUtils;
