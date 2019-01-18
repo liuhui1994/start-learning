@@ -1,4 +1,5 @@
 -------------------项目说明---------------------
+
 1 , 本项目技术采用 springboot+mybatis+springMvc+spring cloud 实现
 2 , 认证中心使用spring security oauth2实现认证   具体项目参考 auth
 3 , 本系统主要分为 通知中心 业务中心  账户中心  公共模块 认证中心
