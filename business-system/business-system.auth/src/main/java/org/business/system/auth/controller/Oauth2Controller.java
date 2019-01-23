@@ -31,7 +31,8 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@Api(tags= {"outh","notice"})
+@RequestMapping("v1")
+@Api("认证中心")
 public class Oauth2Controller {
 	@Autowired
 	private ResourceServerTokenServices resourceServerTokenServices;
@@ -46,7 +47,7 @@ public class Oauth2Controller {
 	@Value("${auth.url}")
 	private String auth_url;
 	
-	@ApiOperation(value="通过token认证获取用户信息", notes="通过token认证获取用户信息" ,tags= {"outh"})
+	@ApiOperation(value="通过token认证获取用户信息", notes="通过token认证获取用户信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "token", value = "token", required = true, dataType = "String",paramType = "query"),
     })
@@ -74,11 +75,11 @@ public class Oauth2Controller {
 	}
 	
 	@CrossOrigin
-	@ApiOperation(value="用户登录", notes="用户登录" ,tags= {"outh"})
+	@ApiOperation(value="用户登录", notes="用户登录" )
     @ApiImplicitParams({
 //            @ApiImplicitParam(name = "authorization", value = "图书ID", required = true, dataType = "String",paramType = "header"),
             @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "String",paramType = "query"),
-            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String",paramType = "query")
+            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String",paramType = "query"),
     })
 	@RequestMapping(value="/ssoLogin",method=RequestMethod.POST)
 	public ResponseMessage<Oauth2ResponseToken> ssoLogin(

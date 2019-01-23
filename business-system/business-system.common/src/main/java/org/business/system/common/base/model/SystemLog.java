@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.business.system.common.em.UserType;
+
 @Table(name="t_system_log")
 public class SystemLog implements Serializable{
 	
@@ -23,7 +25,7 @@ public class SystemLog implements Serializable{
 	
 	private String userName;
 	
-	private String userType;
+	private UserType userType;
 	
 	private String result; //响应结果
 	
@@ -83,11 +85,13 @@ public class SystemLog implements Serializable{
 		this.userName = userName;
 	}
 
-	public String getUserType() {
+
+
+	public UserType getUserType() {
 		return userType;
 	}
 
-	public void setUserType(String userType) {
+	public void setUserType(UserType userType) {
 		this.userType = userType;
 	}
 

@@ -41,9 +41,9 @@ public class SwaggerConfiguration {
         		.globalOperationParameters(par)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("org.business.system"))
-                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
-                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                .apis(RequestHandlerSelectors.basePackage("org.business.system.controller"))
+//                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
+//                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build();
     }

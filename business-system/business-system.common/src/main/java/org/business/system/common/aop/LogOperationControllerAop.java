@@ -2,17 +2,16 @@ package org.business.system.common.aop;
 
 import java.util.Date;
 
-import javax.inject.Qualifier;
-
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.business.system.common.annoation.SystemOperator;
 import org.business.system.common.base.model.SystemLog;
-import org.business.system.common.base.service.BaseService;
+import org.business.system.common.cloud.auth.OauthCloudService;
 import org.business.system.common.mapper.SystemLogMapper;
+import org.business.system.common.model.dto.UserModelDto;
+import org.business.system.common.response.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,6 +44,9 @@ public class LogOperationControllerAop {
 	@Autowired
     private SystemLogMapper systemLogMapper;
 	
+	@Autowired
+	private OauthCloudService  oauthCloudService;
+	
 
 
 	
@@ -62,13 +64,16 @@ public class LogOperationControllerAop {
        String  param = objmapper.writeValueAsString(object);
        
        SystemLog systemLog = new SystemLog();
-       
+       ResponseMessage<UserModelDto> rs = oauthCloudService.getUserBytoken();
+       UserModelDto user = rs.getData();
+       if(user!=null){
+    	   systemLog.setUserName(user.getUsername());
+    	   systemLog.setUserType(user.getUserType());
+       }
        systemLog.setCreateDate(new Date());
        systemLog.setDescription(SystemOperator.descrption());
        systemLog.setOpType(SystemOperator.opType());
        systemLog.setParam(param);
-       systemLog.setUserName("");
-       systemLog.setUserType("");
        systemLogMapper.insertUseGeneratedKeys(systemLog);
        return "1";
 
