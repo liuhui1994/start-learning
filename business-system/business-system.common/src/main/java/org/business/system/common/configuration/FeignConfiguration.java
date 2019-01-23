@@ -21,7 +21,7 @@ public class FeignConfiguration implements RequestInterceptor {
 
 	@Override
 	public void apply(RequestTemplate arg0) {
-		arg0.query("access_token", request.getParameter("token"));
+		arg0.query("token", request.getParameter("token"));
 	}
 	
 

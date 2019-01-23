@@ -3,6 +3,8 @@ package org.business.system.auth.controller;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.business.system.auth.comfiguration.User;
 import org.business.system.auth.util.AuthServiceUtil;
 import org.business.system.auth.util.Oauth2ResponseToken;
@@ -14,6 +16,7 @@ import org.business.system.common.util.Md5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +39,9 @@ public class Oauth2Controller {
 	@Autowired
 	private UserCloudService  userCloudService;
 	
+	@Autowired
+	private HttpServletRequest request;
+	
 	
 	@Value("${auth.url}")
 	private String auth_url;
@@ -45,8 +51,11 @@ public class Oauth2Controller {
             @ApiImplicitParam(name = "token", value = "token", required = true, dataType = "String",paramType = "query"),
     })
 	@RequestMapping(value="/getUserBytoken",method=RequestMethod.GET)
-	public ResponseMessage<UserModelDto> token(@RequestParam(name="token")String token) throws IOException {
-//		String token = request.getParameter("access_token");
+	public ResponseMessage<UserModelDto> token() throws IOException {
+		String token = request.getParameter("token");
+		if(ObjectUtils.isEmpty(token)) {
+			ResponseMessage.error("00", "未授权");
+		}
 //		//CheckTokenEndpoint  ResourceServerTokenServices
 //		System.out.println(resourceServerTokenServices.readAccessToken(token));
 		Map<String, Object> map = resourceServerTokenServices.readAccessToken(token).getAdditionalInformation();

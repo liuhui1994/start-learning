@@ -51,5 +51,9 @@ public class SmsServiceImpl  implements SmsService{
 		}
 		return null;
 	}
+	
+	public static void main(String[] args) {
+		new SmsServiceImpl().sendAuthCode("17621875348", "003006");
+	}
 
 }

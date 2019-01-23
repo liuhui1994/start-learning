@@ -23,6 +23,7 @@ public class ObjMapperConfiguration {
 	    objectMapper.setSerializationInclusion(Include.NON_NULL);
 	    objectMapper.enable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 	    objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+//	    objectMapper .disable(MapperFeature.USE_ANNOTATIONS);
 	    objectMapper .enable(MapperFeature.USE_ANNOTATIONS);
 	    return objectMapper;
 	  }

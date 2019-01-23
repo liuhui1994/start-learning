@@ -5,6 +5,7 @@ import java.util.List;
 import org.business.system.common.base.service.BaseService;
 import org.business.system.common.configuration.BaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageInfo;
 

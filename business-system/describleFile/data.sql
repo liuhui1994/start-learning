@@ -901,3 +901,28 @@ ALTER TABLE "public"."t_system_rule" ADD PRIMARY KEY ("id");
 -- Primary Key structure for table t_system_user
 -- ----------------------------
 ALTER TABLE "public"."t_system_user" ADD PRIMARY KEY ("id");
+
+
+DROP SEQUENCE if exists "public"."system_log_id_sequence";
+CREATE SEQUENCE "public"."system_log_id_sequence"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 1
+ CACHE 1;
+
+
+DROP TABLE IF EXISTS "public"."t_system_log";
+CREATE TABLE "public"."t_system_log" (
+"id" int8 DEFAULT nextval('system_log_id_sequence'::regclass) NOT NULL,
+"description" varchar(255) COLLATE "default",
+"create_date" date NOT NULL,
+"op_type" varchar(50) COLLATE "default",
+"param" varchar COLLATE "default",
+"user_name" varchar(50) COLLATE "default",
+"user_type" varchar(50) COLLATE "default",
+"result" varchar(50) COLLATE "default"
+)
+WITH (OIDS=FALSE)
+
+;

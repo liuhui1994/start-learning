@@ -15,7 +15,7 @@ public class AppNotice
 {
     public static void main( String[] args )
     {
-        SpringApplication.run(AppNotice.class, args);
+        SpringApplication.run(AppNotice.class, args);	
     }
     
 }

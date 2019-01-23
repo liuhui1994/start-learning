@@ -2,6 +2,7 @@ package org.business.system.merchant.controller;
 
 import java.util.List;
 
+import org.business.system.common.annoation.SystemOperator;
 import org.business.system.common.response.ResponseMessage;
 import org.business.system.merchant.model.Merchant;
 import org.business.system.merchant.model.dto.MerchantDto;
@@ -17,12 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/manager")
+@RequestMapping("v1/manager")
+@Api("商户管理")
 public class MerchantController {
 
     @Autowired
@@ -46,7 +49,7 @@ public class MerchantController {
     public ResponseMessage<Integer> merchantDelete(@PathVariable(name="id") Long id) {
         return ResponseMessage.success(merchantService.deleteMerchantById(id));
     }*/
-
+    
     @ApiOperation(value="通过Id列表删除商户", notes="通过Id列表删除商户" )
     @ApiImplicitParams({
             @ApiImplicitParam(name="ids", value="商户id列表",required = true,dataType="List",paramType="path"),
@@ -77,6 +80,8 @@ public class MerchantController {
             @RequestBody Merchant merchant) {
         return ResponseMessage.success(merchantService.updateMerchant(merchant));
     }
+    
+    
     @ApiOperation(value="获取商户列表", notes="获取商户列表" )
     @ApiImplicitParams({
             //@ApiImplicitParam(name = "merchant", value = "商户查询对象", required = false, dataType = "Merchant"),
@@ -86,6 +91,7 @@ public class MerchantController {
 
     })
     @RequestMapping(value="/merchantlist", method= RequestMethod.POST)
+    @SystemOperator(descrption="获取商户列表",opType="查询")
     public ResponseMessage<PageInfo<Merchant>> list(
             @RequestBody MerchantDto merchantDto,
             @RequestParam(name="pageNum") Integer pageNum,

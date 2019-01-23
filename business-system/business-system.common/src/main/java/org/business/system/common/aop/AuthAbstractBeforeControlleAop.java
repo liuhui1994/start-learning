@@ -1,6 +1,7 @@
-package org.business.system.common.configuration;
+package org.business.system.common.aop;
 
 import javax.servlet.http.HttpServletRequest;
+
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -8,6 +9,7 @@ import org.aspectj.lang.annotation.Before;
 import org.business.system.common.annoation.AuthAspectAnnoation;
 import org.business.system.common.exception.CommonErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
@@ -24,7 +26,7 @@ public class AuthAbstractBeforeControlleAop {
     public Object aroundInvoke(JoinPoint joinPoint,AuthAspectAnnoation AuthAspectAnnoation) 
 
             throws Throwable {
-       String access_token = request.getParameter("access_token");
+       String access_token = request.getParameter("token");
        System.out.println(access_token+"===========");
 
         Object object = joinPoint.getArgs();
@@ -38,5 +40,7 @@ public class AuthAbstractBeforeControlleAop {
 
 
     }
+	
+	
 
 }
