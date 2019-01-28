@@ -24,8 +24,8 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("v1/manager")
-@Api("商户管理")
+@RequestMapping("/v1/manager")
+@Api(tags="商户管理")
 public class MerchantController {
 
     @Autowired
@@ -73,18 +73,16 @@ public class MerchantController {
 
     @ApiOperation(value="编辑商户", notes="商户活动" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name="merchant", value="商户id",required = true,dataType="merchant"),
+            @ApiImplicitParam(name="merchant", value="商户id",required = true,dataType="Merchant"),
     })
     @RequestMapping(value ="/update", method = RequestMethod.POST)
-    public ResponseMessage<Merchant> updateMerchant(
-            @RequestBody Merchant merchant) {
+    public ResponseMessage<Merchant> updateMerchant(@RequestBody Merchant merchant) {
         return ResponseMessage.success(merchantService.updateMerchant(merchant));
     }
     
     
     @ApiOperation(value="获取商户列表", notes="获取商户列表" )
     @ApiImplicitParams({
-            //@ApiImplicitParam(name = "merchant", value = "商户查询对象", required = false, dataType = "Merchant"),
             @ApiImplicitParam(name = "pageNum", value = "第几页", required = true, dataType = "Integer",paramType = "query"),
             @ApiImplicitParam(name = "pageSize", value = "每页数量", required = false, dataType = "Integer",paramType = "query"),
             @ApiImplicitParam(name = "orderBy", value = "排序", required = false, dataType = "String",paramType = "query"),

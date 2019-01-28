@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.business.system.member.mapper.MemberMapper">
+<mapper namespace="org.business.system.auth.mapper.AuthMapper">
 	
 	<sql id="Example_Where_Clause">
 		<where>
@@ -34,13 +34,5 @@
 		</where>
 	</sql>
 
-  <select id="selectMemberListByExample" parameterType="tk.mybatis.mapper.entity.Example" resultType="org.business.system.member.model.dto.MemberDto">
-select  a.id as id,a.member_name as memberName,a.parent_id as parentId,a.create_date as createDate,a.remark as remark,
-        a.member_type as memberType, a.member_state as memberState,a.invite_code as inviteCode,a.member_no as memberNo,
-        b.pay_account as payAccount  
-       from t_system_member a
-       left join t_system_user b on a.user_id = b.id 
-      <include refid="Example_Where_Clause" >
-      </include>
-  </select>
+
 </mapper>

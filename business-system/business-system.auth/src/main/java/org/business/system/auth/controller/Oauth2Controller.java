@@ -48,9 +48,6 @@ public class Oauth2Controller {
 	private String auth_url;
 	
 	@ApiOperation(value="通过token认证获取用户信息", notes="通过token认证获取用户信息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "token", value = "token", required = true, dataType = "String",paramType = "query"),
-    })
 	@RequestMapping(value="/getUserBytoken",method=RequestMethod.GET)
 	public ResponseMessage<UserModelDto> token() throws IOException {
 		String token = request.getParameter("token");
@@ -77,7 +74,6 @@ public class Oauth2Controller {
 	@CrossOrigin
 	@ApiOperation(value="用户登录", notes="用户登录" )
     @ApiImplicitParams({
-//            @ApiImplicitParam(name = "authorization", value = "图书ID", required = true, dataType = "String",paramType = "header"),
             @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "String",paramType = "query"),
             @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String",paramType = "query"),
     })
